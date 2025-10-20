@@ -17,7 +17,7 @@ if (isset($_SESSION['email']) &&
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+    <link rel="icon" type="image/png" href="../assets/icons/worm.png">
     <!-- (removed duplicate boxicons script; CSS is used for icons) -->
 
 </head>
