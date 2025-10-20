@@ -18,7 +18,6 @@ if (isset($_SESSION['email']) &&
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="icon" type="image/png" href="../assets/icons/worm.png">
-    <!-- (removed duplicate boxicons script; CSS is used for icons) -->
 
 </head>
 
@@ -29,41 +28,38 @@ if (isset($_SESSION['email']) &&
         <h2>Welcome, <span class="italic font-bold"><?php echo $_SESSION['first_name']; ?></span>!</h2>
     </div>
     
-    <!-- Two-column grid: left 40%, right 60% -->
-    <div class="container mx-auto px-6 mt-8">
-    <div class="grid grid-cols-1 md:grid-cols-10 gap-6 items-stretch">
-            <!-- left: span 4/10 => 40% on md+ (glass/frosted effect) -->
-            <div class="md:col-span-4 rounded-4xl p-6 relative shadow h-full flex flex-col">
-                <!-- translucent background + backdrop blur (behind content) -->
-                <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25);"></div>
-                <div class="relative z-10 flex-1">
-                    <h3 class="text-xl font-normal mb-1"><?php //echo $_SESSION['first_name']; ?>Microcontroller Overview</h3>
-                    <p class="text-sm text-gray-700 mb-4">This area occupies ~40% of the width on medium+ screens. Put navigation, stats, or summary cards here.</p>
 
-                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-800">
-                        <div class="text-gray-600">Name:</div>
-                        <div id="mc-name" class="font-medium">--:--</div>
-
-                        <div class="text-gray-600">Status:</div>
-                        <div id="mc-status" class="font-medium">Offline</div>
-
-                        <div class="text-gray-600">Last Sync:</div>
-                        <div id="mc-last-sync" class="font-medium">--:--</div>
-
-                        <div class="text-gray-600">IP Address:</div>
-                        <div id="mc-ip" class="font-medium">0.0.0.0</div>
-
-                        <div class="text-gray-600">Uptime:</div>
-                        <div id="mc-uptime" class="font-medium">0s</div>
-
-                        <div class="text-gray-600">Wi-Fi Strength:</div>
-                        <div id="mc-wifi" class="font-medium">--%</div>
-                    </div>
+    <!-- Microcontroller Overview -->
+    <div class="container mx-auto px-24 mt-10">
+        <div class="rounded-4xl p-6 relative shadow h-full flex flex-col mb-8">
+            <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25);"></div>
+            <div class="relative z-10 flex-1">
+                <h3 class="text-xl font-normal mb-1">Microcontroller Overview</h3>
+                <!--<p class="text-sm text-gray-700 mb-4">This area occupies ~40% of the width on medium+ screens. Put navigation, stats, or summary cards here.</p>-->
+                <div class="grid grid-cols-2 gap-2 text-sm text-gray-800">
+                    <div class="text-gray-600">Name:</div>
+                    <div id="mc-name" class="font-medium">--:--</div>
+                    <div class="text-gray-600">Status:</div>
+                    <div id="mc-status" class="font-medium">Offline</div>
+                    <div class="text-gray-600">Last Sync:</div>
+                    <div id="mc-last-sync" class="font-medium">--:--</div>
+                    <div class="text-gray-600">IP Address:</div>
+                    <div id="mc-ip" class="font-medium">0.0.0.0</div>
+                    <div class="text-gray-600">Uptime:</div>
+                    <div id="mc-uptime" class="font-medium">0s</div>
+                    <div class="text-gray-600">Wi-Fi Strength:</div>
+                    <div id="mc-wifi" class="font-medium">--%</div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- right: span 6/10 => 60% on md+ -->
-            <div class="md:col-span-6 h-full flex flex-col">
+    <!-- Sensor Grids 100% (full width) -->
+    <div class="container mx-auto px-24 mt-2 mb-16 pb-16">
+    <div class="grid grid-cols-1 md:grid-cols-10 gap-6 items-stretch">
+
+            <!-- right: now full width -->
+            <div class="md:col-span-10 h-full flex flex-col">
                 <!--<h3 class="text-xl font-semibold mb-3">Right column</h3>
                 <p class="text-sm text-gray-700">This area occupies ~60% of the width on medium+ screens. Use this for charts, feed, or main content.</p>-->
 
@@ -133,6 +129,8 @@ if (isset($_SESSION['email']) &&
             </div>
         </div>
     </div>
+
+    <?php include '../includes/footer.php'; ?>
 
     <!--<h3>Email: <i><?php // echo $_SESSION['email']; ?>!</i></h3>-->
     <!--<div class="container mx-auto mt-10 p-4 bg-white rounded shadow">
