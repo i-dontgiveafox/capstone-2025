@@ -58,7 +58,11 @@ if (isset($_SESSION['email']) &&
                             <div class="relative z-10 p-6 sm:p-8 md:p-10 h-full text-white">
                                 <!-- Online/Offline Status -->
                                 <div class="absolute top-6 left-6 sm:top-8 sm:left-8 md:top-10 md:left-10">
-                                    <h3 class="text-2xl font-semibold drop-shadow-lg"><i class='bx bx-no-signal p-1' ></i>Offline</h3>
+                                    <h3 class="text-2xl font-semibold drop-shadow-lg">
+                                        <i id="esp-icon" class='bx bx-no-signal text-red-600 p-1'></i>
+                                        <span id="esp-status" class="text-red-600">Offline</span>
+                                    </h3>
+
                                 </div>
 
                                 <div class="absolute top- left-6 sm:top-8 sm:left-8 md:top-10 md:left-10">
@@ -184,10 +188,63 @@ if (isset($_SESSION['email']) &&
         <h1 class="text-2xl font-bold mb-4">Welcome to MySite</h1>
         <p class="mb-4">This is a sample page using Tailwind CSS for styling.</p>
     </div>-->
-    
 </body>
 
 </html>
+<script>
+async function fetchESPStatus() {
+  try {
+    const response = await fetch("../functions/get_esp_status.php");
+    const data = await response.json();
+
+    const statusEl = document.getElementById("esp-status");
+    const iconEl = document.getElementById("esp-icon");
+
+    if (data.status === "online") {
+      statusEl.textContent = "Online";
+      statusEl.classList.remove("text-red-600");
+      statusEl.classList.add("text-green-600");
+
+      iconEl.classList.remove("bx-no-signal", "text-red-600");
+      iconEl.classList.add("bx-signal-5", "text-green-600");
+    } else if (data.status === "offline") {
+      statusEl.textContent = "Offline";
+      statusEl.classList.remove("text-green-600");
+      statusEl.classList.add("text-red-600");
+
+      iconEl.classList.remove("bx-signal-5", "text-green-600");
+      iconEl.classList.add("bx-no-signal", "text-red-600");
+    } else {
+      statusEl.textContent = "Unknown";
+      statusEl.classList.remove("text-green-600", "text-red-600");
+      statusEl.classList.add("text-gray-600");
+    }
+
+   // Update last sync time
+const syncEl = document.getElementById("mc-last-sync");
+if (data.last_seen) {
+  // The backend already sends time in Asia/Manila timezone
+  const date = new Date(data.last_seen.replace(" ", "T")); // convert to ISO format
+  syncEl.textContent = date.toLocaleString("en-PH", {
+    timeZone: "Asia/Manila",
+    hour12: true,
+  });
+} else {
+  syncEl.textContent = "--:--";
+}
+
+
+  } catch (error) {
+    console.error("Error fetching ESP32 status:", error);
+  }
+}
+
+// Run immediately, then refresh every 10 seconds
+fetchESPStatus();
+setInterval(fetchESPStatus, 10000);
+</script>
+
+    
 
 <script>
     // handle "View chart" clicks
@@ -200,6 +257,7 @@ if (isset($_SESSION['email']) &&
         window.location.href = `sensor.php?sensor=${encodeURIComponent(sensor)}`;
     });
 </script>
+
 
 <?php } else {
     $errorM = "Login First!";
