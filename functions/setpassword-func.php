@@ -16,13 +16,11 @@ try {
     $insert = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
     $insert->execute([$first_name, $last_name, $email, $password]);
 
-    // Save real login session
     $_SESSION['first_name'] = $first_name;
     $_SESSION['last_name'] = $last_name;
     $_SESSION['email'] = $email;
     $_SESSION['user_id'] = $conn->lastInsertId();
 
-    // Remove temporary session data after password creation
     unset($_SESSION['temp_first_name']);
     unset($_SESSION['temp_last_name']);
     unset($_SESSION['temp_email']);
