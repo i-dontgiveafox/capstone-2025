@@ -1,7 +1,7 @@
 <?php
 $year = date('Y');
 ?>
-<footer class="bg-[#1e1e1e] text-white py-6 mt-8">
+<footer class="bg-[#1e1e1e] text-white py-6">
   <div class="container mx-auto px-6 md:px-24 flex flex-col md:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <span class="text-xl font-semibold"><span class="font-light">Vermi</span><span class="font-bold">Care</span></span>

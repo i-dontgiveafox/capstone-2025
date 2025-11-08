@@ -23,9 +23,10 @@ if (isset($_SESSION['email']) &&
 
 </head>
 
-<body class="bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 bg-fixed min-h-screen overflow-x-hidden">
+<body class="flex flex-col min-h-screen bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 bg-fixed overflow-x-hidden">
     <?php include '../includes/navBar.php'; ?>
 
+    <main class="flex-grow">
     <div class="container mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex flex-col items-start mt-12">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-light">Welcome, <span class="italic font-bold"><?php echo $_SESSION['first_name']; ?></span>!</h1>
@@ -40,16 +41,16 @@ if (isset($_SESSION['email']) &&
 
     <!-- 2-column layout: left 40% (overview) and right 60% (sensors) -->
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-16">
+        <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center border-solid rounded-3xl p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Dashboard</h2>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-10 gap-6 items-stretch">
 
             <div class="md:col-span-4">
-                <div class="rounded-4xl p-6 relative shadow h-full flex flex-col mb-8">
-                    <!-- Glassmorphism overlay -->
-                    <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25);"></div>
-                    
-                    <div class="relative z-10 flex-1">
+                <div class="rounded-xl overflow-hidden shadow h-full flex flex-col mb-8">
+                    <div class="relative h-full">
                         <!-- Background image with dim filter -->
-                        <div class="rounded-2xl overflow-hidden h-full bg-cover bg-center relative" style="background-image: url('../assets/images/compost-bg.jpg');">
+                        <div class="h-full bg-cover bg-center relative" style="background-image: url('../assets/images/compost-bg.jpg');">
                             
                             <!-- Dim overlay -->
                             <div class="absolute inset-0 bg-black/40"></div>
@@ -93,8 +94,8 @@ if (isset($_SESSION['email']) &&
             <!-- Right: Sensor Cards (approx 60%) -->
             <div class="md:col-span-6 h-full flex flex-col">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="rounded-4xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.18);"></div>
+                    <div class="rounded-xl p-4 relative shadow border border-white/20">
+                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
                         <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bxs-thermometer bg-white rounded-full p-3'></i>
@@ -108,8 +109,8 @@ if (isset($_SESSION['email']) &&
                             </a>
                         </div>
                     </div>
-                    <div class="rounded-4xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.18);"></div>
+                    <div class="rounded-xl p-4 relative shadow border border-white/20">
+                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
                         <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-water bg-white rounded-full p-3'></i>
@@ -123,8 +124,8 @@ if (isset($_SESSION['email']) &&
                             </a>
                         </div>
                     </div>
-                    <div class="rounded-4xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
+                    <div class="rounded-xl p-4 relative shadow border border-white/20">
+                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
                         <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-droplet bg-white rounded-full p-3'></i>
@@ -138,8 +139,8 @@ if (isset($_SESSION['email']) &&
                             </a>
                         </div>
                     </div>
-                    <div class="rounded-4xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
+                    <div class="rounded-xl p-4 relative shadow border border-white/20">
+                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
                         <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-wind bg-white rounded-full p-3'></i>
@@ -156,30 +157,155 @@ if (isset($_SESSION['email']) &&
                 </div>
             </div>
         </div>
-    </div>
 
-    <!--<div class="md:col-span-4">
-                <div class="rounded-4xl p-6 relative shadow h-full flex flex-col mb-8">
-                    <div class="absolute inset-0 rounded-4xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25);"></div>
-                    <div class="relative z-10 flex-1">
-                        <h3 class="text-lg sm:text-xl md:text-2xl font-normal mb-1">Microcontroller Overview</h3>
-                        <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm md:text-base text-gray-800">
-                            <div class="text-gray-600">Name:</div>
-                            <div id="mc-name" class="font-medium">--:--</div>
-                            <div class="text-gray-600">Status:</div>
-                            <div id="mc-status" class="font-medium">Offline</div>
-                            <div class="text-gray-600">Last Sync:</div>
-                            <div id="mc-last-sync" class="font-medium">--:--</div>
-                            <div class="text-gray-600">IP Address:</div>
-                            <div id="mc-ip" class="font-medium">0.0.0.0</div>
-                            <div class="text-gray-600">Uptime:</div>
-                            <div id="mc-uptime" class="font-medium">0s</div>
-                            <div class="text-gray-600">Wi-Fi Strength:</div>
-                            <div id="mc-wifi" class="font-medium">--%</div>
+        
+    </div>
+    </main>
+
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-6">
+        <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Control Panel</h2>
+        </div>
+
+        <!-- Control Toggles -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <!-- Fan Control -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
+                    <div class="flex items-center gap-4 min-w-0">
+                        <div class="flex-shrink-0">
+                            <img src="../assets/icons/fan.png" alt="Fan Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
                         </div>
+                        <h3 class="text-lg font-semibold truncate">Fan</h3>
                     </div>
+                    <label class="switch relative inline-block w-14 h-8 flex-shrink-0 ml-4">
+                        <input type="checkbox" id="fanToggle" class="peer hidden">
+                        <span class="slider absolute inset-0 bg-gray-400 rounded-full transition peer-checked:bg-green-500"></span>
+                        <span class="dot absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-6"></span>
+                    </label>
                 </div>
-            </div>-->
+            </div>
+
+            <!-- Sprinkler Control -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
+                    <div class="flex items-center gap-4 min-w-0">
+                        <div class="flex-shrink-0">
+                            <img src="../assets/icons/sprinkler.png" alt="Sprinkler Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
+                        </div>
+                        <h3 class="text-lg font-semibold truncate">Sprinkler</h3>
+                    </div>
+                    <label class="switch relative inline-block w-14 h-8 flex-shrink-0 ml-4">
+                        <input type="checkbox" id="sprinklerToggle" class="peer hidden">
+                        <span class="slider absolute inset-0 bg-gray-400 rounded-full transition peer-checked:bg-green-500"></span>
+                        <span class="dot absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-6"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Sieving Control -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
+                    <div class="flex items-center gap-4 min-w-0">
+                        <div class="flex-shrink-0">
+                            <img src="../assets/icons/sieve.png" alt="Sieve Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
+                        </div>
+                        <h3 class="text-lg font-semibold truncate">Sieving</h3>
+                    </div>
+                    <label class="switch relative inline-block w-14 h-8 flex-shrink-0 ml-4">
+                        <input type="checkbox" id="sievingToggle" class="peer hidden">
+                        <span class="slider absolute inset-0 bg-gray-400 rounded-full transition peer-checked:bg-green-500"></span>
+                        <span class="dot absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-6"></span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <h2 class="text-2xl font-semibold text-gray-800/90 ml-4 mb-4 mt-10">Set Durations and Thresholds</h2>
+
+        <!-- Settings Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+            <!-- Moisture Threshold -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 p-4 flex flex-col h-full">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Moisture Level Settings</h3>
+                    <div class="flex-grow">
+                        <label class="block text-sm text-gray-600 mb-2">Trigger Threshold (%)</label>
+                        <input type="number" min="0" max="100" class="w-full p-2 border rounded-lg bg-white/80" placeholder="e.g. 35">
+                    </div>
+                    <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+                        Save Threshold
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sprinkler Duration -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 p-4 flex flex-col h-full">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Sprinkler Duration</h3>
+                    <div class="flex-grow">
+                        <label class="block text-sm text-gray-600 mb-2">Set Duration</label>
+                        <select class="w-full p-2 border rounded-lg bg-white/80">
+                            <option>10 seconds</option>
+                            <option>20 seconds</option>
+                            <option>30 seconds</option>
+                        </select>
+                    </div>
+                    <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+                        Save Duration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fan Duration -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 p-4 flex flex-col h-full">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Fan Duration</h3>
+                    <div class="flex-grow">
+                        <label class="block text-sm text-gray-600 mb-2">Set Duration</label>
+                        <select class="w-full p-2 border rounded-lg bg-white/80">
+                            <option>10 seconds</option>
+                            <option>20 seconds</option>
+                            <option>30 seconds</option>
+                        </select>
+                    </div>
+                    <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+                        Save Duration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sieving Duration -->
+            <div class="rounded-xl p-4 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                <div class="relative z-10 p-4 flex flex-col h-full">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Sieving Duration</h3>
+                    <div class="flex-grow">
+                        <label class="block text-sm text-gray-600 mb-2">Set Duration (3-10 mins)</label>
+                        <input type="text" class="w-full p-2 border rounded-lg bg-white/80" placeholder="Minutes">
+                    </div>
+                    <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+                        Save Duration
+                    </button>
+                </div>
+            </div>
+
+            <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+                Reset
+            </button>
+        </div>
+
+
+                
+        </div>
+    </section>
+
 
     <?php include '../includes/footer.php'; ?>
 
@@ -221,17 +347,17 @@ async function fetchESPStatus() {
     }
 
    // Update last sync time
-const syncEl = document.getElementById("mc-last-sync");
-if (data.last_seen) {
-  // The backend already sends time in Asia/Manila timezone
-  const date = new Date(data.last_seen.replace(" ", "T")); // convert to ISO format
-  syncEl.textContent = date.toLocaleString("en-PH", {
-    timeZone: "Asia/Manila",
-    hour12: true,
-  });
-} else {
-  syncEl.textContent = "--:--";
-}
+    const syncEl = document.getElementById("mc-last-sync");
+    if (data.last_seen) {
+    // The backend already sends time in Asia/Manila timezone
+    const date = new Date(data.last_seen.replace(" ", "T")); // convert to ISO format
+    syncEl.textContent = date.toLocaleString("en-PH", {
+        timeZone: "Asia/Manila",
+        hour12: true,
+    });
+    } else {
+    syncEl.textContent = "--:--";
+    }
 
 
   } catch (error) {
@@ -243,8 +369,6 @@ if (data.last_seen) {
 fetchESPStatus();
 setInterval(fetchESPStatus, 10000);
 </script>
-
-    
 
 <script>
     // handle "View chart" clicks
