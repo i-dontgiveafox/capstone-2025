@@ -10,12 +10,12 @@ if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 $device = $_GET['device'] ?? '';
 
 if ($device != '') {
-  $stmt = $conn->prepare("UPDATE devices SET last_seen = NOW() WHERE device_name = ?");
+  $stmt = $conn->prepare("UPDATE heartbeat_data SET last_seen = NOW() WHERE device_name = ?");
   $stmt->bind_param("s", $device);
   $stmt->execute();
 
   if ($stmt->affected_rows == 0) {
-    $stmt = $conn->prepare("INSERT INTO devices (device_name, last_seen) VALUES (?, NOW())");
+    $stmt = $conn->prepare("INSERT INTO heartbeat_data (device_name, last_seen) VALUES (?, NOW())");
     $stmt->bind_param("s", $device);
     $stmt->execute();
   }

@@ -10,11 +10,11 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-if(isset($_POST['gas_value']) && isset($_POST['status'])){
-  $gas = $_POST['gas_value'];
+if(isset($_POST['gas_percent']) && isset($_POST['status'])){
+  $gas = $_POST['gas_percent'];
   $status = $_POST['status'];
   
-  $sql = "INSERT INTO gas_data (gas_value, status) VALUES ('$gas', '$status')";
+  $sql = "INSERT INTO gas_data (gas_percent, status) VALUES ('$gas', '$status')";
   
   if ($conn->query($sql) === TRUE) {
     echo "Data inserted successfully";
