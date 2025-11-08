@@ -1,7 +1,6 @@
 <?php
 header('Content-Type: application/json');
 
-// 🕒 Set timezone to Asia/Manila
 date_default_timezone_set('Asia/Manila');
 
 $servername = "localhost";
@@ -15,8 +14,8 @@ if ($conn->connect_error) {
   exit;
 }
 
-$device = 'esp32_1'; // same device name used in esp_heartbeat.php
-$timeout = 30; // seconds before device is considered offline
+$device = 'esp32_1'; 
+$timeout = 30;
 
 $sql = "SELECT last_seen FROM devices WHERE device_name = '$device'";
 $result = $conn->query($sql);
@@ -29,7 +28,6 @@ if ($result->num_rows > 0) {
   echo json_encode([
     "device" => $device,
     "status" => $status,
-    // Convert to local Manila time before sending
     "last_seen" => date("Y-m-d H:i:s", $last_seen)
   ]);
 } else {

@@ -8,14 +8,12 @@ include_once '../config/db_conn.php';
 
 date_default_timezone_set('Asia/Manila');
 
-// Load .env file
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 if (isset($_POST['email'])) {
     $email = trim($_POST['email']);
 
-    // Check if email exists
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
 
@@ -26,7 +24,6 @@ if (isset($_POST['email'])) {
         $update = $conn->prepare("UPDATE users SET reset_token = ?, reset_expiry = ? WHERE email = ?");
         $update->execute([$token, $expiry, $email]);
 
-        // Create reset link using APP_URL from .env
         $reset_link = $_ENV['APP_URL'] . "/public/reset-password.php?token=" . $token;
 
         $mail = new PHPMailer(true);
