@@ -14,7 +14,7 @@ if(isset($_POST['gas_percent']) && isset($_POST['status'])){
   $gas = $_POST['gas_percent'];
   $status = $_POST['status'];
   
-  $sql = "INSERT INTO gas_data (gas_percent, status) VALUES ('$gas', '$status')";
+  $sql = "INSERT INTO gas_data (gas_percent, gas_status) VALUES ('$gas', '$status')";
   
   if ($conn->query($sql) === TRUE) {
     echo "Data inserted successfully";

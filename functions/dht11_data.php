@@ -15,7 +15,7 @@ $value1 = $_POST['value1'];
 $value2 = $_POST['value2'];
 $value3 = $_POST['value3'];
 
-$sql = "INSERT INTO dht11_data (sensor, location, value1, value2, value3)
+$sql = "INSERT INTO dht11_data (temp_sensor, temp_location, temp_heat, temp_humid, value3)
         VALUES ('$sensor', '$location', '$value1', '$value2', '$value3')";
 
 if ($conn->query($sql) === TRUE) {
