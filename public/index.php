@@ -17,6 +17,10 @@ if (isset($_SESSION['email']) &&
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="icon" type="image/png" href="../assets/icons/worm.png">
     <link rel="stylesheet" href="../index.css">
     
@@ -26,7 +30,7 @@ if (isset($_SESSION['email']) &&
 <body class="flex flex-col min-h-screen bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 bg-fixed overflow-x-hidden">
     <?php include '../includes/navBar.php'; ?>
 
-    <main class="flex-grow">
+    <main class="flex-grow pt-16">
     <div class="container mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex flex-col items-start mt-12">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-light">Welcome, <span class="italic font-bold"><?php echo $_SESSION['first_name']; ?></span>!</h1>
@@ -40,12 +44,12 @@ if (isset($_SESSION['email']) &&
     </div>-->
 
     <!-- 2-column layout: left 40% (overview) and right 60% (sensors) -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-10">
         <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center border-solid rounded-3xl p-6 mb-6">
             <h2 class="text-2xl font-semibold text-gray-800">Dashboard</h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-10 gap-6 items-stretch">
 
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-6 items-stretch">
             <div class="md:col-span-4">
                 <div class="rounded-xl overflow-hidden shadow h-full flex flex-col mb-8">
                     <div class="relative h-full">
@@ -56,7 +60,7 @@ if (isset($_SESSION['email']) &&
                             <div class="absolute inset-0 bg-black/40"></div>
                             
                             <!-- Content layer -->
-                            <div class="relative z-10 p-6 sm:p-8 md:p-10 h-full text-white">
+                            <div class="relative z-5 p-6 sm:p-8 md:p-10 h-full text-white">
                                 <!-- Online/Offline Status -->
                                 <div class="absolute top-6 left-6 sm:top-8 sm:left-8 md:top-10 md:left-10">
                                     <h3 class="text-2xl font-semibold drop-shadow-lg">
@@ -70,17 +74,15 @@ if (isset($_SESSION['email']) &&
                                     <h3 class="text-2xl font-semibold drop-shadow-lg"></h3>
                                 </div>
 
-                                <!-- IP Address -->
+                                <!-- IP Address 
                                 <div class="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 md:bottom-10 md:right-10">
                                     <p class="text-lg font-medium drop-shadow-md">IP Address:</p>
-                                </div>
+                                </div>-->
 
                                 <br><br><br>
-                                <div class="text-gray-600">Last Sync:</div>
+                                <div class="text-white-600">Last Sync:</div>
                                 <div id="mc-last-sync" class="font-medium">--:--</div>
-                                <div class="text-gray-600">IP Address:</div>
-                                <div id="mc-ip" class="font-medium">0.0.0.0</div>
-                                <div class="text-gray-600">Uptime:</div>
+                                <div class="text-white-600">Uptime:</div>
                                 <div id="mc-uptime" class="font-medium">0s</div>
 
 
@@ -156,19 +158,89 @@ if (isset($_SESSION['email']) &&
                     </div>
                 </div>
             </div>
-        </div>
-
-        
     </div>
+    </div>
+    
     </main>
+    
+    <!-- Daily Overview Section -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-semibold text-gray-800/90 mb-4 mt-10 px-4">Daily Overview</h2>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Soil Moisture -->
+            <div class="relative bg-[url('../assets/images/overview-bg-green.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
+            <!-- Gradient overlay -->
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
 
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-6">
+            <!-- Content -->
+                <div class="flex flex-col space-y-2 relative z-10">
+                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Soil Moisture</h3>
+                    <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-moisture">35</span>
+                    <span class="text-xl text-white/80">%</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Temperature -->
+            <div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
+            <!-- Gradient overlay -->
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
+
+            <!-- Content -->
+                <div class="flex flex-col space-y-2 relative z-10">
+                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Temperature</h3>
+                    <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-moisture">35</span>
+                    <span class="text-xl text-white/80">°C</span>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <!-- Humidity -->
+            <div class="relative bg-[url('../assets/images/overview-bg-orange.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
+            <!-- Gradient overlay -->
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
+
+            <!-- Content -->
+                <div class="flex flex-col space-y-2 relative z-10">
+                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
+                    <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-moisture">%</span>
+                    <span class="text-xl text-white/80">°C</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Water Usage -->
+            <div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
+            <!-- Gradient overlay -->
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/40 to-transparent pointer-events-none"></div>
+
+            <!-- Content -->
+                <div class="flex flex-col space-y-2 relative z-10">
+                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
+                    <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-moisture">%</span>
+                    <span class="text-xl text-white/80">mL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
         <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6">
             <h2 class="text-2xl font-semibold text-gray-800">Control Panel</h2>
         </div>
 
         <!-- Control Toggles -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
             <!-- Fan Control -->
             <div class="rounded-xl p-4 relative shadow border border-white/20">
                 <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
@@ -193,7 +265,7 @@ if (isset($_SESSION['email']) &&
                 <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="flex-shrink-0">
-                            <img src="../assets/icons/sprinkler.png" alt="Sprinkler Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
+                            <img src="../assets/icons/fan.png" alt="Sprinkler Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
                         </div>
                         <h3 class="text-lg font-semibold truncate">Sprinkler</h3>
                     </div>
@@ -211,7 +283,7 @@ if (isset($_SESSION['email']) &&
                 <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="flex-shrink-0">
-                            <img src="../assets/icons/sieve.png" alt="Sieve Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
+                            <img src="../assets/icons/fan.png" alt="Sieve Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
                         </div>
                         <h3 class="text-lg font-semibold truncate">Sieving</h3>
                     </div>
@@ -222,9 +294,14 @@ if (isset($_SESSION['email']) &&
                     </label>
                 </div>
             </div>
-
         </div>
-        <h2 class="text-2xl font-semibold text-gray-800/90 ml-4 mb-4 mt-10">Set Durations and Thresholds</h2>
+
+        <div class="flex flex-col items-start justify-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800/90 px-4 mb-4 mt-10">Set Durations and Thresholds</h2>
+            <button class="bg-[#1e1e1e] text-white px-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+                <i class='bx bx-refresh px-2 py-3'></i>Reset
+            </button>
+        </div>
 
         <!-- Settings Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
@@ -294,16 +371,10 @@ if (isset($_SESSION['email']) &&
                         Save Duration
                     </button>
                 </div>
-            </div>
 
-            <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
-                Reset
-            </button>
+        </div>        
         </div>
-
-
-                
-        </div>
+        
     </section>
 
 
@@ -380,6 +451,26 @@ setInterval(fetchESPStatus, 10000);
         // navigate to sensor detail (placeholder page)
         window.location.href = `sensor.php?sensor=${encodeURIComponent(sensor)}`;
     });
+
+    // Function to update overview values
+    async function updateOverviewValues() {
+        try {
+            const response = await fetch('../functions/get_sensor_data.php');
+            const data = await response.json();
+
+            // Update the values
+            document.getElementById('avg-moisture').textContent = Math.round(data.moisture || 0);
+            document.getElementById('avg-temp').textContent = Math.round(data.temperature || 0);
+            document.getElementById('avg-humidity').textContent = Math.round(data.humidity || 0);
+            document.getElementById('water-usage').textContent = Math.round(data.waterUsage || 0);
+        } catch (error) {
+            console.error('Error updating overview values:', error);
+        }
+    }
+
+    // Update values initially and every 30 seconds
+    updateOverviewValues();
+    setInterval(updateOverviewValues, 30000);
 </script>
 
 
