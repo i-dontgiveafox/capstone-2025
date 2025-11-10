@@ -67,7 +67,6 @@ if (isset($_SESSION['email']) &&
                                         <i id="esp-icon" class='bx bx-no-signal text-red-600 p-1'></i>
                                         <span id="esp-status" class="text-red-600">Offline</span>
                                     </h3>
-
                                 </div>
 
                                 <div class="absolute top- left-6 sm:top-8 sm:left-8 md:top-10 md:left-10">
@@ -312,7 +311,7 @@ if (isset($_SESSION['email']) &&
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Moisture Level Settings</h3>
                     <div class="flex-grow">
                         <label class="block text-sm text-gray-600 mb-2">Trigger Threshold (%)</label>
-                        <input type="number" min="0" max="100" class="w-full p-2 border rounded-lg bg-white/80" placeholder="e.g. 35">
+                        <input type="number" min="30" max="50" class="w-full p-2 border rounded-lg bg-white/80" placeholder="e.g. 35">
                     </div>
                     <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
                         Save Threshold
