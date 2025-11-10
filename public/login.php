@@ -7,92 +7,176 @@ $google_login_url = $client->createAuthUrl();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login - VermiCare</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
     <link rel="icon" type="image/png" href="../assets/icons/worm.png">
+    <link rel="stylesheet" href="../index.css">
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800">
-    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md flex flex-col items-center relative animate-fade-in">
-        <!-- Logo -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="Logo" class="w-16 h-16 mb-4 rounded-full shadow-lg">
-        <h3 class="text-2xl font-bold mb-6 text-center tracking-wide">Login</h3>
 
-        <?php if (isset($_GET['error'])) { ?>
-            <b class="text-red-600 mb-2 block text-center transition-opacity duration-500 opacity-100"><?=$_GET['error']?></b>
-        <?php } elseif (isset($_GET['success'])) { ?>
-            <b id="successMsg" class="text-green-600 mb-2 block text-center transition-opacity duration-500 opacity-100"><?=$_GET['success']?></b>
-            <span id="loginPrompt" class="mb-2 block text-center text-green-600 text-base font-bold hidden">Login to your account</span>
-        <?php } ?>
+<body class="flex min-h-screen bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 bg-fixed">
+    <div class="container max-w-md mx-auto px-4 py-8 flex-1 flex items-center justify-center">
+        <div class="w-full">
+            <!-- Logo and Title -->
+            <div class="text-center mb-8">
+                <img src="../assets/icons/worm.png" alt="VermiCare Logo" class="w-20 h-20 mx-auto mb-4">
+                <h1 class="text-3xl font-semibold mb-2">
+                    <span class="font-light">Vermi</span><span class="font-bold">Care</span>
+                </h1>
+                <p class="text-gray-600">Welcome back</p>
+            </div>
 
-        <form action="../functions/login-func.php" method="POST" class="w-full flex flex-col gap-4">
-            <div class="relative">
-                <label class="block mb-1 font-medium">Email</label>
-                <span class="absolute left-3 top-9 text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12l-4-4-4 4m0 0v6m8-6v6" /></svg>
-                </span>
-                <input type="text" name="email" class="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400" required>
-            </div>
-            <div class="relative">
-                <label class="block mb-1 font-medium">Password</label>
-                <span class="absolute left-3 top-9 text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0v2m0 4h.01" /></svg>
-                </span>
-                <input type="password" name="password" id="password" class="w-full pl-10 pr-10 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400" required>
-                <button type="button" onclick="togglePassword()" class="absolute right-3 top-9 text-gray-400 focus:outline-none">
-                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9 0a9 9 0 0118 0c0 5-4 9-9 9s-9-4-9-9z" /></svg>
-                </button>
-            </div>
-            <button type="submit" class="bg-black text-white py-2 rounded hover:bg-gray-800 font-semibold transition-all duration-300 flex items-center justify-center">
-                <span id="loginText">Login</span>
-                <span id="spinner" class="hidden ml-2 animate-spin">
-                    <svg class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
-                </span>
-            </button>
-            <div class="flex justify-between text-sm">
-                <a href="signup.php" class="text-blue-600 hover:underline">Sign Up</a>
-                <a href="forgot-password.php" class="text-blue-600 hover:underline">Forgot Password?</a>
-            </div>
-        </form>
+            <!-- Login Form Card -->
+            <div class="rounded-xl p-6 relative shadow border border-white/20">
+                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+                
+                <div class="relative z-10">
 
-        <hr class="my-6 w-full">
-        <a href="<?php echo $google_login_url; ?>" class="w-full flex justify-center">
-            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" 
-                 alt="Sign in with Google" class="h-10 transition-transform duration-300 hover:scale-105">
-        </a>
+                    <?php if (isset($_GET['error'])) { ?>
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline"><?=$_GET['error']?></span>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['success'])) { ?>
+                        <div id="successMsg" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline"><?=$_GET['success']?></span>
+                        </div>
+                        <div id="loginPrompt" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4 hidden" role="alert">
+                            <span class="block sm:inline">Login to your account</span>
+                        </div>
+                    <?php } ?>
+
+                    <form action="../functions/login-func.php" method="POST" class="space-y-4">
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">Email</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-600">
+                                    <i class='bx bx-envelope'></i>
+                                </span>
+                                <input type="email" 
+                                       name="email" 
+                                       class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#B6FC67] bg-white/80"
+                                       placeholder="john@example.com"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-600">
+                                    <i class='bx bx-lock-alt'></i>
+                                </span>
+                                <input type="password" 
+                                       name="password"
+                                       id="password"
+                                       class="w-full pl-10 pr-10 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#B6FC67] bg-white/80"
+                                       placeholder="••••••••"
+                                       required>
+                                <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 cursor-pointer">
+                                    <i class='bx bx-hide' id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me and Forgot Password -->
+                        <div class="flex justify-between items-center text-sm">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="remember" name="remember" class="rounded border-gray-300 text-[#B6FC67] focus:border-[#B6FC67]">
+                                <label for="remember" class="ml-2 text-gray-600">Remember me</label>
+                            </div>
+                            <a href="forgot-password.php" class="text-[#1e1e1e] hover:text-[#B6FC67]">Forgot password?</a>
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" 
+                                class="w-full bg-[#1e1e1e] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#B6FC67] hover:text-black transition duration-300 mt-6 flex items-center justify-center">
+                            <span id="loginText">Login</span>
+                            <span id="spinner" class="hidden ml-2">
+                                <i class='bx bx-loader-alt animate-spin'></i>
+                            </span>
+                        </button>
+
+                        <!-- Sign Up Link -->
+                        <div class="text-center mt-4">
+                            <a href="signup.php" class="text-gray-600 hover:text-[#1e1e1e] text-sm">
+                                Don't have an account? <span class="font-semibold">Sign up</span>
+                            </a>
+                        </div>
+
+                        <!-- Social Login -->
+                        <div class="mt-6 text-center">
+                            <span class="text-gray-500 text-sm">Or continue with</span>
+                            <div class="flex justify-center space-x-4 mt-3">
+                                <a href="<?php echo $google_login_url; ?>" class="w-full flex justify-center">
+                                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" 
+                                        alt="Sign in with Google" class="h-10 transition-transform duration-300 hover:scale-105">
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
     // Fade-in animation for modal
     document.querySelector('body').classList.add('animate-fade-in');
 
-    // Fade out success message and show login prompt after 5 seconds
+    // Password visibility toggle
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const password = document.getElementById('password');
+        const toggleIcon = this;
+        
+        if (password.type === 'password') {
+            password.type = 'text';
+            toggleIcon.classList.remove('bx-hide');
+            toggleIcon.classList.add('bx-show');
+        } else {
+            password.type = 'password';
+            toggleIcon.classList.remove('bx-show');
+            toggleIcon.classList.add('bx-hide');
+        }
+    });
+
+    // Success message auto-hide with smooth transition
     const successMsg = document.getElementById('successMsg');
     const loginPrompt = document.getElementById('loginPrompt');
-    if (successMsg && loginPrompt) {
+    
+    if (successMsg) {
         setTimeout(() => {
-            successMsg.classList.add('hidden');
-            loginPrompt.classList.remove('hidden');
-        }, 5000);
+            successMsg.style.transition = 'opacity 0.5s ease-in-out';
+            successMsg.style.opacity = '0';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+                if (loginPrompt) {
+                    loginPrompt.style.display = 'block';
+                    loginPrompt.style.transition = 'opacity 0.5s ease-in-out';
+                    setTimeout(() => {
+                        loginPrompt.style.opacity = '1';
+                    }, 50);
+                }
+            }, 500);
+        }, 3000);
     }
 
-    // Show/hide password toggle
-    function togglePassword() {
-        const passwordInput = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-5 0-9-4-9-9a9 9 0 0118 0c0 1.657-.336 3.236-.938 4.675M15 12a3 3 0 11-6 0 3 3 0 016 0z" />';
-        } else {
-            passwordInput.type = 'password';
-            eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9 0a9 9 0 0118 0c0 5-4 9-9 9s-9-4-9-9z" />';
-        }
-    }
-
-    // Show spinner on login button when submitting
-    document.querySelector('form').addEventListener('submit', function(e) {
-        document.getElementById('loginText').classList.add('hidden');
-        document.getElementById('spinner').classList.remove('hidden');
+    // Form submission handling with loading spinner
+    document.querySelector('form').addEventListener('submit', function() {
+        const loginText = document.getElementById('loginText');
+        const spinner = document.getElementById('spinner');
+        
+        loginText.classList.add('hidden');
+        spinner.classList.remove('hidden');
     });
     </script>
 </body>
