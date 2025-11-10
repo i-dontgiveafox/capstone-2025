@@ -237,16 +237,27 @@ if (isset($_SESSION['email']) &&
             <!-- Left Chart Placeholder -->
             <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Daily Moisture Trend</h3>
-            <div class="w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center">
-                <canvas id="myLineChart" class="w-full h-full"></canvas>
+            <div class="w-full h-82 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="moistureChart" class="w-full h-full"></canvas>
             </div>
             </div>
 
             <!-- Right Chart Placeholder -->
             <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Water Usage Distribution</h3>
-            <div id="chart-water" class="w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center">
-                <span class="text-gray-400 text-sm">Chart Placeholder</span>
+            <div id="chart-water" class="w-full h-82 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="waterUsageChart" class="w-full h-full"></canvas>
+            </div>
+            </div>
+        </div>
+
+        <!-- Chart Grid Section -->
+        <div class="grid grid-cols-1 grid-cols-1 gap-6 mb-10">
+            <!-- Left Chart Placeholder -->
+            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Temperature and Humidity Trend</h3>
+            <div class="w-full h-156 w-full bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="tempHumChart" class="w-full h-full"></canvas>
             </div>
             </div>
         </div>
@@ -317,9 +328,21 @@ if (isset($_SESSION['email']) &&
 
         <div class="flex flex-col items-start justify-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-800/90 px-4 mb-4 mt-10">Set Durations and Thresholds</h2>
-            <button class="bg-[#1e1e1e] text-white px-2 pr-4 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+            <button id="resetSettingsBtn" class="bg-[#1e1e1e] text-white px-2 pr-4 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
                 <i class='bx bx-refresh px-2 py-3'></i>Reset
             </button>
+        </div>
+
+        <!-- Reset Settings confirmation modal (hidden by default) -->
+        <div id="reset-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-20">
+            <div class="bg-white rounded-lg p-6 w-11/12 max-w-md">
+                <h3 class="text-lg font-semibold mb-2 text-gray-900">Confirm Reset</h3>
+                <p class="text-sm text-gray-700 mb-4">Are you sure you want to reset your settings? This will restore the threshold and duration to default values.</p>
+                <div class="flex justify-end gap-3">
+                    <button id="cancel-reset" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-800">Cancel</button>
+                    <button id="confirm-reset" class="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white">Reset Settings</button>
+                </div>
+            </div>
         </div>
 
         <!-- Settings Cards -->
@@ -491,6 +514,68 @@ setInterval(fetchESPStatus, 10000);
     // Update values initially and every 30 seconds
     updateOverviewValues();
     setInterval(updateOverviewValues, 30000);
+
+    // Reset Settings Modal Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const resetBtn = document.getElementById('resetSettingsBtn');
+        const resetModal = document.getElementById('reset-modal');
+        const confirmResetBtn = document.getElementById('confirm-reset');
+        const cancelResetBtn = document.getElementById('cancel-reset');
+
+        // Open modal when reset button is clicked
+        resetBtn.addEventListener('click', function() {
+            resetModal.classList.remove('hidden');
+        });
+
+        // Close modal when cancel is clicked
+        cancelResetBtn.addEventListener('click', function() {
+            resetModal.classList.add('hidden');
+        });
+
+        // Handle reset confirmation
+        confirmResetBtn.addEventListener('click', async function() {
+            try {
+                // Reset all inputs to their default values
+                document.querySelectorAll('input[type="number"]').forEach(input => {
+                    input.value = input.placeholder || '';
+                });
+                
+                document.querySelectorAll('select').forEach(select => {
+                    select.selectedIndex = 0;
+                });
+
+                document.querySelectorAll('input[type="text"]').forEach(input => {
+                    input.value = '';
+                });
+
+                // You can also make an API call here to reset values in the backend
+                // await fetch('../functions/reset_settings.php');
+
+                // Close the modal
+                resetModal.classList.add('hidden');
+                
+                // Show success message
+                alert('Settings have been reset to default values');
+            } catch (error) {
+                console.error('Error resetting settings:', error);
+                alert('Failed to reset settings. Please try again.');
+            }
+        });
+
+        // Close modal if clicking outside
+        resetModal.addEventListener('click', function(e) {
+            if (e.target === resetModal) {
+                resetModal.classList.add('hidden');
+            }
+        });
+
+        // Close modal on Escape key press
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !resetModal.classList.contains('hidden')) {
+                resetModal.classList.add('hidden');
+            }
+        });
+    });
 </script>
 
 
