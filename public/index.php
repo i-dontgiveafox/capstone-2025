@@ -231,6 +231,25 @@ if (isset($_SESSION['email']) &&
                 </div>
             </div>
         </div>
+
+        <!-- Chart Grid Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+            <!-- Left Chart Placeholder -->
+            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Daily Moisture Trend</h3>
+            <div class="w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="myLineChart" class="w-full h-full"></canvas>
+            </div>
+            </div>
+
+            <!-- Right Chart Placeholder -->
+            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Water Usage Distribution</h3>
+            <div id="chart-water" class="w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <span class="text-gray-400 text-sm">Chart Placeholder</span>
+            </div>
+            </div>
+        </div>
     </section>
 
 
@@ -298,7 +317,7 @@ if (isset($_SESSION['email']) &&
 
         <div class="flex flex-col items-start justify-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-800/90 px-4 mb-4 mt-10">Set Durations and Thresholds</h2>
-            <button class="bg-[#1e1e1e] text-white px-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+            <button class="bg-[#1e1e1e] text-white px-2 pr-4 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
                 <i class='bx bx-refresh px-2 py-3'></i>Reset
             </button>
         </div>
@@ -388,6 +407,7 @@ if (isset($_SESSION['email']) &&
 </body>
 
 </html>
+<script src="../assets/js/chart.js"></script>
 <script>
 async function fetchESPStatus() {
   try {
