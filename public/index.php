@@ -102,7 +102,8 @@ if (isset($_SESSION['email']) &&
                                 <i class='bx bxs-thermometer bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Temperature</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="temp-last-update">--</span></h6>
+                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="temp-last"> <?php echo $temp_last; ?></span></h6>
+                                    <p class="text-xl text-gray-600 mt-1"><span id="temp-value"></span> °C</p>
                                 </div>
                             </div>
                             <a href="#" data-sensor="temperature" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
@@ -117,7 +118,8 @@ if (isset($_SESSION['email']) &&
                                 <i class='bx bx-water bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Humidity</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="humidity-last-update">--</span></h6>
+                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="humid-last"> <?php echo $gas_last; ?></span></h6>
+                                    <p class="text-xl text-gray-600 mt-1"><span id="humid-value"> </span> %</p>
                                 </div>
                             </div>
                             <a href="#" data-sensor="humidity" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
@@ -132,7 +134,8 @@ if (isset($_SESSION['email']) &&
                                 <i class='bx bx-droplet bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Moisture</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="moisture-last-update">--</span></h6>
+                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="moist-last"> <?php echo $moist_last; ?></span></h6>
+                                    <p class="text-xl text-gray-600 mt-1"><span id="moist-value"> </span> %</p>
                                 </div>
                             </div>
                             <a href="#" data-sensor="moisture" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
@@ -147,7 +150,8 @@ if (isset($_SESSION['email']) &&
                                 <i class='bx bx-wind bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Methane</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="methane-last-update">--</span></h6>
+                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="gas-last"> <?php echo $gas_last; ?></span></h6>
+                                    <p class="text-xl text-gray-600 mt-1"><span id="gas-value"></span> %</p>
                                 </div>
                             </div>
                             <a href="#" data-sensor="methane" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
@@ -230,6 +234,25 @@ if (isset($_SESSION['email']) &&
                 </div>
             </div>
         </div>
+
+        <!-- Chart Grid Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+            <!-- Left Chart Placeholder -->
+            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Daily Moisture Trend</h3>
+            <div class="w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="myLineChart" class="w-full h-full"></canvas>
+            </div>
+            </div>
+
+            <!-- Right Chart Placeholder -->
+            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Water Usage Distribution</h3>
+            <div id="chart-water" class="w-full h-64 bg-gray-100 rounded-2xl flex items-center justify-center">
+                <span class="text-gray-400 text-sm">Chart Placeholder</span>
+            </div>
+            </div>
+        </div>
     </section>
 
 
@@ -297,7 +320,7 @@ if (isset($_SESSION['email']) &&
 
         <div class="flex flex-col items-start justify-center mb-6">
             <h2 class="text-2xl font-semibold text-gray-800/90 px-4 mb-4 mt-10">Set Durations and Thresholds</h2>
-            <button class="bg-[#1e1e1e] text-white px-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
+            <button class="bg-[#1e1e1e] text-white px-2 pr-4 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
                 <i class='bx bx-refresh px-2 py-3'></i>Reset
             </button>
         </div>
@@ -387,6 +410,40 @@ if (isset($_SESSION['email']) &&
 </body>
 
 </html>
+<script>
+function fetchLastUpdates() {
+    fetch('../functions/data_readings.php')
+        .then(response => response.json())
+        .then(data => {
+            // Temperature
+            document.getElementById('temp-last').textContent = data.temperature.last;
+            document.getElementById('temp-value').textContent = data.temperature.value;
+
+            // Humidity
+            document.getElementById('humid-last').textContent = data.humidity.last;
+            document.getElementById('humid-value').textContent = data.humidity.value;
+
+            // Moisture
+            document.getElementById('moist-last').textContent = data.moisture.last;
+            document.getElementById('moist-value').textContent = data.moisture.value;
+
+            // Methane
+            document.getElementById('gas-last').textContent = data.methane.last;
+            document.getElementById('gas-value').textContent = data.methane.value;
+        })
+        .catch(error => console.error('Error fetching updates:', error));
+}
+
+// Load on page load
+fetchLastUpdates();
+
+// Auto-refresh every 60 seconds
+setInterval(fetchLastUpdates, 60000);
+</script>
+
+
+
+<script src="../assets/js/chart.js"></script>
 <script>
 async function fetchESPStatus() {
   try {

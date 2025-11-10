@@ -5,7 +5,7 @@
         </div>
 
 
-        <div class="nav-links z-15 duration-500 md:static absolute bg-[#1e1e1e] md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5 text-white">
+        <div class="nav-links z-50 duration-500 hidden md:flex md:static absolute bg-[#1e1e1e] md:min-h-fit min-h-[60vh] left-0 top-0 md:top-auto md:w-auto w-full items-center px-5 text-white">
             <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
                 <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
                 <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#"><i class='bx bxs-chart' ></i> Charts</a></li>
@@ -63,8 +63,9 @@
         <script>
             const navLinks = document.querySelector('.nav-links');
             function onToggleMenu(e) {
-                e.name = e.name === 'menu' ? 'close' : 'menu'
-                navLinks.classList.toggle('top-[0%]');
+                e.name = e.name === 'menu' ? 'close' : 'menu';
+                // Toggle visibility on mobile by toggling the 'hidden' class
+                navLinks.classList.toggle('hidden');
             }
             // Logout confirmation modal logic
             function openLogoutModal(targetUrl) {
@@ -92,8 +93,8 @@
 
                 if (mobile) mobile.addEventListener('click', function (e) {
                     e.preventDefault();
-                    // close mobile menu for clarity then open modal
-                    navLinks.classList.remove('top-[0%]');
+                    // Ensure mobile menu is closed for clarity then open modal
+                    navLinks.classList.add('hidden');
                     openLogoutModal('../public/logout.php');
                 });
 
