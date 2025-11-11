@@ -366,7 +366,7 @@ if (isset($_SESSION['email']) &&
         </div>
 
         <!-- Settings Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-5">
             <!-- Moisture Threshold -->
             <div class="rounded-xl p-4 relative shadow border border-white/20">
                 <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
@@ -453,8 +453,7 @@ if (isset($_SESSION['email']) &&
                         Save Duration
                     </button>
                 </div>
-
-        </div>        
+            </div> -->       
         </div>
         
     </section>
