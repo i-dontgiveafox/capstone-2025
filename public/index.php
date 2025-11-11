@@ -50,7 +50,7 @@ if (isset($_SESSION['email']) &&
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-10 gap-6 items-stretch">
-            <div class="md:col-span-4">
+            <div class="md:col-span-3">
                 <div class="rounded-xl overflow-hidden shadow h-full flex flex-col mb-8">
                     <div class="relative h-full">
                         <!-- Background image with dim filter -->
@@ -67,7 +67,6 @@ if (isset($_SESSION['email']) &&
                                         <i id="esp-icon" class='bx bx-no-signal text-red-600 p-1'></i>
                                         <span id="esp-status" class="text-red-600">Offline</span>
                                     </h3>
-
                                 </div>
 
                                 <div class="absolute top- left-6 sm:top-8 sm:left-8 md:top-10 md:left-10">
@@ -94,66 +93,87 @@ if (isset($_SESSION['email']) &&
 
 
             <!-- Right: Sensor Cards (approx 60%) -->
-            <div class="md:col-span-6 h-full flex flex-col">
+            <div class="md:col-span-7 h-full flex flex-col">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="rounded-xl p-4 relative shadow border border-white/20">
                         <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bxs-thermometer bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Temperature</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="temp-last-update">--</span></h6>
+                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="temp-last"> <?php echo $temp_last; ?></span></span>
+                                    
                                 </div>
                             </div>
-                            <a href="#" data-sensor="temperature" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
+                            <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                                <span id="temp-value"></span> 
+                                <span class="text-xl text-black/80">°C</span>
+                            </div>
+                            <!--<a href="#" data-sensor="temperature" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
                                 View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                     <div class="rounded-xl p-4 relative shadow border border-white/20">
                         <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-water bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Humidity</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="humidity-last-update">--</span></h6>
+                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="humid-last"> <?php echo $gas_last; ?></span></span>
+                                    
                                 </div>
                             </div>
-                            <a href="#" data-sensor="humidity" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
+                            <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                                <span id="humid-value"></span> 
+                                <span class="text-xl text-gray-600">%</span>
+                            </div>
+                            <!--<a href="#" data-sensor="humidity" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
                                 View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                     <div class="rounded-xl p-4 relative shadow border border-white/20">
                         <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-droplet bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Moisture</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="moisture-last-update">--</span></h6>
+                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="moist-last"> <?php echo $moist_last; ?></span></span>
+                                    
                                 </div>
                             </div>
-                            <a href="#" data-sensor="moisture" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
+                            <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                                <span id="moist-value"></span> 
+                                <span class="text-xl text-gray-600">%</span>
+                            </div>
+                            <!--<a href="#" data-sensor="moisture" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
                                 View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                     <div class="rounded-xl p-4 relative shadow border border-white/20">
                         <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-50 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-wind bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
                                     <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Methane</h5>
-                                    <h6 class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="methane-last-update">--</span></h6>
+                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="gas-last"> <?php echo $gas_last; ?></span></span>
+                                
                                 </div>
+                                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                                <span id="gas-value"></span> 
+                                <span class="text-xl text-gray-600">%</span>
                             </div>
-                            <a href="#" data-sensor="methane" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
+                            </div>
+                            
+                            <!--<a href="#" data-sensor="methane" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
                                 View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                 </div>
@@ -223,7 +243,7 @@ if (isset($_SESSION['email']) &&
 
             <!-- Content -->
                 <div class="flex flex-col space-y-2 relative z-10">
-                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
+                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Water Level</h3>
                     <div class="flex items-baseline space-x-2">
                     <span class="text-4xl font-bold text-white" id="avg-moisture">%</span>
                     <span class="text-xl text-white/80">mL</span>
@@ -270,7 +290,7 @@ if (isset($_SESSION['email']) &&
         </div>
 
         <!-- Control Toggles -->
-        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
             <!-- Fan Control -->
             <div class="rounded-xl p-4 relative shadow border border-white/20">
                 <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
@@ -307,7 +327,7 @@ if (isset($_SESSION['email']) &&
                 </div>
             </div>
 
-            <!-- Sieving Control -->
+            <!-- Sieving Control 
             <div class="rounded-xl p-4 relative shadow border border-white/20">
                 <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
                 <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
@@ -323,7 +343,7 @@ if (isset($_SESSION['email']) &&
                         <span class="dot absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-6"></span>
                     </label>
                 </div>
-            </div>
+            </div>-->
         </div>
 
         <div class="flex flex-col items-start justify-center mb-6">
@@ -346,7 +366,7 @@ if (isset($_SESSION['email']) &&
         </div>
 
         <!-- Settings Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
             <!-- Moisture Threshold -->
             <div class="rounded-xl p-4 relative shadow border border-white/20">
                 <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
@@ -354,7 +374,20 @@ if (isset($_SESSION['email']) &&
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Moisture Level Settings</h3>
                     <div class="flex-grow">
                         <label class="block text-sm text-gray-600 mb-2">Trigger Threshold (%)</label>
-                        <input type="number" min="0" max="100" class="w-full p-2 border rounded-lg bg-white/80" placeholder="e.g. 35">
+                        <div class="relative w-full">
+                        <select class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
+                            <option>50%</option>
+                            <option>55%</option>
+                            <option>60%</option>
+                            <option>65%</option>
+                            <option>70%</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        </div>
                     </div>
                     <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
                         Save Threshold
@@ -369,11 +402,18 @@ if (isset($_SESSION['email']) &&
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Sprinkler Duration</h3>
                     <div class="flex-grow">
                         <label class="block text-sm text-gray-600 mb-2">Set Duration</label>
-                        <select class="w-full p-2 border rounded-lg bg-white/80">
+                        <div class="relative w-full">
+                        <select class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
                             <option>10 seconds</option>
                             <option>20 seconds</option>
                             <option>30 seconds</option>
                         </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        </div>
                     </div>
                     <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
                         Save Duration
@@ -381,7 +421,7 @@ if (isset($_SESSION['email']) &&
                 </div>
             </div>
 
-            <!-- Fan Duration -->
+            <!-- Fan Duration
             <div class="rounded-xl p-4 relative shadow border border-white/20">
                 <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
                 <div class="relative z-10 p-4 flex flex-col h-full">
@@ -398,7 +438,7 @@ if (isset($_SESSION['email']) &&
                         Save Duration
                     </button>
                 </div>
-            </div>
+            </div>-->
 
             <!-- Sieving Duration 
             <div class="rounded-xl p-4 relative shadow border border-white/20">
@@ -414,7 +454,7 @@ if (isset($_SESSION['email']) &&
                     </button>
                 </div>
 
-        </div> -->       
+        </div>        
         </div>
         
     </section>
@@ -430,6 +470,39 @@ if (isset($_SESSION['email']) &&
 </body>
 
 </html>
+<script>
+function fetchLastUpdates() {
+    fetch('../functions/data_readings.php')
+        .then(response => response.json())
+        .then(data => {
+            // Temperature
+            document.getElementById('temp-last').textContent = data.temperature.last;
+            document.getElementById('temp-value').textContent = data.temperature.value;
+
+            // Humidity
+            document.getElementById('humid-last').textContent = data.humidity.last;
+            document.getElementById('humid-value').textContent = data.humidity.value;
+
+            // Moisture
+            document.getElementById('moist-last').textContent = data.moisture.last;
+            document.getElementById('moist-value').textContent = data.moisture.value;
+
+            // Methane
+            document.getElementById('gas-last').textContent = data.methane.last;
+            document.getElementById('gas-value').textContent = data.methane.value;
+        })
+        .catch(error => console.error('Error fetching updates:', error));
+}
+
+// Load on page load
+fetchLastUpdates();
+
+// Auto-refresh every 60 seconds
+setInterval(fetchLastUpdates, 60000);
+</script>
+
+
+
 <script src="../assets/js/chart.js"></script>
 <script>
 async function fetchESPStatus() {

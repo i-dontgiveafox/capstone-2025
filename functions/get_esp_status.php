@@ -1,7 +1,5 @@
 <?php
-header('Content-Type: application/json');
-
-date_default_timezone_set('Asia/Manila');
+header('Content-Type: application/json; charset=utf-8'); // ensure JSON header
 
 $servername = "localhost";
 $username = "root";
@@ -10,28 +8,38 @@ $dbname = "esp-data";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
-  echo json_encode(["error" => "DB connection failed"]);
-  exit;
+    echo json_encode(["status" => "error", "message" => "DB connection failed"]);
+    exit;
 }
 
-$device = 'esp32_1'; 
-$timeout = 30;
+date_default_timezone_set('Asia/Manila');
 
-$sql = "SELECT last_seen FROM devices WHERE device_name = '$device'";
-$result = $conn->query($sql);
+$device = "esp32_1"; // your device name
+$query = $conn->prepare("SELECT last_seen FROM heartbeat_data WHERE device_name = ? ORDER BY last_seen DESC LIMIT 1");
+$query->bind_param("s", $device);
+$query->execute();
+$result = $query->get_result();
 
-if ($result->num_rows > 0) {
-  $row = $result->fetch_assoc();
-  $last_seen = strtotime($row['last_seen']);
-  $status = (time() - $last_seen <= $timeout) ? 'online' : 'offline';
+if ($result === false) {
+    echo json_encode(["status" => "error", "message" => $conn->error]);
+    exit;
+}
 
-  echo json_encode([
-    "device" => $device,
-    "status" => $status,
-    "last_seen" => date("Y-m-d H:i:s", $last_seen)
-  ]);
+$row = $result->fetch_assoc();
+
+if ($row) {
+    $last_seen = strtotime($row['last_seen']);
+    $now = time();
+    $threshold = 10; 
+  $status = ($now - $last_seen) < $threshold ? "online" : "offline";
+
+
+    echo json_encode([
+        "status" => $status,
+        "last_seen" => $row['last_seen']
+    ]);
 } else {
-  echo json_encode(["device" => $device, "status" => "unknown"]);
+    echo json_encode(["status" => "unknown", "message" => "Device not found"]);
 }
 
 $conn->close();
