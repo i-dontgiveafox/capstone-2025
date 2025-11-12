@@ -364,62 +364,95 @@ if (isset($_SESSION['email']) &&
                 </div>
             </div>
         </div>
+<!-- Settings Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-5">
 
-        <!-- Settings Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-5">
-            <!-- Moisture Threshold -->
-            <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
-                <div class="relative z-10 p-4 flex flex-col h-full">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Moisture Level Settings</h3>
-                    <div class="flex-grow">
-                        <label class="block text-sm text-gray-600 mb-2">Trigger Threshold (%)</label>
-                        <div class="relative w-full">
-                        <select class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
-                            <option>50%</option>
-                            <option>55%</option>
-                            <option>60%</option>
-                            <option>65%</option>
-                            <option>70%</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
-                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                        </div>
-                    </div>
-                    <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
-                        Save Threshold
-                    </button>
-                </div>
-            </div>
+  <!-- 🌱 Moisture Threshold -->
+  <div class="rounded-xl p-4 relative shadow border border-white/20">
+    <div class="absolute inset-0 rounded-xl"
+      style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
 
-            <!-- Sprinkler Duration -->
-            <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
-                <div class="relative z-10 p-4 flex flex-col h-full">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Sprinkler Duration</h3>
-                    <div class="flex-grow">
-                        <label class="block text-sm text-gray-600 mb-2">Set Duration</label>
-                        <div class="relative w-full">
-                        <select class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
-                            <option>10 seconds</option>
-                            <option>20 seconds</option>
-                            <option>30 seconds</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
-                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                        </div>
-                    </div>
-                    <button class="mt-4 bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
-                        Save Duration
-                    </button>
-                </div>
-            </div>
+    <div class="relative z-10 p-4 flex flex-col h-full">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Moisture Level Settings</h3>
+
+      <div class="flex-grow">
+        <label class="block text-sm text-gray-600 mb-2">Trigger Threshold (%)</label>
+        <div class="relative w-full">
+          <select id="thresholdSelect" class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
+            <option value="55">55%</option>
+            <option value="60">60%</option>
+            <option value="65">65%</option>
+            <option value="70">70%</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 mt-4">
+        <button id="saveThresholdBtn"
+          class="bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto">
+          Save Threshold
+        </button>
+        <button id="resetThresholdBtn"
+          class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition w-full sm:w-auto">
+          Reset Default (55%)
+        </button>
+      </div>
+
+      <!-- Fixed padding area for notification -->
+      <div class="h-6 mt-3 flex items-center justify-center">
+        <p id="statusMsg" class="text-sm text-center whitespace-nowrap"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 💧 Sprinkler Duration -->
+  <div class="rounded-xl p-4 relative shadow border border-white/20">
+    <div class="absolute inset-0 rounded-xl"
+      style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+
+    <div class="relative z-10 p-4 flex flex-col h-full">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Sprinkler Duration</h3>
+
+      <div class="flex-grow">
+        <label class="block text-sm text-gray-600 mb-2">Set Duration</label>
+        <div class="relative w-full">
+          <select id="durationSelect" class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
+            <option value="2000" selected>2 seconds</option>
+            <option value="2500">2.5 seconds</option>
+            <option value="3000">3 seconds</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 mt-4">
+        <button id="saveDuration"
+          class="bg-[#1e1e1e] text-white px-4 py-2 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto">
+          Save Duration
+        </button>
+        <button id="resetDurationBtn"
+          class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition w-full sm:w-auto">
+          Reset Default (2 s)
+        </button>
+      </div>
+
+      <!-- Fixed padding area for notification -->
+      <div class="h-6 mt-3 flex items-center justify-center">
+        <p id="durationStatusMsg" class="text-sm text-center whitespace-nowrap"></p>
+      </div>
+    </div>
+  </div>
+
+</div>
 
             <!-- Fan Duration
             <div class="rounded-xl p-4 relative shadow border border-white/20">
@@ -469,6 +502,266 @@ if (isset($_SESSION['email']) &&
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+<script>
+// === RESET SETTINGS FUNCTIONALITY WITH TOAST ===
+
+// Select elements
+const resetBtn = document.getElementById("resetSettingsBtn");
+const resetModal = document.getElementById("reset-modal");
+const cancelReset = document.getElementById("cancel-reset");
+const confirmReset = document.getElementById("confirm-reset");
+
+// Open modal
+resetBtn.addEventListener("click", () => {
+  resetModal.classList.remove("hidden");
+});
+
+// Close modal when clicking Cancel or outside
+cancelReset.addEventListener("click", () => {
+  resetModal.classList.add("hidden");
+});
+resetModal.addEventListener("click", (e) => {
+  if (e.target === resetModal) resetModal.classList.add("hidden");
+});
+
+// Confirm reset — resets Moisture Threshold + Sprinkler Duration
+confirmReset.addEventListener("click", async () => {
+  confirmReset.disabled = true;
+  confirmReset.textContent = "Resetting...";
+
+  try {
+    // Reset Moisture Threshold (to 55%)
+    await fetch("../functions/update_soil_threshold.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "threshold=55"
+    });
+
+    // Reset Sprinkler Duration (to 2000 ms / 2s)
+    await fetch("../functions/save_sprinkler_duration.php?duration=2000");
+
+    // Update dropdowns visually
+    const thresholdSelect = document.getElementById("thresholdSelect");
+    const durationSelect = document.getElementById("durationSelect");
+    if (thresholdSelect) thresholdSelect.value = "55";
+    if (durationSelect) durationSelect.value = "2000";
+
+    // ✅ Toast instead of alert
+    showToast("✅ Settings have been reset to default values!", false);
+
+  } catch {
+    // ❌ Toast on error
+    showToast("❌ Failed to reset settings. Please try again.", true);
+  } finally {
+    confirmReset.disabled = false;
+    confirmReset.textContent = "Reset Settings";
+    resetModal.classList.add("hidden");
+  }
+});
+
+// === TOAST FUNCTION ===
+function showToast(message, isError = false) {
+  const toast = document.createElement("div");
+  toast.textContent = message;
+  toast.className = `
+    fixed bottom-6 right-6 px-4 py-2 rounded-lg shadow-lg text-white z-50 
+    transform translate-y-4 opacity-0 transition-all duration-300 ease-out 
+    ${isError ? "bg-red-600" : "bg-green-600"}
+  `;
+  document.body.appendChild(toast);
+
+  // Animate in
+  setTimeout(() => {
+    toast.classList.remove("translate-y-4", "opacity-0");
+    toast.classList.add("translate-y-0", "opacity-100");
+  }, 50);
+
+  // Fade out and remove after 3s
+  setTimeout(() => {
+    toast.classList.remove("opacity-100");
+    toast.classList.add("opacity-0", "translate-y-2");
+    setTimeout(() => toast.remove(), 400);
+  }, 3000);
+}
+</script>
+
+
+
+<!-- 🎨 Animation + UI Enhancements -->
+<style>
+#statusMsg, #durationStatusMsg {
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+.pulse {
+  animation: pulse 0.4s ease;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+</style>
+
+<!-- ⚙️ Functionality Script -->
+<script>
+// Reusable message display with animation
+function showMsg(el, msg, success = true) {
+  el.textContent = msg;
+  el.className = success ? "text-green-600 text-sm pulse" : "text-red-600 text-sm pulse";
+  el.style.opacity = 1;
+  setTimeout(() => (el.style.opacity = 0), 2000);
+}
+
+// ===== 🌱 Moisture Threshold =====
+async function loadThreshold() {
+  try {
+    const res = await fetch("../functions/get_soil_threshold.php");
+    const val = (await res.text()).trim();
+    document.getElementById("thresholdSelect").value = val;
+  } catch {
+    console.error("Failed to load threshold.");
+  }
+}
+
+async function saveThreshold() {
+  const val = document.getElementById("thresholdSelect").value;
+  const res = await fetch("../functions/update_soil_threshold.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "threshold=" + val
+  });
+  if (res.ok) showMsg(document.getElementById("statusMsg"), "✅ Threshold saved to " + val + "%");
+}
+
+async function resetThreshold() {
+  const res = await fetch("../functions/update_soil_threshold.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "threshold=55"
+  });
+  if (res.ok) {
+    document.getElementById("thresholdSelect").value = "55";
+    showMsg(document.getElementById("statusMsg"), "🔄 Reset to 55%", true);
+  }
+}
+
+// ===== 💧 Sprinkler Duration =====
+async function loadDuration() {
+  try {
+    const res = await fetch("../functions/get_sprinkler_duration.php");
+    const val = (await res.text()).trim();
+    document.getElementById("durationSelect").value = val || "2000";
+  } catch {
+    document.getElementById("durationSelect").value = "2000";
+  }
+}
+
+async function saveDuration() {
+  const val = parseInt(document.getElementById("durationSelect").value);
+  const res = await fetch("../functions/save_sprinkler_duration.php?duration=" + val);
+  if (res.ok) {
+    const seconds = (val / 1000).toFixed(1).replace(/\.0$/, "");
+    showMsg(document.getElementById("durationStatusMsg"), "✅ Duration saved to " + seconds + " s");
+  }
+}
+
+async function resetDuration() {
+  const res = await fetch("../functions/save_sprinkler_duration.php?duration=2000");
+  if (res.ok) {
+    document.getElementById("durationSelect").value = "2000";
+    showMsg(document.getElementById("durationStatusMsg"), "🔄 Reset to 2 s", true);
+  }
+}
+
+// ===== 🔄 Initialize on page load =====
+document.addEventListener("DOMContentLoaded", () => {
+  loadThreshold();
+  loadDuration();
+  document.getElementById("saveThresholdBtn").addEventListener("click", saveThreshold);
+  document.getElementById("resetThresholdBtn").addEventListener("click", resetThreshold);
+  document.getElementById("saveDuration").addEventListener("click", saveDuration);
+  document.getElementById("resetDurationBtn").addEventListener("click", resetDuration);
+});
+</script>
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Map relay codes to friendly names
+  const relayNames = {
+    "RELAY_SHARED": "FAN",
+    "RELAY_SOIL": "SPRINKLER"
+  };
+
+  // Fan Control
+  const fanToggle = document.getElementById("fanToggle");
+  fanToggle.addEventListener("change", function() {
+    const state = this.checked ? "ON" : "OFF";
+    updateRelay("RELAY_SHARED", state);
+  });
+
+  // Sprinkler Control
+  const sprinklerToggle = document.getElementById("sprinklerToggle");
+  sprinklerToggle.addEventListener("change", function() {
+    const state = this.checked ? "ON" : "OFF";
+    updateRelay("RELAY_SOIL", state);
+
+    // Automatically turn OFF after 1.5 seconds if turned ON
+    if (state === "ON") {
+      setTimeout(() => {
+        sprinklerToggle.checked = false;
+        updateRelay("RELAY_SOIL", "OFF");
+      }, 5000); 
+    }
+  });
+
+  // Function to call PHP endpoint
+  function updateRelay(relay, state) {
+    fetch(`../functions/relay_control.php?relay=${relay}&state=${state}&mode=MANUAL`)
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        // Use friendly name if available
+        const name = relayNames[relay] || relay.replace("RELAY_", "");
+        showNotification(`✅ ${name} turned ${state}`);
+      })
+      .catch(err => {
+        console.error(err);
+        showNotification("❌ Connection error");
+      });
+  }
+
+  // Optional small notification popup
+  function showNotification(message) {
+    const notif = document.createElement("div");
+    notif.textContent = message;
+    notif.className = "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-md z-50";
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 3000);
+  }
+});
+</script>
+
+
+
+
+
 <script>
 function fetchLastUpdates() {
     fetch('../functions/data_readings.php')
@@ -504,6 +797,38 @@ setInterval(fetchLastUpdates, 60000);
 
 <script src="../assets/js/chart.js"></script>
 <script>
+let uptimeSeconds = 0;
+let uptimeInterval = null;
+
+// Helper to format uptime into h m s
+function formatUptime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+
+  if (h > 0) return `${h}h ${m}m ${s}s`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+// Start counting uptime
+function startUptime() {
+  if (uptimeInterval) return; // already running
+  uptimeInterval = setInterval(() => {
+    uptimeSeconds++;
+    document.getElementById("mc-uptime").textContent = formatUptime(uptimeSeconds);
+  }, 1000);
+}
+
+// Stop and reset uptime
+function stopUptime() {
+  clearInterval(uptimeInterval);
+  uptimeInterval = null;
+  uptimeSeconds = 0;
+  document.getElementById("mc-uptime").textContent = "0s";
+}
+
+// Main function: Fetch ESP32 status
 async function fetchESPStatus() {
   try {
     const response = await fetch("../functions/get_esp_status.php");
@@ -512,6 +837,7 @@ async function fetchESPStatus() {
     const statusEl = document.getElementById("esp-status");
     const iconEl = document.getElementById("esp-icon");
 
+    // --- Update online/offline state ---
     if (data.status === "online") {
       statusEl.textContent = "Online";
       statusEl.classList.remove("text-red-600");
@@ -519,6 +845,10 @@ async function fetchESPStatus() {
 
       iconEl.classList.remove("bx-no-signal", "text-red-600");
       iconEl.classList.add("bx-signal-5", "text-green-600");
+
+      // ✅ Start uptime when online
+      startUptime();
+
     } else if (data.status === "offline") {
       statusEl.textContent = "Offline";
       statusEl.classList.remove("text-green-600");
@@ -526,35 +856,54 @@ async function fetchESPStatus() {
 
       iconEl.classList.remove("bx-signal-5", "text-green-600");
       iconEl.classList.add("bx-no-signal", "text-red-600");
+
+      // ⛔ Stop uptime when offline
+      stopUptime();
+
     } else {
       statusEl.textContent = "Unknown";
       statusEl.classList.remove("text-green-600", "text-red-600");
       statusEl.classList.add("text-gray-600");
+      stopUptime();
     }
 
-   // Update last sync time
-    const syncEl = document.getElementById("mc-last-sync");
-    if (data.last_seen) {
-    // The backend already sends time in Asia/Manila timezone
-    const date = new Date(data.last_seen.replace(" ", "T")); // convert to ISO format
-    syncEl.textContent = date.toLocaleString("en-PH", {
-        timeZone: "Asia/Manila",
-        hour12: true,
-    });
-    } else {
-    syncEl.textContent = "--:--";
-    }
+   const syncEl = document.getElementById("mc-last-sync");
+if (data.last_seen) {
+  const date = new Date(data.last_seen.replace(" ", "T"));
 
+  // Format date (e.g., Nov 13, 2025)
+  const formattedDate = date.toLocaleDateString("en-PH", {
+    timeZone: "Asia/Manila",
+    year: "numeric",
+    month: "short",
+    day: "2-digit"
+  });
+
+  // Format time (e.g., 12:30 PM)
+  const formattedTime = date.toLocaleTimeString("en-PH", {
+    timeZone: "Asia/Manila",
+    hour12: true,
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  // Combine both
+  syncEl.textContent = `${formattedDate} — ${formattedTime}`;
+} else {
+  syncEl.textContent = "--:--";
+}
 
   } catch (error) {
     console.error("Error fetching ESP32 status:", error);
+    stopUptime();
   }
 }
 
 // Run immediately, then refresh every 10 seconds
 fetchESPStatus();
-setInterval(fetchESPStatus, 10000);
+setInterval(fetchESPStatus, 20000);
 </script>
+
 
 <script>
     // handle "View chart" clicks
@@ -620,14 +969,7 @@ setInterval(fetchESPStatus, 10000);
                     input.value = '';
                 });
 
-                // You can also make an API call here to reset values in the backend
-                // await fetch('../functions/reset_settings.php');
-
-                // Close the modal
-                resetModal.classList.add('hidden');
-                
-                // Show success message
-                alert('Settings have been reset to default values');
+               
             } catch (error) {
                 console.error('Error resetting settings:', error);
                 alert('Failed to reset settings. Please try again.');
