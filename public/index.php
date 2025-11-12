@@ -574,6 +574,9 @@ function updateAmmonia() {
     .catch(err => console.error('❌ Failed to load ammonia data:', err));
 }
 
+// Run once and every 10 seconds
+updateAmmonia();
+setInterval(updateAmmonia, 30000);
 </script>
 
 
