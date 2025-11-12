@@ -7,9 +7,9 @@
 
         <div class="nav-links z-50 duration-500 hidden md:flex md:static absolute bg-[#1e1e1e] md:min-h-fit min-h-[60vh] left-0 top-0 md:top-auto md:w-auto w-full items-center px-5 text-white">
             <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
-                <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-                <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#"><i class='bx bxs-chart' ></i> Charts</a></li>
-                <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#"><i class='bx bxs-report'></i> Logs</a></li>
+                <li><a class="hover:text-black hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="#"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+                <li><a class="hover:text-black hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="#"><i class='bx bxs-chart' ></i> Charts</a></li>
+                <li><a class="hover:text-black hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="#"><i class='bx bxs-report'></i> Logs</a></li>
                 <!-- <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#">Profile</a></li>-->
                 <!-- mobile: logout inside the collapsible nav-links -->
                 <li><a id="mobile-logout" class="md:hidden hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full block cursor-pointer"><i class='bx bx-log-out'></i> Logout</a></li>
