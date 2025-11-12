@@ -237,7 +237,7 @@ if (isset($_SESSION['email']) &&
                 <div class="flex flex-col space-y-2 relative z-10">
                     <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Soil Moisture</h3>
                     <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-moisture">35</span>
+                    <span class="text-4xl font-bold text-white" id="avg-moisture">--</span>
                     <span class="text-xl text-white/80">%</span>
                     </div>
                 </div>
@@ -253,7 +253,7 @@ if (isset($_SESSION['email']) &&
                 <div class="flex flex-col space-y-2 relative z-10">
                     <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Temperature</h3>
                     <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-moisture">35</span>
+                    <span class="text-4xl font-bold text-white" id="avg-temp">--</span>
                     <span class="text-xl text-white/80">°C</span>
                     </div>
                 </div>
@@ -270,11 +270,33 @@ if (isset($_SESSION['email']) &&
                 <div class="flex flex-col space-y-2 relative z-10">
                     <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
                     <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-moisture">%</span>
-                    <span class="text-xl text-white/80">°C</span>
+                    <span class="text-4xl font-bold text-white" id="avg-humid">--</span>
+                    <span class="text-xl text-white/80">%</span>
                     </div>
                 </div>
             </div>
+
+            <!-- CO₂ Gas -->
+<div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
+  <div class="flex flex-col space-y-2 relative z-10">
+    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-flask'></i> Avg. CO₂ Gas</h3>
+    <div class="flex items-baseline space-x-2">
+      <span class="text-4xl font-bold text-white" id="avg-co2">--</span>
+      <span class="text-xl text-white/80">ppm</span>
+    </div>
+  </div>
+</div>
+
+<!-- Ammonia -->
+<div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
+  <div class="flex flex-col space-y-2 relative z-10">
+    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-flask'></i> Avg. Ammonia</h3>
+    <div class="flex items-baseline space-x-2">
+      <span class="text-4xl font-bold text-white" id="avg-ammonia">--</span>
+      <span class="text-xl text-white/80">ppm</span>
+    </div>
+  </div>
+</div>
 
             <!-- Water Usage -->
             <div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
@@ -293,22 +315,23 @@ if (isset($_SESSION['email']) &&
         </div>
 
         <!-- Chart Grid Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+        <div class="grid grid-cols-1 grid-cols-1 gap-6 mb-10">
             <!-- Left Chart Placeholder -->
             <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Daily Moisture Trend</h3>
-            <div class="w-full h-82 bg-gray-100 rounded-2xl flex items-center justify-center">
+            <div class="w-full h-130 w-full bg-gray-100 rounded-2xl flex items-center justify-center">
                 <canvas id="moistureChart" class="w-full h-full"></canvas>
             </div>
             </div>
-
+        </div>
+        <div class="grid grid-cols-1 grid-cols-1 gap-6 mb-10">
             <!-- Right Chart Placeholder -->
             <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Water Usage Distribution</h3>
-            <div id="chart-water" class="w-full h-82 bg-gray-100 rounded-2xl flex items-center justify-center">
+            <div class="w-full h-130 w-full bg-gray-100 rounded-2xl flex items-center justify-center">
                 <canvas id="waterUsageChart" class="w-full h-full"></canvas>
             </div>
-            </div>
+            </div>   
         </div>
 
         <!-- Chart Grid Section -->
@@ -316,11 +339,22 @@ if (isset($_SESSION['email']) &&
             <!-- Left Chart Placeholder -->
             <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Temperature and Humidity Trend</h3>
-            <div class="w-full h-156 w-full bg-gray-100 rounded-2xl flex items-center justify-center">
+            <div class="w-full h-130 w-full bg-gray-100 rounded-2xl flex items-center justify-center">
                 <canvas id="tempHumChart" class="w-full h-full"></canvas>
             </div>
             </div>
         </div>
+
+        <!-- Chart Grid Section -->
+<div class="grid grid-cols-1 gap-6 mb-10">
+  <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Gas and Ammonia Trend</h3>
+    <div class="w-full h-130 bg-gray-100 rounded-2xl flex items-center justify-center">
+      <canvas id="gasAmmoniaChart" class="w-full h-full"></canvas>
+    </div>
+  </div>
+</div>
+
     </section>
 
 
@@ -539,9 +573,282 @@ if (isset($_SESSION['email']) &&
         <h1 class="text-2xl font-bold mb-4">Welcome to MySite</h1>
         <p class="mb-4">This is a sample page using Tailwind CSS for styling.</p>
     </div>-->
+      <script src="../assets/js/chart.js"></script>
 </body>
 
 </html>
+
+
+
+
+
+<script>
+async function loadCharts() {
+  try {
+    const response = await fetch("../functions/get_chart_data.php");
+    const data = await response.json();
+
+    const labels = data.map(item => new Date(item.timestamp).toLocaleTimeString());
+    const moistureValues = data.map(item => item.moisture);
+
+    // --- Moisture Line Chart ---
+    const ctx1 = document.getElementById("moistureChart").getContext("2d");
+    new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "Soil Moisture (%)",
+          data: moistureValues,
+          borderColor: "#16a34a",
+          backgroundColor: "rgba(22,163,74,0.2)",
+          fill: true,
+          tension: 0.4,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    // --- Water Usage Doughnut Chart ---
+    const ctx2 = document.getElementById("waterUsageChart").getContext("2d");
+    new Chart(ctx2, {
+      type: "doughnut",
+      data: {
+        labels: ["Used", "Remaining"],
+        datasets: [{
+          data: [70, 30], // Dummy data — replace with actual values later
+          backgroundColor: ["#2563eb", "#e5e7eb"],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: "bottom" }
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Error loading chart data:", error);
+  }
+}
+
+loadCharts();
+setInterval(loadCharts, 30000); // refresh every 30s
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+async function loadTempHumChart() {
+  try {
+    const response = await fetch("../functions/get_temp_hum_data.php");
+    const data = await response.json();
+
+    if (!Array.isArray(data) || data.length === 0) {
+      console.warn("No data received for temperature/humidity chart.");
+      return;
+    }
+
+    const labels = data.map(item => new Date(item.timestamp).toLocaleTimeString());
+    const tempValues = data.map(item => item.temperature);
+    const humValues = data.map(item => item.humidity);
+
+    const ctx = document.getElementById("tempHumChart").getContext("2d");
+
+    // Destroy previous instance if it exists
+    if (window.tempHumChartInstance) {
+      window.tempHumChartInstance.destroy();
+    }
+
+    // Create the chart once data is available
+    window.tempHumChartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Temperature (°C)",
+            data: tempValues,
+            borderColor: "#f59e0b",
+            backgroundColor: "rgba(245,158,11,0.2)",
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2
+          },
+          {
+            label: "Humidity (%)",
+            data: humValues,
+            borderColor: "#3b82f6",
+            backgroundColor: "rgba(59,130,246,0.2)",
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: "Value" } },
+          x: { title: { display: true, text: "Time" } }
+        },
+        plugins: {
+          legend: { position: "bottom" }
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error("Error loading temperature/humidity data:", error);
+  }
+}
+
+// ✅ Load chart immediately after page load
+document.addEventListener("DOMContentLoaded", () => {
+  loadTempHumChart(); // First render right away
+  setInterval(loadTempHumChart, 30000); // Update every 30s
+});
+</script>
+
+
+
+<script>
+async function loadGasAmmoniaChart() {
+  try {
+    const response = await fetch("get_gas_ammonia_data.php");
+    const result = await response.json();
+
+    // Handle if there’s no data
+    if (!result.gas || !result.ammonia) {
+      console.warn("No data available for gas or ammonia chart.");
+      return;
+    }
+
+    // Prepare gas data
+    const gasLabels = result.gas.map(item => new Date(item.timestamp).toLocaleTimeString());
+    const gasValues = result.gas.map(item => item.gas);
+
+    // Prepare ammonia data
+    const ammoniaLabels = result.ammonia.map(item => new Date(item.timestamp).toLocaleTimeString());
+    const ammoniaValues = result.ammonia.map(item => item.ammonia);
+
+    // Merge timestamps (if you want to align them)
+    const labels = gasLabels.length >= ammoniaLabels.length ? gasLabels : ammoniaLabels;
+
+    const ctx = document.getElementById("gasAmmoniaChart").getContext("2d");
+
+    // Destroy old instance if it exists
+    if (window.gasAmmoniaChartInstance) {
+      window.gasAmmoniaChartInstance.destroy();
+    }
+
+    // Create new chart
+    window.gasAmmoniaChartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "CO₂ Gas (%)",
+            data: gasValues,
+            borderColor: "#dc2626", // red
+            backgroundColor: "rgba(220,38,38,0.2)",
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2
+          },
+          {
+            label: "Ammonia (%)",
+            data: ammoniaValues,
+            borderColor: "#9333ea", // purple
+            backgroundColor: "rgba(147,51,234,0.2)",
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: "Percentage (%)" }
+          },
+          x: {
+            title: { display: true, text: "Time" }
+          }
+        },
+        plugins: {
+          legend: { position: "bottom" }
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error("Error loading gas/ammonia chart:", error);
+  }
+}
+
+// Load immediately after DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  loadGasAmmoniaChart();
+  setInterval(loadGasAmmoniaChart, 30000); // auto-refresh every 30 seconds
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+async function fetchAverages() {
+    try {
+        const response = await fetch('../functions/get_average.php');
+        const data = await response.json();
+
+        document.getElementById('avg-moisture').textContent = data.avg_moisture || '0';
+        document.getElementById('avg-temp').textContent = data.avg_temp || '0';
+        document.getElementById('avg-humid').textContent = data.avg_humid || '0';
+        document.getElementById("avg-co2").textContent = data.avg_co2 ?? "--";
+        document.getElementById("avg-ammonia").textContent = data.avg_ammonia ?? "--";
+
+    } catch (error) {
+        console.error('Error fetching averages:', error);
+    }
+}
+
+// Fetch on load
+fetchAverages();
+
+// Optional: Refresh every 10 seconds
+setInterval(fetchAverages, 10000);
+</script>
 
 
 
@@ -555,7 +862,7 @@ function updateAmmonia() {
 
       document.getElementById('ammonia-value').textContent = value;
       document.getElementById('ammonia-last').textContent = last;
-
+      
       // Color logic for ammonia
       const ammoniaBox = document.getElementById('ammonia-value');
       if (value === '--') {
@@ -578,14 +885,6 @@ function updateAmmonia() {
 updateAmmonia();
 setInterval(updateAmmonia, 30000);
 </script>
-
-
-
-
-
-
-
-
 
 <script>
 const resetBtn = document.getElementById("resetSettingsBtn");
@@ -865,9 +1164,6 @@ fetchLastUpdates();
 setInterval(fetchLastUpdates, 60000);
 </script>
 
-
-
-<script src="../assets/js/chart.js"></script>
 <script>
 let uptimeSeconds = 0;
 let uptimeInterval = null;

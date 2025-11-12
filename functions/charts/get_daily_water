@@ -1,0 +1,50 @@
+<?php /*
+header('Content-Type: application/json');
+date_default_timezone_set('Asia/Manila');
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "esp-data";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+  echo json_encode(["error" => $conn->connect_error]);
+  exit();
+}
+
+/*
+  Example table structure:
+  water_usage
+  ------------
+  id (PK)
+  volume_ml (INT)
+  usage_timestamp (DATETIME)
+
+// Compute daily water usage per hour
+
+$query = "
+SELECT 
+  HOUR(usage_timestamp) AS hour,
+  ROUND(SUM(volume_ml), 2) AS total_usage
+FROM water_usage
+WHERE DATE(usage_timestamp) = CURDATE()
+GROUP BY HOUR(usage_timestamp)
+ORDER BY hour;
+";
+
+$result = $conn->query($query);
+$data = [];
+
+while ($row = $result->fetch_assoc()) {
+  $hour = sprintf('%02d:00', $row['hour']);
+  $data[] = [
+    'hour' => $hour,
+    'total_usage' => floatval($row['total_usage'])
+  ];
+}
+
+echo json_encode($data);
+$conn->close();
+*/
+?>
