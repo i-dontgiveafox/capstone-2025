@@ -155,6 +155,45 @@ if (isset($_SESSION['email']) &&
                             </a>-->
                         </div>
                     </div>
+                   <!-- 🧪 Ammonia Sensor Card -->
+<div class="rounded-xl p-4 relative shadow border border-white/20">
+  <div class="absolute inset-0 rounded-xl"
+       style="background: rgba(255,255,255,0.18);
+              backdrop-filter: blur(6px);
+              -webkit-backdrop-filter: blur(6px);
+              border: 1px solid rgba(255,255,255, 1);"></div>
+  
+  <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+    <div class="flex items-center gap-3 w-full">
+      <i class='bx bxs-flask bg-white rounded-full p-3'></i>
+      <div class="flex-1">
+        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Ammonia (NH₃)</h5>
+        <span class="text-xs sm:text-sm md:text-base text-gray-600">
+          Last Update: <span id="ammonia-last">--:--</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Value Display -->
+    <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+      <span id="ammonia-value">--</span>
+      <span class="text-xl text-gray-600">ppm</span>
+    </div>
+
+    <!-- Optional chart link (commented out) -->
+    <!--
+    <a href="#" data-sensor="ammonia"
+       class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
+       View chart <i class='bx bx-right-arrow-alt'></i>
+    </a>
+    -->
+  </div>
+</div>
+
+
+
+
+
                     <div class="rounded-xl p-4 relative shadow border border-white/20">
                         <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
                         <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
@@ -169,7 +208,8 @@ if (isset($_SESSION['email']) &&
                                 <span id="gas-value"></span> 
                                 <span class="text-xl text-gray-600">%</span>
                             </div>
-                            </div>
+                        </div>
+                        
                             
                             <!--<a href="#" data-sensor="methane" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
                                 View chart <i class='bx bx-right-arrow-alt'></i>
@@ -178,7 +218,7 @@ if (isset($_SESSION['email']) &&
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     </div>
     
     </main>
@@ -505,6 +545,38 @@ if (isset($_SESSION['email']) &&
 
 
 
+<script>
+function updateAmmonia() {
+  fetch('../functions/get_ammonia_data.php')
+    .then(response => response.json())
+    .then(data => {
+      const value = data.ammonia_value ?? '--';
+      const last = data.ammonia_last ?? '--';
+
+      document.getElementById('ammonia-value').textContent = value;
+      document.getElementById('ammonia-last').textContent = last;
+
+      // Color logic for ammonia
+      const ammoniaBox = document.getElementById('ammonia-value');
+      if (value === '--') {
+        ammoniaBox.style.color = 'gray';
+      } else {
+        const val = parseFloat(value);
+        if (val <= 8) {
+          ammoniaBox.style.color = 'gray-700'; // green - safe (ready to harvest)
+        } else if (val <= 15) {
+          ammoniaBox.style.color = 'gray-700'; // yellow - moderate
+        } else {
+          ammoniaBox.style.color = ''; // red - high
+        }
+      }
+    })
+    .catch(err => console.error('❌ Failed to load ammonia data:', err));
+}
+
+</script>
+
+
 
 
 
@@ -513,9 +585,6 @@ if (isset($_SESSION['email']) &&
 
 
 <script>
-// === RESET SETTINGS FUNCTIONALITY WITH TOAST ===
-
-// Select elements
 const resetBtn = document.getElementById("resetSettingsBtn");
 const resetModal = document.getElementById("reset-modal");
 const cancelReset = document.getElementById("cancel-reset");
