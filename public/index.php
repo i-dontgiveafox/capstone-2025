@@ -161,7 +161,7 @@ if (isset($_SESSION['email']) &&
                             <div class="flex items-center gap-3 w-full">
                                 <i class='bx bx-wind bg-white rounded-full p-3'></i>
                                 <div class="flex-1">
-                                    <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Methane</h5>
+                                    <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Co2 Gas</h5>
                                     <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="gas-last"> <?php echo $gas_last; ?></span></span>
                                 
                                 </div>
