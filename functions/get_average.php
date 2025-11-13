@@ -2,10 +2,10 @@
 header('Content-Type: application/json');
 
 // Database connection
-$servername = "localhost";
-$username = "root";        // change if needed
-$password = "";            // change if needed
-$dbname = "esp-data";      // your database name
+$servername = "srv2054.hstgr.io";
+$username = "vermicast2025";
+$password = "Admin@vermicast2025";
+$dbname = "u950148460_espdata";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {

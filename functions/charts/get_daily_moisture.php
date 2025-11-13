@@ -2,10 +2,10 @@
 header('Content-Type: application/json');
 date_default_timezone_set('Asia/Manila');
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "esp-data"; // adjust if needed
+$servername = "srv2054.hstgr.io";
+$username = "vermicast2025";
+$password = "Admin@vermicast2025";
+$dbname = "u950148460_espdata";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {

@@ -1,9 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "esp-data";
-
+$servername = "srv2054.hstgr.io";
+$username = "vermicast2025";
+$password = "Admin@vermicast2025";
+$dbname = "u950148460_espdata";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 

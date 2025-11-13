@@ -1,9 +1,8 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root"; // default in XAMPP
-$password = "";     // default is empty
-$dbname = "esp-data";
+$servername = "srv2054.hstgr.io";
+$username = "vermicast2025";
+$password = "Admin@vermicast2025";
+$dbname = "u950148460_espdata";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
