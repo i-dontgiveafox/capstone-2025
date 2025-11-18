@@ -1,9 +1,5 @@
 <?php
-
-$servername = "srv2054.hstgr.io";
-$username = "vermicast2025";
-$password = "Admin@vermicast2025";
-$dbname = "u950148460_espdata";
+require_once __DIR__ . '/../config/db.php';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

@@ -497,8 +497,8 @@ if (isset($_SESSION['email']) &&
         <div class="relative w-full">
           <select id="durationSelect" class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
             <option value="2000" selected>2 seconds</option>
-            <option value="2500">2.5 seconds</option>
             <option value="3000">3 seconds</option>
+            <option value="5000">5 seconds</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
