@@ -92,125 +92,141 @@ if (isset($_SESSION['email']) &&
                 </div>
 
 
-            <!-- Right: Sensor Cards (approx 60%) -->
-            <div class="md:col-span-7 h-full flex flex-col">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="rounded-xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
-                            <div class="flex items-center gap-3 w-full">
-                                <i class='bx bxs-thermometer bg-white rounded-full p-3'></i>
-                                <div class="flex-1">
-                                    <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Temperature</h5>
-                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="temp-last"> <?php echo $temp_last; ?></span></span>
-                                    
-                                </div>
-                            </div>
-                            <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
-                                <span id="temp-value"></span> 
-                                <span class="text-xl text-black/80">°C</span>
-                            </div>
-                            <!--<a href="#" data-sensor="temperature" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
-                                View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>-->
-                        </div>
-                    </div>
-                    <div class="rounded-xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
-                            <div class="flex items-center gap-3 w-full">
-                                <i class='bx bx-water bg-white rounded-full p-3'></i>
-                                <div class="flex-1">
-                                    <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Humidity</h5>
-                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="humid-last"> <?php echo $gas_last; ?></span></span>
-                                    
-                                </div>
-                            </div>
-                            <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
-                                <span id="humid-value"></span> 
-                                <span class="text-xl text-gray-600">%</span>
-                            </div>
-                            <!--<a href="#" data-sensor="humidity" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
-                                View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>-->
-                        </div>
-                    </div>
-                    <div class="rounded-xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
-                            <div class="flex items-center gap-3 w-full">
-                                <i class='bx bx-droplet bg-white rounded-full p-3'></i>
-                                <div class="flex-1">
-                                    <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Moisture</h5>
-                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="moist-last"> <?php echo $moist_last; ?></span></span>
-                                    
-                                </div>
-                            </div>
-                            <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
-                                <span id="moist-value"></span> 
-                                <span class="text-xl text-gray-600">%</span>
-                            </div>
-                            <!--<a href="#" data-sensor="moisture" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
-                                View chart <i class='bx bx-right-arrow-alt'></i>
-                            </a>-->
-                        </div>
-                    </div>
-                   <!-- 🧪 Ammonia Sensor Card -->
-<div class="rounded-xl p-4 relative shadow border border-white/20">
-  <div class="absolute inset-0 rounded-xl"
-       style="background: rgba(255,255,255,0.18);
-              backdrop-filter: blur(6px);
-              -webkit-backdrop-filter: blur(6px);
-              border: 1px solid rgba(255,255,255, 1);"></div>
-  
-  <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
-    <div class="flex items-center gap-3 w-full">
-      <i class='bx bxs-flask bg-white rounded-full p-3'></i>
-      <div class="flex-1">
-        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Ammonia (NH₃)</h5>
-        <span class="text-xs sm:text-sm md:text-base text-gray-600">
-          Last Update: <span id="ammonia-last">--:--</span>
-        </span>
-      </div>
-    </div>
+           <!-- Right: Sensor Cards (approx 60%) -->
+<div class="md:col-span-7 h-full flex flex-col">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-    <!-- Value Display -->
-    <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
-      <span id="ammonia-value">--</span>
-      <span class="text-xl text-gray-600">ppm</span>
-    </div>
+        <!-- TEMPERATURE -->
+        <div class="rounded-xl p-4 relative shadow border border-white/20">
+            <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
+            <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                <div class="flex items-center gap-3 w-full">
+                    <i class='bx bxs-thermometer bg-white rounded-full p-3'></i>
+                    <div class="flex-1">
+                        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Temperature</h5>
+                        <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: 
+                            <span id="temp-last"><?php echo $temp_last; ?></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                    <span id="temp-value"></span>
+                    <span class="text-xl text-black/80">°C</span>
+                </div>
+            </div>
+        </div>
 
-    <!-- Optional chart link (commented out) -->
-    <!--
-    <a href="#" data-sensor="ammonia"
-       class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
-       View chart <i class='bx bx-right-arrow-alt'></i>
-    </a>
-    -->
-  </div>
+        <!-- HUMIDITY -->
+        <div class="rounded-xl p-4 relative shadow border border-white/20">
+            <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
+            <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                <div class="flex items-center gap-3 w-full">
+                    <i class='bx bx-water bg-white rounded-full p-3'></i>
+                    <div class="flex-1">
+                        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Humidity</h5>
+                        <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: 
+                            <span id="humid-last"><?php echo $gas_last; ?></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                    <span id="humid-value"></span>
+                    <span class="text-xl text-gray-600">%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOISTURE -->
+        <div class="rounded-xl p-4 relative shadow border border-white/20">
+            <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
+            <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                <div class="flex items-center gap-3 w-full">
+                    <i class='bx bx-droplet bg-white rounded-full p-3'></i>
+                    <div class="flex-1">
+                        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Moisture</h5>
+                        <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: 
+                            <span id="moist-last"><?php echo $moist_last; ?></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                    <span id="moist-value"></span>
+                    <span class="text-xl text-gray-600">%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- AMMONIA -->
+        <div class="rounded-xl p-4 relative shadow border border-white/20">
+            <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+            <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                <div class="flex items-center gap-3 w-full">
+                    <i class='bx bxs-flask bg-white rounded-full p-3'></i>
+                    <div class="flex-1">
+                        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Ammonia (NH₃)</h5>
+                        <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: 
+                            <span id="ammonia-last">--:--</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                    <span id="ammonia-value">--</span>
+                    <span class="text-xl text-gray-600">ppm</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CO2 -->
+        <div class="rounded-xl p-4 relative shadow border border-white/20">
+            <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
+            <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                <div class="flex items-center gap-3 w-full">
+                    <i class='bx bx-wind bg-white rounded-full p-3'></i>
+                    <div class="flex-1">
+                        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Co2 Gas</h5>
+                        <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: 
+                            <span id="gas-last"><?php echo $gas_last; ?></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                    <span id="gas-value"></span>
+                    <span class="text-xl text-gray-600">%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WATER LEVEL (FIXED POSITION) -->
+        <div class="rounded-xl p-4 relative shadow border border-white/20">
+            <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,1);"></div>
+            <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
+                <div class="flex items-center gap-3 w-full">
+                    <i class='bx bxs-bell-ring bg-white rounded-full p-3'></i>
+                    <div class="flex-1">
+                        <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Water Level</h5>
+                        <span class="text-xs sm:text-sm md:text-base text-gray-600">
+                            Last Update: <span id="water-last"><?php echo $water_last ?? '--'; ?></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
+                    <span id="water-value">--</span>
+                    <span class="text-xl text-gray-600">%</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
 
 
-
-                    <div class="rounded-xl p-4 relative shadow border border-white/20">
-                        <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 1);"></div>
-                        <div class="relative z-10 h-60 rounded p-4 flex flex-col items-start justify-start text-gray-800">
-                            <div class="flex items-center gap-3 w-full">
-                                <i class='bx bx-wind bg-white rounded-full p-3'></i>
-                                <div class="flex-1">
-                                    <h5 class="text-lg sm:text-xl md:text-xl font-semibold">Co2 Gas</h5>
-                                    <span class="text-xs sm:text-sm md:text-base text-gray-600">Last Update: <span id="gas-last"> <?php echo $gas_last; ?></span></span>
-                                
-                                </div>
-                                <div class="absolute top-35 right-10 text-4xl font-bold text-gray-600 mt-1">
-                                <span id="gas-value"></span> 
-                                <span class="text-xl text-gray-600">%</span>
-                            </div>
-                        </div>
+                        
                         
                             
+
+                        
                             <!--<a href="#" data-sensor="methane" class="mt-auto self-end text-xs sm:text-sm md:text-base text-[#0f5132] hover:underline flex items-center gap-2 view-chart-link">
                                 View chart <i class='bx bx-right-arrow-alt'></i>
                             </a>-->
@@ -577,6 +593,39 @@ if (isset($_SESSION['email']) &&
 </body>
 
 </html>
+
+
+
+
+
+<script>
+function updateWaterLevel() {
+    fetch("../functions/get_water_level.php")
+        .then(res => res.json())
+        .then(data => {
+            console.log("Water Level Data:", data); // <-- debug
+
+            document.getElementById("water-value").textContent =
+                data.water_value ?? "--";
+
+            document.getElementById("water-last").textContent =
+                data.last_update ?? "--";
+        })
+        .catch(err => console.error("Fetch Water Error:", err));
+}
+
+updateWaterLevel();                  // Load immediately
+setInterval(updateWaterLevel, 5000); // Update every 5 sec
+</script>
+
+
+
+
+
+
+
+
+
 
 
 
