@@ -1,57 +1,63 @@
 <header class="">
     <nav class="fixed top-0 left-0 w-full z-50 flex bg-[#1e1e1e] text-white justify-between items-center py-2 pr-10 shadow-md">
-        <div class="flex items-center gap-2 ml-10">
+        <div class="flex items-center gap-2 ml-4 md:ml-10">
             <span class="text-xl font-semibold text-white"><span class="font-light">Vermi</span><span class="font-bold">Care</span>
         </div>
 
 
         <div class="nav-links z-50 duration-500 hidden md:flex md:static absolute bg-[#1e1e1e] md:min-h-fit min-h-[60vh] left-0 top-0 md:top-auto md:w-auto w-full items-center px-5 text-white">
-            <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
-                <li><a class="hover:text-black hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="#"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-                <li><a class="hover:text-black hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="#"><i class='bx bxs-chart' ></i> Charts</a></li>
-                <li><a class="hover:text-black hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="#"><i class='bx bxs-report'></i> Logs</a></li>
-                <!-- <li><a class="hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full" href="#">Profile</a></li>-->
+            <!-- Adjusted md:gap-[2vw] from [4vw] for tighter spacing on desktop -->
+            <ul class="flex md:flex-row flex-col md:items-center md:gap-4 gap-8">
+                <!-- Dashboard Link -->
+                <li><a class="md:flex hidden items-center gap-2 hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="index.php">
+                    <i class='bx bxs-dashboard'></i> Dashboard
+                </a></li>
+
+                <!-- Logs Link -->
+                <li><a class="md:flex hidden items-center gap-2 hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="view_logs.php">
+                    <i class='bx bxs-report'></i> Logs
+                </a></li>
+                
                 <!-- mobile: logout inside the collapsible nav-links -->
                 <li><a id="mobile-logout" class="md:hidden hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full block cursor-pointer"><i class='bx bx-log-out'></i> Logout</a></li>
             </ul>
-            
-            
         </div>
 
+        <!-- Right side: Notifications and Logout -->
         <div class="flex items-center gap-2">
             <!-- Notification Button -->
             <div class="relative">
-            <button id="notifBtn" class="text-white px-3 py-1 ml-2 rounded-full hover:bg-[#B6FC67] hover:text-black relative">
-                <ion-icon class="text-2xl" name="notifications-outline"></ion-icon>
-                <span id="notifBadge" class="hidden absolute top-0 right-0 bg-red-500 text-xs text-white rounded-full px-1">3</span>
-            </button>
+                <button id="notifBtn" class="text-white px-3 py-1 ml-2 rounded-full hover:bg-[#B6FC67] hover:text-black relative">
+                    <ion-icon class="text-2xl" name="notifications-outline"></ion-icon>
+                    <span id="notifBadge" class="hidden absolute top-0 right-0 bg-red-500 text-xs text-white rounded-full px-1">3</span>
+                </button>
 
-            <!-- Notification Dropdown -->
-            <div id="notifDropdown"
-                class="hidden absolute right-0 mt-2 w-80 bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 rounded-xl shadow-lg overflow-hidden z-50">
-                
-                <div class="flex justify-between items-center px-4 py-2 border-b border-gray-200">
-                    <h3 class="text-gray-800 font-semibold">Notifications</h3>
-                    <button id="markAllRead" class="text-sm text-blue-600 hover:underline">Mark all as read</button>
+                <!-- Notification Dropdown -->
+                <div id="notifDropdown"
+                    class="hidden absolute right-0 mt-2 w-80 bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 rounded-xl shadow-lg overflow-hidden z-50">
+                    
+                    <div class="flex justify-between items-center px-4 py-2 border-b border-gray-200">
+                        <h3 class="text-gray-800 font-semibold">Notifications</h3>
+                        <button id="markAllRead" class="text-sm text-blue-600 hover:underline">Mark all as read</button>
+                    </div>
+                    
+                    <!-- Scrollable list -->
+                    <div class="max-h-64 overflow-y-auto">
+                        <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
+                            <p class="text-sm text-gray-700">🌿 Irrigation activated automatically (08:00 AM)</p>
+                            <p class="text-xs text-gray-500">2 minutes ago</p>
+                        </div>
+                        <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
+                            <p class="text-sm text-gray-700">💨 Fan turned on due to high temperature</p>
+                            <p class="text-xs text-gray-500">10 minutes ago</p>
+                        </div>
+                        <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
+                            <p class="text-sm text-gray-700">💧 Soil moisture dropped below threshold</p>
+                            <p class="text-xs text-gray-500">30 minutes ago</p>
+                        </div>
+                        <!-- You can dynamically add more items here later -->
+                    </div>
                 </div>
-                
-                <!-- Scrollable list -->
-                <div class="max-h-64 overflow-y-auto">
-                    <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
-                        <p class="text-sm text-gray-700">🌿 Irrigation activated automatically (08:00 AM)</p>
-                        <p class="text-xs text-gray-500">2 minutes ago</p>
-                    </div>
-                    <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
-                        <p class="text-sm text-gray-700">💨 Fan turned on due to high temperature</p>
-                        <p class="text-xs text-gray-500">10 minutes ago</p>
-                    </div>
-                    <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
-                        <p class="text-sm text-gray-700">💧 Soil moisture dropped below threshold</p>
-                        <p class="text-xs text-gray-500">30 minutes ago</p>
-                    </div>
-                    <!-- You can dynamically add more items here later -->
-                </div>
-            </div>
             </div>
 
             <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl z-15 cursor-pointer md:hidden"></ion-icon>
