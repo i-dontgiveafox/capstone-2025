@@ -64,7 +64,7 @@ $google_login_url = $client->createAuthUrl();
                                 <input type="email" 
                                        name="email" 
                                        class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#B6FC67] bg-white/80"
-                                       placeholder="john@example.com"
+                                       placeholder="Admin"
                                        required>
                             </div>
                         </div>
@@ -107,22 +107,22 @@ $google_login_url = $client->createAuthUrl();
                         </button>
 
                         <!-- Sign Up Link -->
-                        <div class="text-center mt-4">
-                            <a href="signup.php" class="text-gray-600 hover:text-[#1e1e1e] text-sm">
-                                Don't have an account? <span class="font-semibold">Sign up</span>
-                            </a>
-                        </div>
+                        <!--<div class="text-center mt-4">-->
+                        <!--    <a href="signup.php" class="text-gray-600 hover:text-[#1e1e1e] text-sm">-->
+                        <!--        Don't have an account? <span class="font-semibold">Sign up</span>-->
+                        <!--    </a>-->
+                        <!--</div>-->
 
                         <!-- Social Login -->
-                        <div class="mt-6 text-center">
-                            <span class="text-gray-500 text-sm">Or continue with</span>
-                            <div class="flex justify-center space-x-4 mt-3">
-                                <a href="<?php echo $google_login_url; ?>" class="w-full flex justify-center">
-                                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" 
-                                        alt="Sign in with Google" class="h-10 transition-transform duration-300 hover:scale-105">
-                                </a>
-                            </div>
-                        </div>
+                        <!--<div class="mt-6 text-center">-->
+                        <!--    <span class="text-gray-500 text-sm">Or continue with</span>-->
+                        <!--    <div class="flex justify-center space-x-4 mt-3">-->
+                        <!--        <a href="<?php echo $google_login_url; ?>" class="w-full flex justify-center">-->
+                        <!--            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" -->
+                        <!--                alt="Sign in with Google" class="h-10 transition-transform duration-300 hover:scale-105">-->
+                        <!--        </a>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                     </form>
                 </div>
             </div>

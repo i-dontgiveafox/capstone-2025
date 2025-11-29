@@ -1,150 +1,216 @@
 <header class="">
-    <nav class="fixed top-0 left-0 w-full z-50 flex bg-[#1e1e1e] text-white justify-between items-center py-2 pr-10 shadow-md">
-        <div class="flex items-center gap-2 ml-4 md:ml-10">
-            <span class="text-xl font-semibold text-white"><span class="font-light">Vermi</span><span class="font-bold">Care</span>
+    <nav class="fixed top-0 left-0 w-full z-50 flex bg-[#1e1e1e] text-white justify-between items-center pr-6 shadow-md h-16">
+        
+        <div class="h-full flex items-center gap-2 ml-4 md:ml-8">
+            <span class="text-xl md:text-2xl font-semibold text-white flex items-center tracking-wide">
+                <span class="font-light">Vermi</span><span class="font-bold">Care</span>
+            </span>
         </div>
 
-
-        <div class="nav-links z-50 duration-500 hidden md:flex md:static absolute bg-[#1e1e1e] md:min-h-fit min-h-[60vh] left-0 top-0 md:top-auto md:w-auto w-full items-center px-5 text-white">
-            <!-- Adjusted md:gap-[2vw] from [4vw] for tighter spacing on desktop -->
-            <ul class="flex md:flex-row flex-col md:items-center md:gap-4 gap-8">
-                <!-- Dashboard Link -->
-                <li><a class="md:flex hidden items-center gap-2 hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="index.php">
-                    <i class='bx bxs-dashboard'></i> Dashboard
-                </a></li>
-
-                <!-- Logs Link -->
-                <li><a class="md:flex hidden items-center gap-2 hover:bg-[#B6FC67] px-2 py-3 rounded-full" href="view_logs.php">
-                    <i class='bx bxs-report'></i> Logs
-                </a></li>
-                
-                <!-- mobile: logout inside the collapsible nav-links -->
-                <li><a id="mobile-logout" class="md:hidden hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full block cursor-pointer"><i class='bx bx-log-out'></i> Logout</a></li>
+        <div id="nav-links" class="nav-links duration-300 absolute md:static left-0 top-[-500px] md:top-auto w-full md:w-auto bg-[#1e1e1e] md:bg-transparent z-40 px-5 pb-6 md:pb-0 shadow-xl md:shadow-none">
+            <ul class="flex md:flex-row flex-col md:items-center md:gap-6 gap-6 border-t border-gray-700 md:border-none pt-8 md:pt-0 md:h-full">
+                <li>
+                    <a class="flex items-center gap-3 hover:bg-[#B6FC67] hover:text-black px-4 py-3 md:py-0 md:h-10 rounded-full transition-colors text-sm md:text-base font-medium" href="index.php">
+                        <i class='bx bxs-dashboard text-lg md:text-xl relative top-[1px]'></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-3 hover:bg-[#B6FC67] hover:text-black px-4 py-3 md:py-0 md:h-10 rounded-full transition-colors text-sm md:text-base font-medium" href="view_logs.php">
+                        <i class='bx bxs-report text-lg md:text-xl relative top-[1px]'></i> Logs
+                    </a>
+                </li>
+                <li>
+                    <a id="mobile-logout" class="md:hidden flex items-center gap-3 text-red-400 hover:bg-red-500/10 px-4 py-3 rounded-full cursor-pointer transition-colors text-sm md:text-base font-medium">
+                        <i class='bx bx-log-out text-lg md:text-xl'></i> Logout
+                    </a>
+                </li>
             </ul>
         </div>
 
-        <!-- Right side: Notifications and Logout -->
-        <div class="flex items-center gap-2">
-            <!-- Notification Button -->
-            <div class="relative">
-                <button id="notifBtn" class="text-white px-3 py-1 ml-2 rounded-full hover:bg-[#B6FC67] hover:text-black relative">
+        <div class="flex items-center gap-4 z-50 h-full">
+            
+            <div class="relative flex items-center h-full">
+                <button id="notifBtn" class="text-white px-2 py-2 rounded-full hover:bg-[#333] transition-colors relative flex items-center justify-center">
                     <ion-icon class="text-2xl" name="notifications-outline"></ion-icon>
-                    <span id="notifBadge" class="hidden absolute top-0 right-0 bg-red-500 text-xs text-white rounded-full px-1">3</span>
+                    <span id="notifBadge" class="hidden absolute top-1 right-1 bg-red-500 text-[10px] font-bold text-white rounded-full h-4 w-4 flex items-center justify-center animate-pulse">0</span>
                 </button>
 
-                <!-- Notification Dropdown -->
-                <div id="notifDropdown"
-                    class="hidden absolute right-0 mt-2 w-80 bg-gradient-to-br from-[#CCEBD5]/90 to-[#B0CFCF]/90 rounded-xl shadow-lg overflow-hidden z-50">
-                    
-                    <div class="flex justify-between items-center px-4 py-2 border-b border-gray-200">
-                        <h3 class="text-gray-800 font-semibold">Notifications</h3>
-                        <button id="markAllRead" class="text-sm text-blue-600 hover:underline">Mark all as read</button>
+                <div id="notifDropdown" class="hidden absolute right-0 top-14 mt-2 w-80 bg-white rounded-xl shadow-2xl overflow-hidden z-50 text-gray-800 ring-1 ring-black ring-opacity-5">
+                    <div class="flex justify-between items-center px-4 py-3 border-b border-gray-100 bg-gray-50">
+                        <h3 class="text-sm font-bold text-gray-700">Notifications</h3>
                     </div>
                     
-                    <!-- Scrollable list -->
-                    <div class="max-h-64 overflow-y-auto">
-                        <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
-                            <p class="text-sm text-gray-700">🌿 Irrigation activated automatically (08:00 AM)</p>
-                            <p class="text-xs text-gray-500">2 minutes ago</p>
+                    <div id="notifList" class="max-h-64 overflow-y-auto">
+                        <div class="px-4 py-3 text-center text-gray-500 text-sm">
+                            No new alerts.
                         </div>
-                        <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
-                            <p class="text-sm text-gray-700">💨 Fan turned on due to high temperature</p>
-                            <p class="text-xs text-gray-500">10 minutes ago</p>
-                        </div>
-                        <div class="px-4 py-3 hover:bg-gray-100 border-b border-gray-200 cursor-pointer">
-                            <p class="text-sm text-gray-700">💧 Soil moisture dropped below threshold</p>
-                            <p class="text-xs text-gray-500">30 minutes ago</p>
-                        </div>
-                        <!-- You can dynamically add more items here later -->
                     </div>
                 </div>
             </div>
 
-            <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl z-15 cursor-pointer md:hidden"></ion-icon>
-            <!-- desktop: show logout on the far right, hidden on small screens -->
-            <a id="desktop-logout" class="hidden md:inline-block hover:text-black hover:bg-[#B6FC67] px-4 py-3 rounded-full ml-4 cursor-pointer"><i class='bx bx-log-out'></i> Logout</a>
-        </div>
-        
-
-        <script>
-            const navLinks = document.querySelector('.nav-links');
-            function onToggleMenu(e) {
-                e.name = e.name === 'menu' ? 'close' : 'menu';
-                // Toggle visibility on mobile by toggling the 'hidden' class
-                navLinks.classList.toggle('hidden');
-            }
-            // Logout confirmation modal logic
-            function openLogoutModal(targetUrl) {
-                const modal = document.getElementById('logout-modal');
-                modal.classList.remove('hidden');
-                // store target URL (if needed in future)
-                modal.dataset.target = targetUrl || '../public/logout.php';
-            }
-
-            function closeLogoutModal() {
-                const modal = document.getElementById('logout-modal');
-                if (modal) modal.classList.add('hidden');
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                const desktop = document.getElementById('desktop-logout');
-                const mobile = document.getElementById('mobile-logout');
-                const confirmBtn = document.getElementById('confirm-logout');
-                const cancelBtn = document.getElementById('cancel-logout');
-
-                if (desktop) desktop.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    openLogoutModal('../public/logout.php');
-                });
-
-                if (mobile) mobile.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Ensure mobile menu is closed for clarity then open modal
-                    navLinks.classList.add('hidden');
-                    openLogoutModal('../public/logout.php');
-                });
-
-                if (confirmBtn) confirmBtn.addEventListener('click', function () {
-                    const modal = document.getElementById('logout-modal');
-                    const target = modal && modal.dataset.target ? modal.dataset.target : '../public/logout.php';
-                    window.location.href = target;
-                });
-
-                if (cancelBtn) cancelBtn.addEventListener('click', function () {
-                    closeLogoutModal();
-                });
-            });
-
-        </script>
-
-        <!-- Logout confirmation modal (hidden by default) -->
-        <div id="logout-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-20">
-            <div class="bg-white rounded-lg p-6 w-11/12 max-w-md">
-                <h3 class="text-lg font-semibold mb-2 text-gray-900">Confirm logout</h3>
-                <p class="text-sm text-gray-700 mb-4">Are you sure you want to logout?</p>
-                <div class="flex justify-end gap-3">
-                    <button id="cancel-logout" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-300">Cancel</button>
-                    <button id="confirm-logout" class="px-4 py-2 rounded bg-red-500 hover:bg-red-600">Logout</button>
-                </div>
+            <div class="md:hidden text-3xl cursor-pointer flex items-center text-white hover:text-[#B6FC67] transition-colors">
+                <ion-icon onclick="onToggleMenu(this)" name="menu"></ion-icon>
             </div>
+
+            <a id="desktop-logout" class="hidden md:inline-flex items-center gap-2 text-white hover:text-[#B6FC67] font-medium text-base cursor-pointer transition-colors">
+                <i class='bx bx-log-out text-2xl'></i> Logout
+            </a>
         </div>
-
-        <!-- For notification dropdown) -->
-        <script>
-        const notifBtn = document.getElementById('notifBtn');
-        const notifDropdown = document.getElementById('notifDropdown');
-
-        notifBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            notifDropdown.classList.toggle('hidden');
-        });
-
-        // Hide dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!notifDropdown.contains(e.target) && !notifBtn.contains(e.target)) {
-            notifDropdown.classList.add('hidden');
-            }
-        });
-        </script>
     </nav>
+
+    <div id="logout-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-6 w-11/12 max-w-sm shadow-2xl transform transition-all scale-100">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                    <i class='bx bx-log-out text-2xl text-red-600'></i>
+                </div>
+                <h3 class="text-lg leading-6 font-bold text-gray-900">Logout?</h3>
+                <p class="text-sm text-gray-500 mt-2">Are you sure you want to end your session?</p>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <button id="cancel-logout" class="w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:text-sm">Cancel</button>
+                <button id="confirm-logout" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:text-sm">Logout</button>
+            </div>
+        </div>
+    </div>
 </header>
+
+<script>
+    // --- MENU TOGGLE LOGIC ---
+    const navLinks = document.getElementById('nav-links');
+
+    function onToggleMenu(icon) {
+        icon.name = icon.name === 'menu' ? 'close' : 'menu';
+        if (navLinks.classList.contains('top-[-500px]')) {
+            navLinks.classList.remove('top-[-500px]');
+            navLinks.classList.add('top-16'); 
+        } else {
+            navLinks.classList.add('top-[-500px]');
+            navLinks.classList.remove('top-16');
+        }
+    }
+
+    // --- LOGOUT MODAL LOGIC ---
+    function openLogoutModal(targetUrl) {
+        const modal = document.getElementById('logout-modal');
+        modal.classList.remove('hidden');
+        modal.dataset.target = targetUrl || 'logout.php'; 
+    }
+
+    function closeLogoutModal() {
+        const modal = document.getElementById('logout-modal');
+        if (modal) modal.classList.add('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const desktop = document.getElementById('desktop-logout');
+        const mobile = document.getElementById('mobile-logout');
+        const confirmBtn = document.getElementById('confirm-logout');
+        const cancelBtn = document.getElementById('cancel-logout');
+
+        if (desktop) desktop.addEventListener('click', function (e) {
+            e.preventDefault();
+            openLogoutModal('../public/logout.php');
+        });
+
+        if (mobile) mobile.addEventListener('click', function (e) {
+            e.preventDefault();
+            const icon = document.querySelector('ion-icon[name="close"]');
+            if(icon) onToggleMenu(icon);
+            openLogoutModal('../public/logout.php');
+        });
+
+        if (confirmBtn) confirmBtn.addEventListener('click', function () {
+            const modal = document.getElementById('logout-modal');
+            window.location.href = modal.dataset.target || '../public/logout.php';
+        });
+
+        if (cancelBtn) cancelBtn.addEventListener('click', closeLogoutModal);
+        
+        // Start Fetching Notifications (Every 30 Minutes)
+        setInterval(fetchNotifications, 1800000); 
+        fetchNotifications(); 
+    });
+
+    // --- NOTIFICATION INTERACTION LOGIC ---
+    const notifBtn = document.getElementById('notifBtn');
+    const notifDropdown = document.getElementById('notifDropdown');
+    const badge = document.getElementById('notifBadge');
+    const list = document.getElementById('notifList');
+
+    notifBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notifDropdown.classList.toggle('hidden');
+        
+        // 1. Hide Badge Visually
+        if (!badge.classList.contains('hidden')) {
+            badge.classList.add('hidden');
+            
+            // 2. Tell Database to Mark as Read
+            fetch('../functions/mark_as_read.php'); 
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!notifDropdown.contains(e.target) && !notifBtn.contains(e.target)) {
+            notifDropdown.classList.add('hidden');
+        }
+    });
+
+    // --- FETCH DATA LOGIC ---
+    function fetchNotifications() {
+        fetch('../functions/fetch_notifications.php')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('notifList');
+                
+                // 1. Calculate Unread Count for the Badge
+                // We filter the data to count only items where is_read is '0'
+                const unreadCount = data.filter(item => item.is_read == 0).length;
+
+                // 2. Update Badge Display
+                if (unreadCount > 0) {
+                    badge.innerText = unreadCount;
+                    // Only show badge if the dropdown is currently closed
+                    if (notifDropdown.classList.contains('hidden')) {
+                        badge.classList.remove('hidden');
+                    }
+                } else {
+                    badge.classList.add('hidden');
+                }
+
+                // If dropdown is open, we can still update the list so users see new stuff arrive in real-time
+                // But we don't want to be annoying. For now, let's update list always.
+
+                // 3. Update List HTML
+                list.innerHTML = ''; 
+
+                if (data.length === 0) {
+                    list.innerHTML = `<div class="px-4 py-3 text-center text-gray-500 text-sm">No new alerts.</div>`;
+                    return;
+                }
+
+                data.forEach(alert => {
+                    let iconColor = alert.type === 'gas' ? 'text-red-500' : 'text-blue-500';
+                    let iconClass = alert.type === 'gas' ? 'bxs-hot' : 'bxs-droplet';
+                    
+                    // Visual styling: If read, make it lighter/grayer. If unread, make it bold/white background.
+                    // Assuming your dropdown bg is white.
+                    let bgClass = alert.is_read == 1 ? 'bg-gray-50 opacity-75' : 'bg-white';
+                    let textClass = alert.is_read == 1 ? 'font-normal text-gray-600' : 'font-bold text-gray-900';
+
+                    const item = `
+                        <div class="px-4 py-3 ${bgClass} hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0 flex items-start gap-3 transition-colors">
+                            <i class='bx ${iconClass} ${iconColor} text-xl mt-1'></i>
+                            <div>
+                                <p class="text-sm ${textClass}">${alert.message}</p>
+                                <p class="text-xs text-gray-500 mt-1">${alert.time}</p>
+                            </div>
+                        </div>
+                    `;
+                    list.innerHTML += item;
+                });
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }
+</script>
