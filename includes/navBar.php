@@ -128,7 +128,7 @@
         if (cancelBtn) cancelBtn.addEventListener('click', closeLogoutModal);
         
         // Start Fetching Notifications (Every 30 Minutes)
-        setInterval(fetchNotifications, 1800000); 
+        setInterval(fetchNotifications, 60000); 
         fetchNotifications(); 
     });
 

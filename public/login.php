@@ -61,7 +61,7 @@ $google_login_url = $client->createAuthUrl();
                                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-600">
                                     <i class='bx bx-envelope'></i>
                                 </span>
-                                <input type="email" 
+                                <input type="text" 
                                        name="email" 
                                        class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#B6FC67] bg-white/80"
                                        placeholder="Admin"

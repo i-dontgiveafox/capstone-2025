@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 29, 2025 at 09:54 AM
+-- Generation Time: Dec 09, 2025 at 08:21 AM
 -- Server version: 11.8.3-MariaDB-log
 -- PHP Version: 7.2.34
 
@@ -140,7 +140,8 @@ INSERT INTO `ammonia_readings` (`id`, `ammonia_value`, `timestamp`) VALUES
 (100, 4, '2025-11-18 21:18:50'),
 (101, 7, '2025-11-18 21:21:15'),
 (102, 5, '2025-11-18 21:21:45'),
-(103, 6, '2025-11-18 21:22:16');
+(103, 0.05, '2025-11-18 21:22:16'),
+(104, 0, '2025-12-08 09:57:10');
 
 -- --------------------------------------------------------
 
@@ -159,7 +160,7 @@ CREATE TABLE `co2_threshold` (
 --
 
 INSERT INTO `co2_threshold` (`id`, `value`, `updated_at`) VALUES
-(1, 6, '2025-11-29 09:51:45');
+(1, 0.05, '2025-11-29 12:09:12');
 
 -- --------------------------------------------------------
 
@@ -858,7 +859,8 @@ INSERT INTO `dht11_data` (`temp_id`, `temp_sensor`, `temp_location`, `temp_heat`
 (2002, 'DHT11', 'LinkTest', '32.0', '80.0', '0', '2025-11-20 08:39:02'),
 (2003, 'DHT11', 'LinkTest', '31.0', '80.0', '0', '2025-11-20 08:40:05'),
 (2004, 'DHT11', 'LinkTest', '29.0', '80.0', '0', '2025-11-20 08:40:33'),
-(2007, 'DHT11', 'LinkTest', '32.5', '80.0', '0', '2025-11-23 01:32:06');
+(2007, 'DHT11', 'LinkTest', '32.5', '80.0', '0', '2025-11-23 01:32:06'),
+(2008, 'DHT11', 'Lab', '27.00', '90.20', '0', '2025-12-08 09:57:19');
 
 -- --------------------------------------------------------
 
@@ -1850,23 +1852,32 @@ INSERT INTO `gas_data` (`gas_id`, `gas_percent`, `gas_status`, `gas_timestamp`, 
 (1614, 0.04, 'NORMAL', '2025-11-29 09:11:20', 1),
 (1615, 0.05, 'NORMAL', '2025-11-29 09:11:42', 1),
 (1616, 0.1, 'NORMAL', '2025-11-29 09:11:56', 1),
-(1617, 0.7, 'NORMAL', '2025-11-29 09:18:35', 0),
-(1618, 1, 'NORMAL', '2025-11-29 09:18:45', 0),
-(1619, 0.1, 'NORMAL', '2025-11-29 09:18:53', 0),
-(1620, 0.1, 'NORMAL', '2025-11-29 09:19:06', 0),
-(1621, 0.1, 'NORMAL', '2025-11-29 09:19:11', 0),
-(1622, 0.1, 'NORMAL', '2025-11-29 09:19:13', 0),
-(1623, 0.1, 'NORMAL', '2025-11-29 09:19:15', 0),
-(1624, 0.1, 'NORMAL', '2025-11-29 09:19:17', 0),
-(1625, 0.1, 'NORMAL', '2025-11-29 09:19:19', 0),
-(1626, 0.1, 'NORMAL', '2025-11-29 09:19:21', 0),
-(1627, 0.1, 'NORMAL', '2025-11-29 09:19:23', 0),
-(1628, 0.1, 'NORMAL', '2025-11-29 09:19:24', 0),
-(1629, 0.1, 'NORMAL', '2025-11-29 09:19:26', 0),
-(1630, 0.1, 'NORMAL', '2025-11-29 09:19:27', 0),
-(1631, 0.1, 'NORMAL', '2025-11-29 09:19:29', 0),
-(1632, 0.1, 'NORMAL', '2025-11-29 09:19:30', 0),
-(1633, 0.1, 'NORMAL', '2025-11-29 09:19:31', 0);
+(1617, 0.7, 'NORMAL', '2025-11-29 09:18:35', 1),
+(1618, 1, 'NORMAL', '2025-11-29 09:18:45', 1),
+(1619, 0.1, 'NORMAL', '2025-11-29 09:18:53', 1),
+(1620, 0.1, 'NORMAL', '2025-11-29 09:19:06', 1),
+(1621, 0.1, 'NORMAL', '2025-11-29 09:19:11', 1),
+(1622, 0.1, 'NORMAL', '2025-11-29 09:19:13', 1),
+(1623, 0.1, 'NORMAL', '2025-11-29 09:19:15', 1),
+(1624, 0.1, 'NORMAL', '2025-11-29 09:19:17', 1),
+(1625, 0.1, 'NORMAL', '2025-11-29 09:19:19', 1),
+(1626, 0.1, 'NORMAL', '2025-11-29 09:19:21', 1),
+(1627, 0.1, 'NORMAL', '2025-11-29 09:19:23', 1),
+(1628, 0.1, 'NORMAL', '2025-11-29 09:19:24', 1),
+(1629, 0.1, 'NORMAL', '2025-11-29 09:19:26', 1),
+(1630, 0.1, 'NORMAL', '2025-11-29 09:19:27', 1),
+(1631, 0.1, 'NORMAL', '2025-11-29 09:19:29', 1),
+(1632, 0.1, 'NORMAL', '2025-11-29 09:19:30', 1),
+(1633, 0.1, 'NORMAL', '2025-11-29 09:19:31', 1),
+(1634, 10, 'HIGH', '2025-11-29 12:10:28', 1),
+(1635, 5, 'NORMAL', '2025-11-29 12:10:34', 1),
+(1636, 0.5, 'NORMAL', '2025-11-29 12:11:43', 1),
+(1637, 0.5, 'NORMAL', '2025-11-29 12:16:11', 1),
+(1638, 0.1, 'NORMAL', '2025-11-29 12:24:00', 1),
+(1639, 0.2, 'NORMAL', '2025-11-29 12:27:03', 1),
+(1640, 100, 'HIGH', '2025-11-30 01:45:04', 1),
+(1641, 100, 'HIGH', '2025-12-01 04:03:11', 1),
+(1642, 0, 'NORMAL', '2025-12-08 09:57:14', 1);
 
 -- --------------------------------------------------------
 
@@ -1887,7 +1898,7 @@ CREATE TABLE `heartbeat_data` (
 --
 
 INSERT INTO `heartbeat_data` (`heartbeat_id`, `id`, `device_name`, `ip_address`, `last_seen`) VALUES
-(11, 2, 'esp32_1', NULL, '2025-11-29 09:53:13');
+(11, 2, 'esp32_1', NULL, '2025-12-09 02:30:00');
 
 -- --------------------------------------------------------
 
@@ -2590,7 +2601,8 @@ INSERT INTO `moisture_data` (`moisture_id`, `moisture_level`, `moisture_timestam
 (2001, 57, '2025-11-20 17:12:16'),
 (2002, 40, '2025-11-20 17:15:22'),
 (2003, 40, '2025-11-20 17:18:00'),
-(2004, 40, '2025-11-20 17:21:41');
+(2004, 40, '2025-11-20 17:21:41'),
+(2005, 0, '2025-12-08 17:57:08');
 
 -- --------------------------------------------------------
 
@@ -2611,8 +2623,8 @@ CREATE TABLE `relay_control` (
 --
 
 INSERT INTO `relay_control` (`id`, `relay_name`, `state`, `mode`, `updated_at`) VALUES
-(1, 'RELAY_SHARED', 'OFF', 'MANUAL', '2025-11-25 12:58:52'),
-(2, 'RELAY_SOIL', 'OFF', 'MANUAL', '2025-11-25 12:58:54');
+(1, 'RELAY_SHARED', 'OFF', 'MANUAL', '2025-12-09 07:36:44'),
+(2, 'RELAY_SOIL', 'OFF', 'MANUAL', '2025-12-09 07:38:12');
 
 -- --------------------------------------------------------
 
@@ -2697,7 +2709,8 @@ CREATE TABLE `system_logs` (
 INSERT INTO `system_logs` (`id`, `event_type`, `description`, `sensor_value`, `created_at`) VALUES
 (1, 'Water Pump', 'Auto-ON: Low Moisture detected (40%)', '40', '2025-11-20 09:21:41'),
 (2, 'Exhaust Fan', 'Auto-ON: High Temperature detected (32.5°C)', '32.5', '2025-11-20 09:26:35'),
-(3, 'Exhaust Fan', 'Auto-ON: High Gas Level detected (8.5%)', '8.5', '2025-11-20 09:28:32');
+(3, 'Exhaust Fan', 'Auto-ON: High Gas Level detected (8.5%)', '8.5', '2025-11-20 09:28:32'),
+(4, 'Water Pump', 'Auto-ON: Low Moisture detected (0%)', '0', '2025-12-08 09:57:08');
 
 -- --------------------------------------------------------
 
@@ -2740,7 +2753,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `reset_token`, `reset_expiry`, `created_at`) VALUES
-(8, 'Admin', 'Admin', 'admin.sample@gmail.com', '$2y$10$SgoGXrjCm.Mb.57FEQHKpuSYdU081zbeDPJW5Kj9rMelj78Qo6RYe', NULL, NULL, '2025-11-23 02:35:00');
+(8, 'Admin', 'Admin', 'Admin', '$2y$10$SgoGXrjCm.Mb.57FEQHKpuSYdU081zbeDPJW5Kj9rMelj78Qo6RYe', NULL, NULL, '2025-11-23 02:35:00');
 
 -- --------------------------------------------------------
 
@@ -2777,7 +2790,8 @@ INSERT INTO `water_level` (`id`, `water_value`, `status`, `timestamp`, `is_read`
 (15, 0, 'LOW', '2025-11-29 08:31:10', 1),
 (16, 0, 'LOW', '2025-11-29 08:31:10', 1),
 (17, 0, 'LOW', '2025-11-29 08:31:34', 1),
-(18, 0, 'LOW', '2025-11-29 08:31:34', 1);
+(18, 0, 'LOW', '2025-11-29 08:31:34', 1),
+(19, 0, 'LOW', '2025-12-08 09:57:16', 1);
 
 --
 -- Indexes for dumped tables
@@ -2788,7 +2802,8 @@ INSERT INTO `water_level` (`id`, `water_value`, `status`, `timestamp`, `is_read`
 --
 ALTER TABLE `ammonia_readings`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `timestamp` (`timestamp`);
+  ADD KEY `timestamp` (`timestamp`),
+  ADD KEY `idx_ammonia_timestamp` (`timestamp` DESC);
 
 --
 -- Indexes for table `co2_threshold`
@@ -2801,13 +2816,21 @@ ALTER TABLE `co2_threshold`
 --
 ALTER TABLE `dht11_data`
   ADD PRIMARY KEY (`temp_id`),
-  ADD KEY `temp_timestamp` (`temp_timestamp`);
+  ADD KEY `temp_timestamp` (`temp_timestamp`),
+  ADD KEY `idx_temp_timestamp` (`temp_timestamp`),
+  ADD KEY `idx_temp_id_desc` (`temp_id` DESC),
+  ADD KEY `idx_dht11_timestamp` (`temp_timestamp` DESC),
+  ADD KEY `idx_dht11_composite` (`temp_timestamp` DESC,`temp_id` DESC);
 
 --
 -- Indexes for table `gas_data`
 --
 ALTER TABLE `gas_data`
-  ADD PRIMARY KEY (`gas_id`);
+  ADD PRIMARY KEY (`gas_id`),
+  ADD KEY `idx_gas_timestamp` (`gas_timestamp` DESC),
+  ADD KEY `idx_gas_composite` (`gas_timestamp` DESC,`gas_status`),
+  ADD KEY `idx_gas_status` (`gas_status`),
+  ADD KEY `idx_gas_is_read` (`is_read`);
 
 --
 -- Indexes for table `heartbeat_data`
@@ -2820,13 +2843,17 @@ ALTER TABLE `heartbeat_data`
 --
 ALTER TABLE `moisture_data`
   ADD PRIMARY KEY (`moisture_id`),
-  ADD KEY `moisture_timestamp` (`moisture_timestamp`);
+  ADD KEY `moisture_timestamp` (`moisture_timestamp`),
+  ADD KEY `idx_moisture_timestamp` (`moisture_timestamp` DESC),
+  ADD KEY `idx_moisture_composite` (`moisture_timestamp` DESC,`moisture_id` DESC);
 
 --
 -- Indexes for table `relay_control`
 --
 ALTER TABLE `relay_control`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_relay_state` (`state`),
+  ADD KEY `idx_relay_mode` (`mode`);
 
 --
 -- Indexes for table `sensordata`
@@ -2850,7 +2877,9 @@ ALTER TABLE `sprinkler_settings`
 -- Indexes for table `system_logs`
 --
 ALTER TABLE `system_logs`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_system_logs_type` (`event_type`),
+  ADD KEY `idx_system_logs_created` (`created_at` DESC);
 
 --
 -- Indexes for table `temp_threshold`
@@ -2869,7 +2898,11 @@ ALTER TABLE `users`
 -- Indexes for table `water_level`
 --
 ALTER TABLE `water_level`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_water_timestamp` (`timestamp` DESC),
+  ADD KEY `idx_water_composite` (`timestamp` DESC,`status`),
+  ADD KEY `idx_water_status` (`status`),
+  ADD KEY `idx_water_is_read` (`is_read`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -2879,7 +2912,7 @@ ALTER TABLE `water_level`
 -- AUTO_INCREMENT for table `ammonia_readings`
 --
 ALTER TABLE `ammonia_readings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `co2_threshold`
@@ -2891,13 +2924,13 @@ ALTER TABLE `co2_threshold`
 -- AUTO_INCREMENT for table `dht11_data`
 --
 ALTER TABLE `dht11_data`
-  MODIFY `temp_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2008;
+  MODIFY `temp_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2009;
 
 --
 -- AUTO_INCREMENT for table `gas_data`
 --
 ALTER TABLE `gas_data`
-  MODIFY `gas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1634;
+  MODIFY `gas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1643;
 
 --
 -- AUTO_INCREMENT for table `heartbeat_data`
@@ -2909,7 +2942,7 @@ ALTER TABLE `heartbeat_data`
 -- AUTO_INCREMENT for table `moisture_data`
 --
 ALTER TABLE `moisture_data`
-  MODIFY `moisture_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005;
+  MODIFY `moisture_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2006;
 
 --
 -- AUTO_INCREMENT for table `relay_control`
@@ -2939,7 +2972,7 @@ ALTER TABLE `sprinkler_settings`
 -- AUTO_INCREMENT for table `system_logs`
 --
 ALTER TABLE `system_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `temp_threshold`
@@ -2957,7 +2990,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `water_level`
 --
 ALTER TABLE `water_level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

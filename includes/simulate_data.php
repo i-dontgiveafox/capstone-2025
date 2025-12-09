@@ -10,14 +10,16 @@ if (isset($_GET['gas'])) {
     $gasValue = floatval($_GET['gas']);
     $statusStr = ($gasValue > 6.0) ? "HIGH" : "NORMAL";
 
-    $sql = "INSERT INTO gas_data (gas_percent, gas_status, gas_timestamp) 
-            VALUES ('$gasValue', '$statusStr', NOW())";
+    $stmt = $conn->prepare("INSERT INTO gas_data (gas_percent, gas_status, gas_timestamp) 
+            VALUES (?, ?, NOW())");
+    $stmt->bind_param("ds", $gasValue, $statusStr);
     
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "✅ Success! Inserted Gas: $gasValue% ($statusStr)<br>";
     } else {
-        echo "Error: " . $conn->error;
+        echo "Error: " . $stmt->error;
     }
+    $stmt->close();
 }
 
 // ➤ INSERT WATER DATA (Columns: water_value, status, timestamp)
@@ -25,15 +27,16 @@ if (isset($_GET['water'])) {
     $waterStatus = $_GET['water']; // 'LOW' or 'HIGH'
     $val = ($waterStatus == 'LOW') ? 0 : 100; // 0 for LOW, 100 for HIGH
     
-    // ✅ FIXED: Using 'timestamp' instead of 'created_at'
-    $sql = "INSERT INTO water_level (water_value, status, timestamp) 
-            VALUES ('$val', '$waterStatus', NOW())";
+    $stmt = $conn->prepare("INSERT INTO water_level (water_value, status, timestamp) 
+            VALUES (?, ?, NOW())");
+    $stmt->bind_param("is", $val, $waterStatus);
     
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "✅ Success! Inserted Water: $waterStatus<br>";
     } else {
-        echo "Error: " . $conn->error;
+        echo "Error: " . $stmt->error;
     }
+    $stmt->close();
 }
 
 echo "<hr><h3>Test Links:</h3><ul>";

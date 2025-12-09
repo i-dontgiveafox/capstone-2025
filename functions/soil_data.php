@@ -17,18 +17,24 @@ if (isset($_GET['moisture'])) {
         $desc = "Auto-ON: Low Moisture detected ({$moisture}%)";
         $event_type = "Water Pump";
         
-
-        $sql_log = "INSERT INTO system_logs (event_type, description, sensor_value) VALUES ('$event_type', '$desc', '$moisture')";
-        $conn->query($sql_log);
+        // Use prepared statement for logging
+        $stmt_log = $conn->prepare("INSERT INTO system_logs (event_type, description, sensor_value) VALUES (?, ?, ?)");
+        $stmt_log->bind_param("ssi", $event_type, $desc, $moisture);
+        $stmt_log->execute();
+        $stmt_log->close();
     }
     
-    $sql = "INSERT INTO moisture_data (moisture_level, moisture_timestamp) VALUES ($moisture, '$timestamp')";
+    // Use prepared statement for moisture data
+    $stmt = $conn->prepare("INSERT INTO moisture_data (moisture_level, moisture_timestamp) VALUES (?, ?)");
+    $stmt->bind_param("is", $moisture, $timestamp);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "✅ Data inserted at $timestamp";
     } else {
-        echo "❌ Error: " . $conn->error;
+        error_log("Database error: " . $stmt->error);
+        echo "❌ Error: Failed to insert data";
     }
+    $stmt->close();
 } else {
     echo "⚠️ No data received";
 }

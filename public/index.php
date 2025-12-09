@@ -56,7 +56,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-10">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
 
                 <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
                     <div class="flex items-start gap-4">
@@ -90,6 +90,29 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                     </div>
                 </div>
 
+                
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!--<div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">-->
+                <!--    <div class="flex items-start gap-4">-->
+                <!--        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">-->
+                <!--            <i class='bx bxs-flask text-purple-500 text-2xl'></i>-->
+                <!--        </div>-->
+                <!--        <div>-->
+                <!--            <h5 class="text-lg font-bold text-gray-800 leading-tight"></h5>-->
+                <!--            <span class="text-xs text-gray-500 font-medium">Updated: <span id="ammonia-last">--</span></span>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--    <div class="text-right self-end">-->
+                <!--        <span id="ammonia-value" class="text-5xl font-bold text-gray-800">--</span> -->
+                <!--        <span class="text-xl text-gray-500 font-medium ml-1">ppm</span>-->
+                <!--    </div>-->
+                <!--</div>-->
+                
+                
                 <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
                     <div class="flex items-start gap-4">
                         <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
@@ -105,15 +128,13 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                         <span class="text-xl text-gray-500 font-medium ml-1">%</span>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                
 
                 <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
                     <div class="flex items-start gap-4">
                         <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
-                            <i class='bx bxs-flask text-purple-500 text-2xl'></i>
+                            <i class='bx bx-wind text-gray-500 text-2xl'></i>
                         </div>
                         <div>
                             <h5 class="text-lg font-bold text-gray-800 leading-tight">Ammonia (NH₃)</h5>
@@ -122,22 +143,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                     </div>
                     <div class="text-right self-end">
                         <span id="ammonia-value" class="text-5xl font-bold text-gray-800">--</span> 
-                        <span class="text-xl text-gray-500 font-medium ml-1">ppm</span>
-                    </div>
-                </div>
-
-                <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
-                            <i class='bx bx-wind text-gray-500 text-2xl'></i>
-                        </div>
-                        <div>
-                            <h5 class="text-lg font-bold text-gray-800 leading-tight">CO₂ Gas</h5>
-                            <span class="text-xs text-gray-500 font-medium">Updated: <span id="gas-last">--</span></span>
-                        </div>
-                    </div>
-                    <div class="text-right self-end">
-                        <span id="gas-value" class="text-5xl font-bold text-gray-800">--</span> 
                         <span class="text-xl text-gray-500 font-medium ml-1">%</span>
                     </div>
                 </div>
@@ -378,6 +383,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
 <script>
 async function updateDashboard() {
     try {
+        // Adding ?nocache=... forces the browser to get a fresh version every time
         const response = await fetch("../functions/get_dashboard_cached.php");
         const data = await response.json();
 
@@ -436,7 +442,7 @@ async function updateDashboard() {
                     const val = parseFloat(ammoniaVal);
                     if (val <= 8) ammoniaEl.style.color = '#374151'; 
                     else if (val <= 15) ammoniaEl.style.color = '#374151'; 
-                    else ammoniaEl.style.color = '#dc2626'; 
+                    else ammoniaEl.style.color = '#374151'; 
                 }
             }
 
@@ -470,11 +476,11 @@ async function updateDashboard() {
 }
 
 updateDashboard();
-setInterval(updateDashboard, 20000);
+setInterval(updateDashboard, 1000); // 60000 seconds
 </script>
 
 <script>
-const CHART_INTERVAL = 1800000; 
+const CHART_INTERVAL = 1800000; // 1800000
 
 // --- SHARED OPTIONS FOR RESPONSIVENESS ---
 const commonOptions = {
