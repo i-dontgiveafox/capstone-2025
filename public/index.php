@@ -152,78 +152,77 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
     </main>
     
     <section class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-semibold text-gray-800/90 mb-4 mt-4 px-4">Daily Overview</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div class="relative bg-[url('../assets/images/overview-bg-green.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
-                <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
-                <div class="flex flex-col space-y-2 relative z-10">
-                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Soil Moisture</h3>
-                    <div class="flex items-baseline space-x-2">
-                        <span class="text-4xl font-bold text-white" id="avg-moisture">--</span> <span class="text-xl text-white/80">%</span>
-                    </div>
-                </div>
-            </div>
-            <div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
-                <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
-                <div class="flex flex-col space-y-2 relative z-10">
-                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Temperature</h3>
-                    <div class="flex items-baseline space-x-2">
-                        <span class="text-4xl font-bold text-white" id="avg-temp">--</span> <span class="text-xl text-white/80">°C</span>
-                    </div>
-                </div>
-            </div>
-            <div class="relative bg-[url('../assets/images/overview-bg-orange.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
-                <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
-                <div class="flex flex-col space-y-2 relative z-10">
-                    <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
-                    <div class="flex items-baseline space-x-2">
-                        <span class="text-4xl font-bold text-white" id="avg-humid">--</span> <span class="text-xl text-white/80">%</span>
-                    </div>
-                </div>
-            </div>
-            <div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
-              <div class="flex flex-col space-y-2 relative z-10">
-                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-flask'></i> Avg. CO₂ Gas</h3>
+    <h2 class="text-2xl font-semibold text-gray-800/90 mb-4 mt-4 px-4">Daily Overview</h2>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        
+        <div class="relative bg-[url('../assets/images/overview-bg-green.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
+            <div class="flex flex-col space-y-2 relative z-10">
+                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Soil Moisture</h3>
                 <div class="flex items-baseline space-x-2">
-                  <span class="text-4xl font-bold text-white" id="avg-co2">--</span> <span class="text-xl text-white/80">ppm</span>
+                    <span class="text-4xl font-bold text-white" id="avg-moisture">--</span> <span class="text-xl text-white/80">%</span>
                 </div>
-              </div>
-            </div>
-            <div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden">
-              <div class="flex flex-col space-y-2 relative z-10">
-                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-flask'></i> Avg. Ammonia</h3>
-                <div class="flex items-baseline space-x-2">
-                  <span class="text-4xl font-bold text-white" id="avg-ammonia">--</span> <span class="text-xl text-white/80">ppm</span>
-                </div>
-              </div>
             </div>
         </div>
 
-        <div id="charts-section" class="grid grid-cols-1 gap-6 mb-10">
-            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Daily Moisture Trend</h3>
-                <div class="w-full h-70 sm:h-80 md:h-96 lg:h-[32rem] bg-gray-100 rounded-2xl flex items-center justify-center">
-                    <canvas id="moistureChart" class="w-full h-full"></canvas>
+        <div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
+            <div class="flex flex-col space-y-2 relative z-10">
+                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Temperature</h3>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-temp">--</span> <span class="text-xl text-white/80">°C</span>
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 gap-6 mb-10">
-            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Temperature and Humidity Trend</h3>
-                <div class="w-full h-70 sm:h-80 md:h-96 lg:h-[32rem] bg-gray-100 rounded-2xl flex items-center justify-center">
-                    <canvas id="tempHumChart" class="w-full h-full"></canvas>
+
+        <div class="relative bg-[url('../assets/images/overview-bg-orange.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
+            <div class="flex flex-col space-y-2 relative z-10">
+                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-humid">--</span> <span class="text-xl text-white/80">%</span>
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 gap-6 mb-10">
-            <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Gas and Ammonia Trend</h3>
-                <div class="w-full h-70 sm:h-80 md:h-96 lg:h-[32rem] bg-gray-100 rounded-2xl flex items-center justify-center">
-                    <canvas id="gasAmmoniaChart" class="w-full h-full"></canvas>
+
+        <div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+            <div class="flex flex-col space-y-2 relative z-10">
+                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-flask'></i> Avg. Ammonia</h3>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-4xl font-bold text-white" id="avg-ammonia">--</span> <span class="text-xl text-white/80">ppm</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <div id="charts-section" class="grid grid-cols-1 gap-6 mb-10">
+        <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Daily Moisture Trend</h3>
+            <div class="w-full h-80 sm:h-96 md:h-96 lg:h-[32rem] bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="moistureChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 gap-6 mb-10">
+        <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Temperature and Humidity Trend</h3>
+            <div class="w-full h-80 sm:h-96 md:h-96 lg:h-[32rem] bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="tempHumChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 gap-6 mb-10">
+        <div class="bg-white/90 rounded-3xl shadow-lg p-6 flex flex-col justify-center items-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Ammonia Trend</h3>
+            <div class="w-full h-80 sm:h-96 md:h-96 lg:h-[32rem] bg-gray-100 rounded-2xl flex items-center justify-center">
+                <canvas id="gasAmmoniaChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
         <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -336,6 +335,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                         <label class="block text-sm text-gray-600 mb-2">Trigger Threshold (%)</label>
                         <div class="relative w-full">
                             <select id="tempThresholdSelect" class="w-full p-2 pr-10 border rounded-lg bg-white/80 appearance-none">
+                                <option value="25">25%</option>
                                 <option value="28">28%</option>
                                 <option value="29">29%</option>
                                 <option value="30">30%</option>
@@ -383,29 +383,39 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
 <script>
 async function updateDashboard() {
     try {
-        // Adding ?nocache=... forces the browser to get a fresh version every time
-        const response = await fetch("../functions/get_dashboard_cached.php");
+        const response = await fetch("../functions/get_dashboard_cached.php?t=" + new Date().getTime());
         const data = await response.json();
 
-        // --- HELPER: Format Date & Time to Manila Time ---
-        const formatTime = (dateStr) => {
-            if (!dateStr || dateStr === '--') return '--';
-            const date = new Date(dateStr.replace(" ", "T") + "Z");
-            return date.toLocaleString('en-US', { 
-                timeZone: 'Asia/Manila', 
-                month: 'short', 
-                day: 'numeric', 
-                year: 'numeric',
-                hour: 'numeric', 
-                minute: '2-digit', 
-                hour12: true 
-            });
-        };
+        // Helper function to format the date
+        function formatTime(timestamp) {
+            if (!timestamp) return '--';
 
-        // 1. Update ESP Status & Last Sync
+            let timeString = timestamp;
+            if (typeof timeString === 'string' && !timeString.includes('UTC') && !timeString.includes('Z')) {
+                timeString += ' UTC';
+            }
+
+            const date = new Date(timeString);
+
+            if (isNaN(date.getTime())) return '--';
+
+            return date.toLocaleString('en-US', {
+                timeZone: 'Asia/Manila',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
+        }
+
         const statusEl = document.getElementById("esp-status");
         const iconEl = document.getElementById("esp-icon");
         
+        // 1. Create a variable to hold the main sync time
+        let globalLastSync = '--';
+
+        // 2. Handle System Status
         if (data.status) {
             if (data.status.status === "online") {
                 statusEl.textContent = "Online";
@@ -417,12 +427,14 @@ async function updateDashboard() {
                 iconEl.className = "bx bx-no-signal text-red-600";
             }
             
+            // Capture the time from the status check
             if(data.status.last_seen) {
-                document.getElementById("mc-last-sync").textContent = formatTime(data.status.last_seen);
+                globalLastSync = formatTime(data.status.last_seen);
+                document.getElementById("mc-last-sync").textContent = globalLastSync;
             }
         }
 
-        // 2. Update Sensor Values & Timestamps
+        // 3. Update Sensors using the Global Time
         if (data.sensors) {
             const setTxt = (id, val) => {
                 const el = document.getElementById(id);
@@ -439,28 +451,28 @@ async function updateDashboard() {
             if(ammoniaEl) {
                 ammoniaEl.textContent = ammoniaVal;
                 if (ammoniaVal !== '--') {
-                    const val = parseFloat(ammoniaVal);
-                    if (val <= 8) ammoniaEl.style.color = '#374151'; 
-                    else if (val <= 15) ammoniaEl.style.color = '#374151'; 
-                    else ammoniaEl.style.color = '#374151'; 
+                    ammoniaEl.style.color = '#374151'; 
                 }
             }
 
-            const time = formatTime(data.sensors.timestamp);
-            setTxt('temp-last', time);
-            setTxt('humid-last', time);
-            setTxt('moist-last', time);
-            setTxt('gas-last', time);
-            setTxt('ammonia-last', time);
+            // --- FIXED: Use the global sync time for all cards ---
+            const timeLabel = "Updated: " + globalLastSync;
+
+            setTxt('temp-last', timeLabel);
+            setTxt('humid-last', timeLabel);
+            setTxt('moist-last', timeLabel);
+            setTxt('gas-last', timeLabel);
+            setTxt('ammonia-last', timeLabel);
         }
 
-        // 3. Update Water Level
+        // 4. Update Water Level
         if (data.water) {
             document.getElementById('water-value').textContent = data.water.water_value ?? '--';
-            document.getElementById('water-last').textContent = formatTime(data.water.last_update);
+            // Use global time here too for consistency
+            document.getElementById('water-last').textContent = formatTime(data.water.last_update); 
         }
 
-        // 4. Update Daily Averages
+        // 5. Update Averages
         if (data.averages) {
             const format = (val) => Math.round(parseFloat(val) || 0);
             document.getElementById('avg-temp').textContent = format(data.averages.avg_temp);
@@ -474,18 +486,15 @@ async function updateDashboard() {
         console.error("Dashboard update error:", error);
     }
 }
-
 updateDashboard();
-setInterval(updateDashboard, 1000); // 60000 seconds
+setInterval(updateDashboard, 5000); 
 </script>
-
 <script>
-const CHART_INTERVAL = 1800000; // 1800000
-
-// --- SHARED OPTIONS FOR RESPONSIVENESS ---
+const CHART_INTERVAL = 5000;
 const commonOptions = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
+    animation: { duration: 0 },
     scales: {
         x: {
             ticks: {
@@ -509,14 +518,51 @@ const commonOptions = {
     }
 };
 
-// 1. MOISTURE CHART
+// --- TIME HELPER 1: FOR MOISTURE (Already Correct) ---
+// This assumes the data is ALREADY in Philippines Time
+function formatLocalTime(timestamp) {
+    if (!timestamp) return '--';
+    const date = new Date(timestamp);
+    if (isNaN(date.getTime())) return timestamp; 
+
+    return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+}
+
+// --- TIME HELPER 2: FOR TEMP & AMMONIA (Needs +8 Hours) ---
+// This forces the browser to treat the data as UTC, which automatically adds +8 hours for PH
+function formatUTCTime(timestamp) {
+    if (!timestamp) return '--';
+
+    // Append ' UTC' to force timezone conversion
+    let timeString = timestamp;
+    if (typeof timeString === 'string' && !timeString.includes('UTC') && !timeString.includes('Z')) {
+        timeString += ' UTC';
+    }
+
+    const date = new Date(timeString);
+    if (isNaN(date.getTime())) return timestamp;
+
+    return date.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Manila', // Forces conversion to Philippines Time
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+}
+
+// 1. MOISTURE CHART (Uses Local Time - No Change)
 async function loadMoistureChart() {
     try {
         const response = await fetch("../functions/get_moisture_data.php");
         const data = await response.json();
         if (!Array.isArray(data) || data.length === 0) return;
 
-        const labels = data.map(item => new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })); 
+        // ✅ USES LOCAL TIME FORMATTER
+        const labels = data.map(item => formatLocalTime(item.timestamp));
         const moistureValues = data.map(item => item.moisture);
         const ctx = document.getElementById("moistureChart").getContext("2d");
 
@@ -548,14 +594,15 @@ async function loadMoistureChart() {
     } catch (e) { console.error(e); }
 }
 
-// 2. TEMP & HUM CHART
+// 2. TEMP & HUM CHART (Uses UTC Formatter to Fix Offset)
 async function loadTempHumChart() {
     try {
         const response = await fetch("../functions/get_temp_hum_data.php");
         const data = await response.json();
         if (!Array.isArray(data) || data.length === 0) return;
 
-        const labels = data.map(item => new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        // ✅ USES UTC FORMATTER (Adds +8 Hours)
+        const labels = data.map(item => formatUTCTime(item.timestamp));
         const tempValues = data.map(item => item.temperature);
         const humValues = data.map(item => item.humidity);
         const ctx = document.getElementById("tempHumChart").getContext("2d");
@@ -576,16 +623,19 @@ async function loadTempHumChart() {
     } catch (e) { console.error(e); }
 }
 
-// 3. GAS CHART
+// 3. AMMONIA CHART (Uses UTC Formatter to Fix Offset)
 async function loadGasAmmoniaChart() {
     try {
         const response = await fetch("../functions/get_gas_ammonia_data.php");
         const result = await response.json();
-        if (!result.gas || !result.ammonia) return;
+        
+        if (!result.ammonia) return;
 
-        const gasLabels = result.gas.map(item => new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-        const gasValues = result.gas.map(item => item.gas);
+        // ✅ USES UTC FORMATTER (Adds +8 Hours)
+        const labels = result.ammonia.map(item => formatUTCTime(item.timestamp));
+        
         const ammoniaValues = result.ammonia.map(item => item.ammonia);
+        
         const ctx = document.getElementById("gasAmmoniaChart").getContext("2d");
 
         if (window.gasAmmoniaChartInstance) window.gasAmmoniaChartInstance.destroy();
@@ -593,10 +643,18 @@ async function loadGasAmmoniaChart() {
         window.gasAmmoniaChartInstance = new Chart(ctx, {
             type: "line",
             data: {
-                labels: gasLabels,
+                labels: labels,
                 datasets: [
-                    { label: "CO₂ (%)", data: gasValues, borderColor: "#dc2626", backgroundColor: "rgba(220,38,38,0.2)", fill: true, tension: 0.4, borderWidth: 2, pointRadius: 2 },
-                    { label: "Ammonia (%)", data: ammoniaValues, borderColor: "#9333ea", backgroundColor: "rgba(147,51,234,0.2)", fill: true, tension: 0.4, borderWidth: 2, pointRadius: 2 }
+                    { 
+                        label: "Ammonia (ppm)", 
+                        data: ammoniaValues, 
+                        borderColor: "#9333ea", 
+                        backgroundColor: "rgba(147,51,234,0.2)", 
+                        fill: true, 
+                        tension: 0.4, 
+                        borderWidth: 2, 
+                        pointRadius: 2 
+                    }
                 ]
             },
             options: commonOptions

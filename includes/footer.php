@@ -19,6 +19,9 @@ $year = date('Y');
       <a href="/capstone-2025/public/view_logs.php" class="text-sm font-medium text-gray-300 hover:text-[#B6FC67] transition-colors duration-200">
         Logs
       </a>
+      <a href="/capstone-2025/public/update-credentials.php" class="text-sm font-medium text-gray-300 hover:text-[#B6FC67] transition-colors duration-200">
+        Settings
+      </a>
     </nav>
 
     <div class="text-sm text-gray-400 text-center md:text-right">

@@ -2,24 +2,20 @@
 // ../functions/fetch_notifications.php
 header('Content-Type: application/json');
 
-// ✅ FIX: Set Timezone to Philippines (Manila)
+// This sets the default timezone for new dates, but we still need to convert DB dates manually
 date_default_timezone_set('Asia/Manila');
 
 // =========================================================
 // 🚀 CACHING SYSTEM (Prevents Database Overload)
 // =========================================================
 $cacheFile = 'notifications_cache.json';
-$cacheTime = 60; // 60 Seconds
+$cacheTime = 10; // 10 Seconds
 
 // 1. Check if cache exists and is fresh
 if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime)) {
     readfile($cacheFile);
     exit; 
 }
-
-// =========================================================
-// 🔄 DATABASE LOGIC
-// =========================================================
 
 require_once __DIR__ . '/../config/db.php';
 
@@ -34,7 +30,7 @@ if ($conn->connect_error) {
 $alerts = [];
 
 // Get Threshold
-$gasThreshold = 6.0; 
+$gasThreshold = 0.05; 
 $sqlThreshold = "SELECT value FROM co2_threshold WHERE id = 1 LIMIT 1";
 $resultThreshold = $conn->query($sqlThreshold);
 if ($resultThreshold && $resultThreshold->num_rows > 0) {
@@ -51,11 +47,17 @@ $resultGas = $conn->query($sqlGas);
 
 if ($resultGas) {
     while($row = $resultGas->fetch_assoc()) {
+        
+        // --- FIX START: Convert UTC to Manila Time ---
+        $dt = new DateTime($row['gas_timestamp'], new DateTimeZone('UTC'));
+        $dt->setTimezone(new DateTimeZone('Asia/Manila'));
+        $formattedTime = $dt->format("g:i A");
+        // --- FIX END ---
+
         $alerts[] = [
             'type' => 'gas',
             'message' => 'High Gas Detected! (' . $row['gas_percent'] . '%)',
-            // ✅ Time is now formatted to Manila Time automatically
-            'time' => date("g:i A", strtotime($row['gas_timestamp'])),
+            'time' => $formattedTime, // Uses the converted time
             'raw_time' => strtotime($row['gas_timestamp']),
             'is_read' => $row['is_read'] 
         ];
@@ -71,11 +73,17 @@ $resultWater = $conn->query($sqlWater);
 
 if ($resultWater) {
     while($row = $resultWater->fetch_assoc()) {
+
+        // --- FIX START: Convert UTC to Manila Time ---
+        $dt = new DateTime($row['timestamp'], new DateTimeZone('UTC'));
+        $dt->setTimezone(new DateTimeZone('Asia/Manila'));
+        $formattedTime = $dt->format("g:i A");
+        // --- FIX END ---
+
         $alerts[] = [
             'type' => 'water',
             'message' => 'Water Level is Low!',
-            // ✅ Time is now formatted to Manila Time automatically
-            'time' => date("g:i A", strtotime($row['timestamp'])),
+            'time' => $formattedTime, // Uses the converted time
             'raw_time' => strtotime($row['timestamp']),
             'is_read' => $row['is_read'] 
         ];

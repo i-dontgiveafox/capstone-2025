@@ -3,6 +3,11 @@
 header('Content-Type: application/json');
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 
+// --- FIX 1: FORCE UTC TIMEZONE ---
+// This ensures time() matches the UTC timestamp in your database
+date_default_timezone_set('UTC'); 
+// ---------------------------------
+
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
@@ -41,7 +46,11 @@ try {
     $result = $conn->query("SELECT last_seen FROM heartbeat_data ORDER BY heartbeat_id DESC LIMIT 1");
     if ($result && $row = $result->fetch_assoc()) {
         $last_seen_ts = strtotime($row['last_seen']);
+        
+        // --- FIX 2: INCREASE TIMEOUT TO 60 SECONDS ---
+        // (time() - last_seen) < 60 is safer than 25
         $is_online = (time() - $last_seen_ts) < 60; 
+        
         $response['status'] = [
             'status' => $is_online ? 'online' : 'offline',
             'last_seen' => $row['last_seen']

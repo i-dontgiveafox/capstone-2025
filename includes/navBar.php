@@ -30,9 +30,14 @@
         <div class="flex items-center gap-4 z-50 h-full">
             
             <div class="relative flex items-center h-full">
-                <button id="notifBtn" class="text-white px-2 py-2 rounded-full hover:bg-[#333] transition-colors relative flex items-center justify-center">
+                <button id="notifBtn" class="text-white px-2 py-2 rounded-full hover:bg-[#333] transition-colors relative flex items-center justify-center" title="Notifications">
                     <ion-icon class="text-2xl" name="notifications-outline"></ion-icon>
                     <span id="notifBadge" class="hidden absolute top-1 right-1 bg-red-500 text-[10px] font-bold text-white rounded-full h-4 w-4 flex items-center justify-center animate-pulse">0</span>
+                </button>
+
+                <!-- Settings button placed beside notifications -->
+                <button id="settingsBtn" class="text-white ml-2 px-2 py-2 rounded-full hover:bg-[#333] transition-colors relative flex items-center justify-center" title="Settings">
+                    <ion-icon class="text-2xl" name="settings-outline"></ion-icon>
                 </button>
 
                 <div id="notifDropdown" class="hidden absolute right-0 top-14 mt-2 w-80 bg-white rounded-xl shadow-2xl overflow-hidden z-50 text-gray-800 ring-1 ring-black ring-opacity-5">
@@ -81,7 +86,7 @@
 
     function onToggleMenu(icon) {
         icon.name = icon.name === 'menu' ? 'close' : 'menu';
-        if (navLinks.classList.contains('top-[-500px]')) {
+         if (navLinks.classList.contains('top-[-500px]')) {
             navLinks.classList.remove('top-[-500px]');
             navLinks.classList.add('top-16'); 
         } else {
@@ -128,8 +133,16 @@
         if (cancelBtn) cancelBtn.addEventListener('click', closeLogoutModal);
         
         // Start Fetching Notifications (Every 30 Minutes)
-        setInterval(fetchNotifications, 60000); 
+        setInterval(fetchNotifications, 5000); 
         fetchNotifications(); 
+
+        // Settings button navigation
+        const settingsBtn = document.getElementById('settingsBtn');
+        if (settingsBtn) settingsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Navigate to the Update Credentials page
+            window.location.href = '../public/update-credentials.php';
+        });
     });
 
     // --- NOTIFICATION INTERACTION LOGIC ---

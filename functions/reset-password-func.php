@@ -19,7 +19,7 @@ if (isset($_POST['email'])) {
         $reset_link = "http://localhost/project/public/reset-password.php?token=" . urlencode($token);
         $subject = "Password Reset Request";
         $message = "Click the link below to reset your password:\n\n$reset_link\n\nThis link will expire in 1 hour.";
-        $headers = "From: no-reply@yourdomain.com";
+        $headers = "From: vermiCare@no-reply.com";
 
         if (mail($email, $subject, $message, $headers)) {
             header("Location: ../public/forgot-password.php?success=Password reset link sent to your email");

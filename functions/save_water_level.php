@@ -1,6 +1,10 @@
 <?php
+// functions/save_water_level.php
 header('Content-Type: application/json');
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/db_conn.php';
+
+// --- NEW CODE: Include the email helper ---
+require_once 'send_email_alert.php';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -23,6 +27,17 @@ $stmt = $conn->prepare("INSERT INTO water_level (water_value, status) VALUES (?,
 $stmt->bind_param("is", $waterValue, $status);
 
 if ($stmt->execute()) {
+    
+    // ============================================================
+    // 🚀 EMAIL ALERT LOGIC
+    // ============================================================
+    // Check if water status is LOW (case-insensitive check is safer)
+    if (strtoupper($status) === 'LOW') {
+        // Send email alert (This handles the 30-minute cooldown automatically)
+        sendEmailAlert('water', 'LOW');
+    }
+    // ============================================================
+
     echo json_encode([
         "success" => true,
         "message" => "Water level saved",

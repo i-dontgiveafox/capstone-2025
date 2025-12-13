@@ -48,7 +48,7 @@ $google_login_url = $client->createAuthUrl();
                         <div id="successMsg" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                             <span class="block sm:inline"><?=$_GET['success']?></span>
                         </div>
-                        <div id="loginPrompt" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4 hidden" role="alert">
+                        <div id="loginPrompt" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 hidden" role="alert">
                             <span class="block sm:inline">Login to your account</span>
                         </div>
                     <?php } ?>
@@ -79,22 +79,18 @@ $google_login_url = $client->createAuthUrl();
                                 <input type="password" 
                                        name="password"
                                        id="password"
-                                       class="w-full pl-10 pr-10 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#B6FC67] bg-white/80"
+                                       class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#B6FC67] bg-white/80"
                                        placeholder="••••••••"
                                        required>
-                                <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 cursor-pointer">
-                                    <i class='bx bx-hide' id="togglePassword"></i>
-                                </span>
                             </div>
                         </div>
 
                         <!-- Remember Me and Forgot Password -->
-                        <div class="flex justify-between items-center text-sm">
+                        <div class="flex justify-center items-center text-sm">
                             <div class="flex items-center">
-                                <input type="checkbox" id="remember" name="remember" class="rounded border-gray-300 text-[#B6FC67] focus:border-[#B6FC67]">
-                                <label for="remember" class="ml-2 text-gray-600">Remember me</label>
+                               <a href="forgot-password.php" class="text-[#1e1e1e] hover:text-[#B6FC67]">Forgot password?</a>
                             </div>
-                            <a href="forgot-password.php" class="text-[#1e1e1e] hover:text-[#B6FC67]">Forgot password?</a>
+                            
                         </div>
 
                         <!-- Login Button -->
@@ -133,21 +129,7 @@ $google_login_url = $client->createAuthUrl();
     // Fade-in animation for modal
     document.querySelector('body').classList.add('animate-fade-in');
 
-    // Password visibility toggle
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const password = document.getElementById('password');
-        const toggleIcon = this;
-        
-        if (password.type === 'password') {
-            password.type = 'text';
-            toggleIcon.classList.remove('bx-hide');
-            toggleIcon.classList.add('bx-show');
-        } else {
-            password.type = 'password';
-            toggleIcon.classList.remove('bx-show');
-            toggleIcon.classList.add('bx-hide');
-        }
-    });
+    // (password visibility toggle removed - using single lock icon only)
 
     // Success message auto-hide with smooth transition
     const successMsg = document.getElementById('successMsg');
