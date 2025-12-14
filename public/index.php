@@ -64,7 +64,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                     <i class='bx bxs-thermometer text-orange-500 text-lg sm:text-2xl'></i>
                 </div>
                 <div class="min-w-0">
-                    <h5 class="text-xs sm:text-lg font-bold text-gray-800 leading-tight truncate">Temp</h5>
+                    <h5 class="text-xs sm:text-lg font-bold text-gray-800 leading-tight truncate">Temperature</h5>
                     <span class="text-[10px] sm:text-xs text-gray-500 font-medium block truncate"><span id="temp-last">--</span></span>
                 </div>
             </div>
@@ -219,7 +219,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                 
                 <div class="flex items-baseline space-x-1 sm:space-x-2 self-end">
                     <span class="text-3xl sm:text-4xl font-bold text-white drop-shadow-md" id="avg-ammonia">--</span> 
-                    <span class="text-lg sm:text-xl text-white/80">ppm</span>
+                    <span class="text-lg sm:text-xl text-white/80">%</span>
                 </div>
             </div>
         </div>
@@ -253,7 +253,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
     </div>
 </section>
 
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-0 mb-10">
         <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 sm:p-8 mb-8 shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/20">
     <div>
         <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
@@ -279,20 +279,22 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                     </label>
                 </div>
             </div>
-            <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
-                <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
-                    <div class="flex items-center gap-4 min-w-0">
-                        <div class="flex-shrink-0"><img src="../assets/icons/fan.png" alt="Sprinkler Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" /></div>
-                        <h3 class="text-lg font-semibold truncate">Sprinkler</h3>
-                    </div>
-                    <label class="switch relative inline-block w-14 h-8 flex-shrink-0 ml-4">
-                        <input type="checkbox" id="sprinklerToggle" class="peer hidden">
-                        <span class="slider absolute inset-0 bg-gray-400 rounded-full transition peer-checked:bg-green-500"></span>
-                        <span class="dot absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-6"></span>
-                    </label>
-                </div>
+           <div class="rounded-xl p-4 relative shadow border border-white/20">
+    <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
+    
+    <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
+        <div class="flex items-center gap-4 min-w-0">
+            <div class="flex-shrink-0">
+                <img src="../assets/icons/sprinkler.png" alt="Sprinkler Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" />
             </div>
+            <h3 class="text-lg font-semibold truncate">Sprinkler</h3>
+        </div>
+
+        <button id="runSprinklerBtn" class="bg-white text-gray-700 font-bold py-2 px-4 rounded-lg shadow-sm hover:bg-[#B6FC67] hover:text-black hover:shadow-md transition-all duration-200 active:scale-95 text-sm ml-4">
+            Run Now
+        </button>
+    </div>
+</div>
         </div>
 
        <div class="flex flex-col sm:flex-row justify-between items-end sm:items-center mb-6 mt-10 gap-4 px-1">
@@ -509,7 +511,7 @@ async function updateDashboard() {
                 if (ammoniaVal !== '--') ammoniaEl.style.color = '#374151';
             }
 
-            const timeLabel = "Updated: " + globalLastSync;
+            const timeLabel = globalLastSync;
             setTxt('temp-last', timeLabel);
             setTxt('humid-last', timeLabel);
             setTxt('moist-last', timeLabel);
@@ -757,16 +759,10 @@ document.addEventListener("DOMContentLoaded", () => {
 .pulse { animation: pulse 0.4s ease; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-function showMsg(el, msg, success = true) {
-    el.textContent = msg;
-    el.className = success ? "text-green-600 text-sm pulse" : "text-red-600 text-sm pulse";
-    el.style.opacity = 1;
-    setTimeout(() => (el.style.opacity = 0), 2000);
-}
-
-// --- SOIL MOISTURE THRESHOLD FUNCTIONS (EXISTING) ---
+// --- SOIL MOISTURE THRESHOLD FUNCTIONS ---
 
 async function loadThreshold() {
     try {
@@ -778,32 +774,55 @@ async function loadThreshold() {
 
 async function saveThreshold() {
     const val = document.getElementById("thresholdSelect").value;
-    const res = await fetch("../functions/update_soil_threshold.php", {
-        method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "threshold=" + val
-    });
-    if (res.ok) showMsg(document.getElementById("statusMsg"), "✅ Threshold saved to " + val + "%");
+    const btn = document.getElementById("saveThresholdBtn");
+    
+    // UI Feedback
+    const originalText = btn.innerText;
+    btn.innerText = "Saving...";
+
+    try {
+        const res = await fetch("../functions/update_soil_threshold.php", {
+            method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "threshold=" + val
+        });
+        const data = await res.text();
+
+        // CHECK IF SAVE WAS SUCCESSFUL
+        if (res.ok && (data.includes("success") || data.includes("✅") || data.includes("updated"))) {
+            // ✅ SHOW THE POPUP LOGO
+            Swal.fire({
+                icon: 'success',
+                title: 'Saved!',
+                text: 'Moisture Threshold set to ' + val + '%',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else {
+            Swal.fire("Error", "Could not save threshold", "error");
+        }
+    } catch (err) {
+        Swal.fire("Error", "Connection failed", "error");
+    } finally {
+        btn.innerText = originalText;
+    }
 }
 
 async function resetThreshold() {
+    // ... existing reset logic, but add Swal if you want popup here too ...
     const res = await fetch("../functions/update_soil_threshold.php", {
         method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "threshold=55"
     });
     if (res.ok) {
         document.getElementById("thresholdSelect").value = "55";
-        showMsg(document.getElementById("statusMsg"), "🔄 Reset to 55%", true);
+        Swal.fire({ icon: 'success', title: 'Reset!', text: 'Reset to 55%', timer: 1500, showConfirmButton: false });
     }
 }
 
 // --- CO2 THRESHOLD FUNCTIONS ---
-
+// (Your existing CO2 code is fine, assuming it works for you)
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Load current value on page load
     loadCo2Threshold();
-
-    // 2. Attach Click Events to the new buttons
     const saveBtn = document.getElementById("saveCo2ThresholdBtn");
     const resetBtn = document.getElementById("resetCo2ThresholdBtn");
-
     if (saveBtn) saveBtn.addEventListener("click", saveCo2Threshold);
     if (resetBtn) resetBtn.addEventListener("click", resetCo2Threshold);
 });
@@ -812,62 +831,37 @@ async function loadCo2Threshold() {
     try {
         const res = await fetch("../functions/get_co2_threshold.php");
         const val = (await res.text()).trim();
-        
-        // Ensure the dropdown selects the correct value from DB
         const select = document.getElementById("co2ThresholdSelect");
-        if(select) {
-            select.value = val; 
-        }
-    } catch (err) { 
-        console.error("Failed to load CO2 threshold:", err); 
-    }
+        if(select) select.value = val; 
+    } catch (err) { console.error("Failed to load CO2 threshold:", err); }
 }
 
 async function saveCo2Threshold() {
     const val = document.getElementById("co2ThresholdSelect").value;
-    
-    // Send to PHP
     const res = await fetch("../functions/update_co2_threshold.php", {
-        method: "POST", 
-        headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
-        body: "co2_threshold=" + val
+        method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "co2_threshold=" + val
     });
 
+    // Use Popup here too for consistency
     if (res.ok) {
-        showMsg(document.getElementById("co2StatusMsg"), "✅ Threshold saved: " + val + "%");
-    } else {
-        showMsg(document.getElementById("co2StatusMsg"), "❌ Error saving", true);
+        Swal.fire({ icon: 'success', title: 'Saved!', text: 'Ammonia Threshold saved: ' + val + '%', timer: 2000, showConfirmButton: false });
     }
 }
 
 async function resetCo2Threshold() {
-    // ✅ FIXED: Changed "6" to "0.05" to match your new default
     const defaultVal = "0.05";
-    
     const res = await fetch("../functions/update_co2_threshold.php", {
-        method: "POST", 
-        headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
-        body: "co2_threshold=" + defaultVal
+        method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "co2_threshold=" + defaultVal
     });
-
     if (res.ok) {
         document.getElementById("co2ThresholdSelect").value = defaultVal;
-        showMsg(document.getElementById("co2StatusMsg"), "🔄 Reset to " + defaultVal + "%", true);
+        Swal.fire({ icon: 'success', title: 'Reset!', text: 'Reset to ' + defaultVal + '%', timer: 1500, showConfirmButton: false });
     }
 }
 
-// Helper function for status messages (if you don't have one)
-function showMsg(element, text, isError = false) {
-    if(!element) return;
-    element.textContent = text;
-    element.className = isError ? "text-red-500 text-sm font-bold" : "text-green-500 text-sm font-bold";
-    setTimeout(() => { element.textContent = ""; }, 3000);
-}
 
-// --- TEMPERATURE THRESHOLD FUNCTIONS (NEW) ---
-
+// --- TEMPERATURE THRESHOLD FUNCTIONS ---
 async function loadTempThreshold() {
-    // Assuming a new PHP file for getting the Temperature threshold
     try {
         const res = await fetch("../functions/get_temp_threshold.php");
         const val = (await res.text()).trim();
@@ -877,26 +871,26 @@ async function loadTempThreshold() {
 
 async function saveTempThreshold() {
     const val = document.getElementById("tempThresholdSelect").value;
-    // Assuming a new PHP file for updating the Temperature threshold
     const res = await fetch("../functions/update_temp_threshold.php", {
         method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "temp_threshold=" + val
     });
-    if (res.ok) showMsg(document.getElementById("tempStatusMsg"), "✅ Temp Threshold saved to " + val + "%");
+    if (res.ok) {
+        Swal.fire({ icon: 'success', title: 'Saved!', text: 'Temp Threshold saved to ' + val + '%', timer: 2000, showConfirmButton: false });
+    }
 }
 
 async function resetTempThreshold() {
-    // Default value is 31%
     const res = await fetch("../functions/update_temp_threshold.php", {
         method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: "temp_threshold=31"
     });
     if (res.ok) {
         document.getElementById("tempThresholdSelect").value = "31";
-        showMsg(document.getElementById("tempStatusMsg"), "🔄 Reset to 31%", true);
+        Swal.fire({ icon: 'success', title: 'Reset!', text: 'Reset to 31%', timer: 1500, showConfirmButton: false });
     }
 }
 
 
-// --- SPRINKLER DURATION FUNCTIONS (EXISTING) ---
+// --- SPRINKLER DURATION FUNCTIONS (THIS WAS YOUR PROBLEM) ---
 
 async function loadDuration() {
     try {
@@ -906,12 +900,44 @@ async function loadDuration() {
     } catch { document.getElementById("durationSelect").value = "2000"; }
 }
 
-async function saveDuration() {
+async function saveDuration(e) {
+    if(e) e.preventDefault(); // Stop page reload
+    
     const val = parseInt(document.getElementById("durationSelect").value);
-    const res = await fetch("../functions/save_sprinkler_duration.php?duration=" + val);
-    if (res.ok) {
-        const seconds = (val / 1000).toFixed(1).replace(/\.0$/, "");
-        showMsg(document.getElementById("durationStatusMsg"), "✅ Duration saved to " + seconds + " s");
+    const btn = document.getElementById("saveDuration");
+    
+    // UI Feedback
+    const originalText = btn.innerText;
+    btn.innerText = "Saving...";
+
+    try {
+        // Send request
+        const res = await fetch("../functions/save_sprinkler_duration.php?duration=" + val);
+        const data = await res.text(); // Get the response text from PHP
+
+        // ✅ THIS IS THE FIX: Check for keywords and SHOW POPUP
+        if (data.includes("success") || data.includes("✅") || data.includes("updated")) {
+            
+            const seconds = (val / 1000).toFixed(1).replace(/\.0$/, "");
+            
+            // Show the Logo Popup
+            Swal.fire({
+                icon: 'success',
+                title: 'Saved!',
+                text: 'Duration set to ' + seconds + ' seconds',
+                timer: 2000,
+                showConfirmButton: false
+            });
+
+        } else {
+            // Show Error Popup
+            Swal.fire("Error", "Failed to save: " + data, "error");
+        }
+    } catch (err) {
+        console.error(err);
+        Swal.fire("Error", "Connection Error", "error");
+    } finally {
+        btn.innerText = originalText;
     }
 }
 
@@ -919,66 +945,118 @@ async function resetDuration() {
     const res = await fetch("../functions/save_sprinkler_duration.php?duration=2000");
     if (res.ok) {
         document.getElementById("durationSelect").value = "2000";
-        showMsg(document.getElementById("durationStatusMsg"), "🔄 Reset to 2 s", true);
+        Swal.fire({ icon: 'success', title: 'Reset!', text: 'Reset to 2s', timer: 1500, showConfirmButton: false });
     }
 }
 
+// --- EVENT LISTENERS ---
 document.addEventListener("DOMContentLoaded", () => {
     loadThreshold();
-    loadCo2Threshold(); // NEW
-    loadTempThreshold(); // NEW
+    loadCo2Threshold();
+    loadTempThreshold();
     loadDuration();
     
     // Soil Moisture
     document.getElementById("saveThresholdBtn").addEventListener("click", saveThreshold);
     document.getElementById("resetThresholdBtn").addEventListener("click", resetThreshold);
     
-    // CO2
-    document.getElementById("saveCo2ThresholdBtn").addEventListener("click", saveCo2Threshold); // NEW
-    document.getElementById("resetCo2ThresholdBtn").addEventListener("click", resetCo2Threshold); // NEW
-
     // Temperature
-    document.getElementById("saveTempThresholdBtn").addEventListener("click", saveTempThreshold); // NEW
-    document.getElementById("resetTempThresholdBtn").addEventListener("click", resetTempThreshold); // NEW
+    document.getElementById("saveTempThresholdBtn").addEventListener("click", saveTempThreshold);
+    document.getElementById("resetTempThresholdBtn").addEventListener("click", resetTempThreshold);
 
     // Sprinkler
-    document.getElementById("saveDuration").addEventListener("click", saveDuration);
+    const saveDurBtn = document.getElementById("saveDuration");
+    if(saveDurBtn) saveDurBtn.addEventListener("click", saveDuration);
+    
     document.getElementById("resetDurationBtn").addEventListener("click", resetDuration);
 });
-
-// RELAY CONTROL (UNCHANGED)
 document.addEventListener("DOMContentLoaded", function() {
+    
+    // Names for notifications
     const relayNames = { "RELAY_SHARED": "FAN", "RELAY_SOIL": "SPRINKLER" };
-    const fanToggle = document.getElementById("fanToggle");
-    const sprinklerToggle = document.getElementById("sprinklerToggle");
 
-    if(fanToggle) fanToggle.addEventListener("change", function() { updateRelay("RELAY_SHARED", this.checked ? "ON" : "OFF"); });
-    if(sprinklerToggle) sprinklerToggle.addEventListener("change", function() {
-        const state = this.checked ? "ON" : "OFF";
-        updateRelay("RELAY_SOIL", state);
-        if (state === "ON") setTimeout(() => { sprinklerToggle.checked = false; updateRelay("RELAY_SOIL", "OFF"); }, 5000);
+    // --- 1. FAN CONTROL (Keep as Toggle) ---
+    const fanToggle = document.getElementById("fanToggle");
+    if(fanToggle) {
+        fanToggle.addEventListener("change", function() { 
+            updateRelay("RELAY_SHARED", this.checked ? "ON" : "OFF"); 
+        });
+    }
+
+   // --- SPRINKLER CONTROL (With Confirmation) ---
+const runBtn = document.getElementById("runSprinklerBtn");
+
+if (runBtn) {
+    runBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        // 1. Show Confirmation Popup
+        Swal.fire({
+            title: 'Run Sprinkler?',
+            text: "This will turn on the sprinkler for 2 seconds.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6', // Blue confirm button
+            cancelButtonColor: '#d33',    // Red cancel button
+            confirmButtonText: 'Yes!'
+        }).then((result) => {
+            
+            // 2. Only proceed if user clicked "Yes"
+            if (result.isConfirmed) {
+                executeSprinklerRun();
+            }
+        });
     });
 
+    // Helper Function: The actual logic to run the sprinkler
+    function executeSprinklerRun() {
+        // A. Visual Feedback
+        const originalText = runBtn.innerText;
+        runBtn.innerText = "Running...";
+        
+        // Make button Green and Disabled
+        runBtn.classList.remove("bg-white", "text-gray-700");
+        runBtn.classList.add("bg-green-500", "text-white", "cursor-not-allowed");
+        runBtn.disabled = true;
+
+        // B. Send "ON" Command to Database
+        updateRelay("RELAY_SOIL", "ON");
+
+        // C. Wait 2 Seconds, then Turn OFF
+        setTimeout(() => {
+            // Turn OFF in Database (Stops the loop)
+            updateRelay("RELAY_SOIL", "OFF"); 
+
+            // Reset Button Visuals
+            runBtn.innerText = originalText;
+            runBtn.classList.remove("bg-green-500", "text-white", "cursor-not-allowed");
+            runBtn.classList.add("bg-white", "text-gray-700");
+            runBtn.disabled = false; 
+            
+            // Optional: Success message
+            Swal.fire({
+                title: 'Finished!',
+                text: 'Sprinkler cycle complete.',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+        }, 1800); // 2000ms duration
+    }
+}
+
+    // --- HELPER FUNCTIONS ---
     function updateRelay(relay, state) {
+        // We use 'MANUAL' mode so the database knows a user clicked this
         fetch(`../functions/relay_control.php?relay=${relay}&state=${state}&mode=MANUAL`)
             .then(response => response.text())
             .then(data => {
-                console.log(data);
-                const name = relayNames[relay] || relay.replace("RELAY_", "");
-                showNotification(`✅ ${name} turned ${state}`);
+                console.log(relay + " -> " + state);
             })
-            .catch(err => { console.error(err); showNotification("❌ Connection error"); });
-    }
-
-    function showNotification(message) {
-        const notif = document.createElement("div");
-        notif.textContent = message;
-        notif.className = "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-md z-50";
-        document.body.appendChild(notif);
-        setTimeout(() => notif.remove(), 3000);
+            .catch(err => console.error(err));
     }
 });
-
 // RESET MODAL (UPDATED to include new resets)
 const resetBtn = document.getElementById("resetSettingsBtn");
 const resetModal = document.getElementById("reset-modal");

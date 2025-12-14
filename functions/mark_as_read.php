@@ -11,24 +11,28 @@ if ($conn->connect_error) {
 }
 
 // 2. Mark Gas Alerts as Read
-// (Assuming you have an is_read column in gas_data)
 $sqlGas = "UPDATE gas_data SET is_read = 1 WHERE is_read = 0";
 $conn->query($sqlGas);
 
 // 3. Mark Water Alerts as Read
-// (Assuming you have an is_read column in water_level)
 $sqlWater = "UPDATE water_level SET is_read = 1 WHERE is_read = 0";
 $conn->query($sqlWater);
 
 // =========================================================
-// 🚀 CRITICAL FIX: DELETE THE CACHE
+// 4. (NEW) Mark Temp/Fan Alerts as Read
 // =========================================================
-// We must delete the cache file so that the next time fetch_notifications.php 
-// runs, it is forced to get the NEW data (where is_read = 1) from the database.
+// This is the missing part! 
+// This clears the "High Temperature" and "Fan" alerts.
+$sqlNotif = "UPDATE notifications SET is_read = 1 WHERE is_read = 0";
+$conn->query($sqlNotif);
+
+// =========================================================
+// 5. DELETE THE CACHE (CRITICAL)
+// =========================================================
 $cacheFile = 'notifications_cache.json';
 
 if (file_exists($cacheFile)) {
-    unlink($cacheFile); // This deletes the file
+    unlink($cacheFile); // Delete file so website fetches fresh data immediately
 }
 
 $conn->close();

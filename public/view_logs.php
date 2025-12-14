@@ -36,12 +36,14 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
         
         <div class="max-w-7xl mx-auto">
             
-            <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 mb-6 shadow-lg flex flex-col md:flex-row justify-between items-center gap-4 border border-white/40">
+            <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 sm:p-8 mb-8 shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/20">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                        <i class='bx bxs-report text-green-600'></i> System Activity Logs
+                    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight drop-shadow-sm flex items-center gap-3">
+                        <i class='bx bxs-report text-green-700 text-4xl'></i> System Activity Logs
                     </h1>
-                    <p class="text-sm text-gray-600 mt-1 ml-1">History of automated actions</p>
+                    <p class="text-gray-600 font-medium text-sm mt-1 uppercase tracking-wider opacity-80 ml-1">
+                        History of automated actions
+                    </p>
                 </div>
             </div>
 
