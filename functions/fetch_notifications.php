@@ -2,105 +2,146 @@
 // ../functions/fetch_notifications.php
 header('Content-Type: application/json');
 
-// This sets the default timezone for new dates, but we still need to convert DB dates manually
+// Set PHP timezone
 date_default_timezone_set('Asia/Manila');
 
 // =========================================================
-// 🚀 CACHING SYSTEM (Prevents Database Overload)
+// ⚙️ SETTINGS
 // =========================================================
 $cacheFile = 'notifications_cache.json';
-$cacheTime = 10; // 10 Seconds
+$cacheTime = 5; 
+$spamCooldown = 900; //15minutes
 
-// 1. Check if cache exists and is fresh
+// 1. Check Cache
 if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTime)) {
     readfile($cacheFile);
     exit; 
 }
 
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/db_conn.php';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// If DB fails, try to return old cache
 if ($conn->connect_error) { 
     if (file_exists($cacheFile)) { readfile($cacheFile); exit; }
     die(json_encode([])); 
 }
 
-$alerts = [];
+// Array to hold all raw candidates
+$candidates = [];
 
 // Get Threshold
 $gasThreshold = 0.05; 
+/* Optional: Fetch from DB
 $sqlThreshold = "SELECT value FROM co2_threshold WHERE id = 1 LIMIT 1";
 $resultThreshold = $conn->query($sqlThreshold);
 if ($resultThreshold && $resultThreshold->num_rows > 0) {
     $row = $resultThreshold->fetch_assoc();
     $gasThreshold = floatval($row['value']);
 }
+*/
 
-// 1. FETCH GAS ALERTS
+// =========================================================
+// 2. FETCH RAW DATA (Increased Limit to 50 to find history)
+// =========================================================
+
+// --- GAS ---
 $sqlGas = "SELECT * FROM gas_data 
            WHERE gas_percent >= $gasThreshold 
-           ORDER BY gas_id DESC LIMIT 10"; 
+           ORDER BY gas_id DESC LIMIT 50"; 
 
 $resultGas = $conn->query($sqlGas);
-
 if ($resultGas) {
     while($row = $resultGas->fetch_assoc()) {
-        
-        // --- FIX START: Convert UTC to Manila Time ---
-        $dt = new DateTime($row['gas_timestamp'], new DateTimeZone('UTC'));
-        $dt->setTimezone(new DateTimeZone('Asia/Manila'));
-        $formattedTime = $dt->format("g:i A");
-        // --- FIX END ---
-
-        $alerts[] = [
+        $candidates[] = [
             'type' => 'gas',
             'message' => 'High Gas Detected! (' . $row['gas_percent'] . '%)',
-            'time' => $formattedTime, // Uses the converted time
+            'timestamp_str' => $row['gas_timestamp'], // Keep raw string for formatting
             'raw_time' => strtotime($row['gas_timestamp']),
-            'is_read' => $row['is_read'] 
+            'is_read' => $row['is_read'] ?? 0 
         ];
     }
 }
 
-// 2. FETCH WATER ALERTS
+// --- WATER ---
 $sqlWater = "SELECT * FROM water_level 
              WHERE status = 'LOW' 
-             ORDER BY id DESC LIMIT 10";
+             ORDER BY id DESC LIMIT 50";
 
 $resultWater = $conn->query($sqlWater);
-
 if ($resultWater) {
     while($row = $resultWater->fetch_assoc()) {
-
-        // --- FIX START: Convert UTC to Manila Time ---
-        $dt = new DateTime($row['timestamp'], new DateTimeZone('UTC'));
-        $dt->setTimezone(new DateTimeZone('Asia/Manila'));
-        $formattedTime = $dt->format("g:i A");
-        // --- FIX END ---
-
-        $alerts[] = [
+        $candidates[] = [
             'type' => 'water',
             'message' => 'Water Level is Low!',
-            'time' => $formattedTime, // Uses the converted time
+            'timestamp_str' => $row['timestamp'],
             'raw_time' => strtotime($row['timestamp']),
-            'is_read' => $row['is_read'] 
+            'is_read' => $row['is_read'] ?? 0 
         ];
     }
 }
 
-// Sort
-usort($alerts, function($a, $b) {
+// =========================================================
+// 3. SORT & SPAM FILTER
+// =========================================================
+
+// Sort candidates by Time (Newest First)
+usort($candidates, function($a, $b) {
     return $b['raw_time'] - $a['raw_time'];
 });
 
-$alerts = array_slice($alerts, 0, 10);
+$finalAlerts = [];
+$lastGasTime = 0;
+$lastWaterTime = 0;
+
+foreach ($candidates as $alert) {
+    $isSpam = false;
+
+    // Check Cooldown based on Type
+    if ($alert['type'] === 'gas') {
+        // If this alert is within X minutes of the previously accepted gas alert, skip it
+        if ($lastGasTime !== 0 && abs($lastGasTime - $alert['raw_time']) < $spamCooldown) {
+            $isSpam = true;
+        } else {
+            $lastGasTime = $alert['raw_time']; // Update last accepted time
+        }
+    } 
+    elseif ($alert['type'] === 'water') {
+        if ($lastWaterTime !== 0 && abs($lastWaterTime - $alert['raw_time']) < $spamCooldown) {
+            $isSpam = true;
+        } else {
+            $lastWaterTime = $alert['raw_time'];
+        }
+    }
+
+    // Only add if it passed the spam check
+    if (!$isSpam) {
+        // Format the date nicely now that we know we are keeping it
+        try {
+            $dt = new DateTime($alert['timestamp_str'], new DateTimeZone('UTC'));
+            $dt->setTimezone(new DateTimeZone('Asia/Manila'));
+            $formattedTime = $dt->format("M d • g:i A");
+        } catch (Exception $e) {
+            $formattedTime = $alert['timestamp_str'];
+        }
+
+        // Add formatted time to the array
+        $alert['time'] = $formattedTime;
+        
+        // Remove temporary keys to keep JSON clean
+        unset($alert['timestamp_str']);
+
+        $finalAlerts[] = $alert;
+    }
+
+    // Stop once we have 10 clean notifications
+    if (count($finalAlerts) >= 10) break;
+}
 
 // =========================================================
 // 💾 SAVE CACHE
 // =========================================================
-$jsonOutput = json_encode($alerts);
+$jsonOutput = json_encode($finalAlerts);
 file_put_contents($cacheFile, $jsonOutput);
 echo $jsonOutput;
 

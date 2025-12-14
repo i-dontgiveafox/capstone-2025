@@ -235,17 +235,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Recovery Email (optional)</label>
-                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-0">
-                            <input type="email" id="recoveryEmailInput" placeholder="your@email.com" value="<?=isset($user['recovery_email']) ? htmlspecialchars($user['recovery_email']) : ''?>" class="flex-1 p-3 border border-gray-300 rounded-md bg-white" <?=!empty($user['recovery_email']) ? 'readonly' : ''?> />
+                        
+                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-0 items-stretch">
+                            
+                            <input type="email" id="recoveryEmailInput" placeholder="your@email.com" 
+                                value="<?=isset($user['recovery_email']) ? htmlspecialchars($user['recovery_email']) : ''?>" 
+                                class="flex-1 p-3 border border-gray-300 rounded-md sm:rounded-r-none sm:border-r-0 bg-white focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 min-w-0" 
+                                <?=!empty($user['recovery_email']) ? 'readonly' : ''?> />
+                            
                             <?php if (empty($user['recovery_email'])): ?>
-                                <button type="button" id="sendVerificationBtn" class="w-full sm:w-auto px-3 py-2 sm:py-3 text-blue-600 hover:text-blue-800 font-semibold text-sm bg-white border border-gray-300 sm:border-l-0 rounded-md sm:rounded-l-none whitespace-nowrap">Send Code</button>
+                                <button type="button" id="sendVerificationBtn" class="w-full sm:w-auto px-4 py-3 text-blue-600 hover:text-blue-800 font-semibold text-sm bg-gray-50 border border-gray-300 rounded-md sm:rounded-l-none whitespace-nowrap hover:bg-gray-100 transition-colors">
+                                    Send Code
+                                </button>
                             <?php else: ?>
-                                <div class="w-full sm:w-auto px-3 py-2 sm:py-3 flex items-center justify-between sm:justify-end gap-2 text-sm bg-white border border-gray-300 sm:border-l-0 rounded-md sm:rounded-l-none">
-                                    <button type="button" id="editRecoveryEmailBtn" class="text-blue-600 hover:text-blue-800 font-semibold">Edit</button>
-                                    <span class="text-gray-400 hidden sm:inline">|</span>
-                                    <span class="text-green-600 font-semibold">Verified</span>
+                                <div class="w-full sm:w-auto px-4 py-3 flex items-center justify-between sm:justify-end gap-3 text-sm bg-gray-50 border border-gray-300 rounded-md sm:rounded-l-none whitespace-nowrap">
+                                    <button type="button" id="editRecoveryEmailBtn" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">Edit</button>
+                                    <span class="text-gray-300 hidden sm:inline">|</span>
+                                    <span class="text-green-600 font-bold flex items-center gap-1">
+                                        <i class='bx bxs-check-circle text-lg'></i> Verified
+                                    </span>
                                 </div>
                             <?php endif; ?>
+                            
                         </div>
                     </div>
 

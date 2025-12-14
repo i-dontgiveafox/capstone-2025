@@ -55,142 +55,171 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
         </div>
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
+    
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6 mb-3 sm:mb-5">
 
-                <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
-                            <i class='bx bxs-thermometer text-orange-500 text-2xl'></i>
-                        </div>
-                        <div>
-                            <h5 class="text-lg font-bold text-gray-800 leading-tight">Temperature</h5>
-                            <span class="text-xs text-gray-500 font-medium">Updated: <span id="temp-last">--</span></span>
-                        </div>
-                    </div>
-                    <div class="text-right self-end">
-                        <span id="temp-value" class="text-5xl font-bold text-gray-800">--</span> 
-                        <span class="text-xl text-gray-500 font-medium ml-1">°C</span>
-                    </div>
+        <div class="rounded-2xl p-4 sm:p-6 relative shadow-sm bg-[#E2F2EF] h-32 sm:h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
+            <div class="flex flex-row items-center gap-3 sm:gap-4">
+                <div class="bg-white rounded-full h-8 w-8 sm:h-12 sm:w-12 flex items-center justify-center shadow-sm shrink-0">
+                    <i class='bx bxs-thermometer text-orange-500 text-lg sm:text-2xl'></i>
                 </div>
-
-                <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
-                            <i class='bx bx-water text-blue-500 text-2xl'></i>
-                        </div>
-                        <div>
-                            <h5 class="text-lg font-bold text-gray-800 leading-tight">Humidity</h5>
-                            <span class="text-xs text-gray-500 font-medium">Updated: <span id="humid-last">--</span></span>
-                        </div>
-                    </div>
-                    <div class="text-right self-end">
-                        <span id="humid-value" class="text-5xl font-bold text-gray-800">--</span> 
-                        <span class="text-xl text-gray-500 font-medium ml-1">%</span>
-                    </div>
+                <div class="min-w-0">
+                    <h5 class="text-xs sm:text-lg font-bold text-gray-800 leading-tight truncate">Temp</h5>
+                    <span class="text-[10px] sm:text-xs text-gray-500 font-medium block truncate"><span id="temp-last">--</span></span>
                 </div>
-
-                
-
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <!--<div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">-->
-                <!--    <div class="flex items-start gap-4">-->
-                <!--        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">-->
-                <!--            <i class='bx bxs-flask text-purple-500 text-2xl'></i>-->
-                <!--        </div>-->
-                <!--        <div>-->
-                <!--            <h5 class="text-lg font-bold text-gray-800 leading-tight"></h5>-->
-                <!--            <span class="text-xs text-gray-500 font-medium">Updated: <span id="ammonia-last">--</span></span>-->
-                <!--        </div>-->
-                <!--    </div>-->
-                <!--    <div class="text-right self-end">-->
-                <!--        <span id="ammonia-value" class="text-5xl font-bold text-gray-800">--</span> -->
-                <!--        <span class="text-xl text-gray-500 font-medium ml-1">ppm</span>-->
-                <!--    </div>-->
-                <!--</div>-->
-                
-                
-                <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
-                            <i class='bx bx-droplet text-green-600 text-2xl'></i>
-                        </div>
-                        <div>
-                            <h5 class="text-lg font-bold text-gray-800 leading-tight">Soil Moisture</h5>
-                            <span class="text-xs text-gray-500 font-medium">Updated: <span id="moist-last">--</span></span>
-                        </div>
-                    </div>
-                    <div class="text-right self-end">
-                        <span id="moist-value" class="text-5xl font-bold text-gray-800">--</span> 
-                        <span class="text-xl text-gray-500 font-medium ml-1">%</span>
-                    </div>
-                </div>
-                
-                
-
-                <div class="rounded-2xl p-6 relative shadow-sm bg-[#E2F2EF] h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-white rounded-full h-12 w-12 flex items-center justify-center shadow-sm shrink-0">
-                            <i class='bx bx-wind text-gray-500 text-2xl'></i>
-                        </div>
-                        <div>
-                            <h5 class="text-lg font-bold text-gray-800 leading-tight">Ammonia (NH₃)</h5>
-                            <span class="text-xs text-gray-500 font-medium">Updated: <span id="ammonia-last">--</span></span>
-                        </div>
-                    </div>
-                    <div class="text-right self-end">
-                        <span id="ammonia-value" class="text-5xl font-bold text-gray-800">--</span> 
-                        <span class="text-xl text-gray-500 font-medium ml-1">%</span>
-                    </div>
-                </div>
-
-                </div>
+            
+            <div class="text-right self-end">
+                <span id="temp-value" class="text-3xl sm:text-5xl font-bold text-gray-800">--</span> 
+                <span class="text-sm sm:text-xl text-gray-500 font-medium ml-1">°C</span>
+            </div>
         </div>
+
+        <div class="rounded-2xl p-4 sm:p-6 relative shadow-sm bg-[#E2F2EF] h-32 sm:h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
+            <div class="flex flex-row items-center gap-3 sm:gap-4">
+                <div class="bg-white rounded-full h-8 w-8 sm:h-12 sm:w-12 flex items-center justify-center shadow-sm shrink-0">
+                    <i class='bx bx-water text-blue-500 text-lg sm:text-2xl'></i>
+                </div>
+                <div class="min-w-0">
+                    <h5 class="text-xs sm:text-lg font-bold text-gray-800 leading-tight truncate">Humidity</h5>
+                    <span class="text-[10px] sm:text-xs text-gray-500 font-medium block truncate"><span id="humid-last">--</span></span>
+                </div>
+            </div>
+            
+            <div class="text-right self-end">
+                <span id="humid-value" class="text-3xl sm:text-5xl font-bold text-gray-800">--</span> 
+                <span class="text-sm sm:text-xl text-gray-500 font-medium ml-1">%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-6">
+
+        <div class="rounded-2xl p-4 sm:p-6 relative shadow-sm bg-[#E2F2EF] h-32 sm:h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
+            <div class="flex flex-row items-center gap-3 sm:gap-4">
+                <div class="bg-white rounded-full h-8 w-8 sm:h-12 sm:w-12 flex items-center justify-center shadow-sm shrink-0">
+                    <i class='bx bx-droplet text-green-600 text-lg sm:text-2xl'></i>
+                </div>
+                <div class="min-w-0">
+                    <h5 class="text-xs sm:text-lg font-bold text-gray-800 leading-tight truncate">Moisture</h5>
+                    <span class="text-[10px] sm:text-xs text-gray-500 font-medium block truncate"><span id="moist-last">--</span></span>
+                </div>
+            </div>
+            
+            <div class="text-right self-end">
+                <span id="moist-value" class="text-3xl sm:text-5xl font-bold text-gray-800">--</span> 
+                <span class="text-sm sm:text-xl text-gray-500 font-medium ml-1">%</span>
+            </div>
+        </div>
+
+        <div class="rounded-2xl p-4 sm:p-6 relative shadow-sm bg-[#E2F2EF] h-32 sm:h-44 flex flex-col justify-between transition hover:-translate-y-1 duration-300">
+            <div class="flex flex-row items-center gap-3 sm:gap-4">
+                <div class="bg-white rounded-full h-8 w-8 sm:h-12 sm:w-12 flex items-center justify-center shadow-sm shrink-0">
+                    <i class='bx bx-wind text-gray-500 text-lg sm:text-2xl'></i>
+                </div>
+                <div class="min-w-0">
+                    <h5 class="text-xs sm:text-lg font-bold text-gray-800 leading-tight truncate">Ammonia</h5>
+                    <span class="text-[10px] sm:text-xs text-gray-500 font-medium block truncate"><span id="ammonia-last">--</span></span>
+                </div>
+            </div>
+            
+            <div class="text-right self-end">
+                <span id="ammonia-value" class="text-3xl sm:text-5xl font-bold text-gray-800">--</span> 
+                <span class="text-sm sm:text-xl text-gray-500 font-medium ml-1">ppm</span>
+            </div>
+        </div>
+
+    </div>
+</div>
     </main>
     
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl font-semibold text-gray-800/90 mb-4 mt-4 px-4">Daily Overview</h2>
+   <section class="container mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 sm:p-8 mb-8 shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/20">
+        <div>
+            <h2 id="overview-title" class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Daily Overview
+            </h2>
+            <p class="text-gray-600 font-medium text-sm mt-1 uppercase tracking-wider opacity-80">Sensor History Analysis</p>
+        </div>
         
-        <div class="relative bg-[url('../assets/images/overview-bg-green.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+        <!-- <button id="toggle-btn" onclick="toggleOverviewMode()" 
+                class="flex items-center gap-2 bg-white/40 hover:bg-[#008f45] text-black/80 hover:text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 font-bold text-sm uppercase tracking-wide">
+            <i class='bx bx-history text-xl'></i> 
+            <span>Check Last 20</span> 
+        </button> -->
+    </div>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+        
+        <div class="relative bg-[url('../assets/images/overview-bg-green.jpg')] bg-cover bg-center rounded-2xl p-4 sm:p-6 shadow-lg h-32 sm:h-36 flex flex-col overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
             <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
-            <div class="flex flex-col space-y-2 relative z-10">
-                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Soil Moisture</h3>
-                <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-moisture">--</span> <span class="text-xl text-white/80">%</span>
+            
+            <div class="flex flex-col justify-between h-full relative z-10">
+                <div>
+                    <h3 class="text-sm sm:text-lg font-bold text-white flex items-center gap-1 sm:gap-2 tracking-wide leading-tight">
+                        <i class='bx bxs-droplet text-lg'></i> <span class="truncate">Avg. Soil Moisture</span>
+                    </h3>
+                    <p class="text-xs text-white/90 font-medium mt-1 ml-0.5" id="date-moisture">--</p>
+                </div>
+                
+                <div class="flex items-baseline space-x-1 sm:space-x-2 self-end">
+                    <span class="text-3xl sm:text-4xl font-bold text-white drop-shadow-md" id="avg-moisture">--</span> 
+                    <span class="text-lg sm:text-xl text-white/80">%</span>
                 </div>
             </div>
         </div>
 
-        <div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+        <div class="relative bg-[url('../assets/images/overview-bg-yellow.png')] bg-cover bg-center rounded-2xl p-4 sm:p-6 shadow-lg h-32 sm:h-36 flex flex-col overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
             <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
-            <div class="flex flex-col space-y-2 relative z-10">
-                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Temperature</h3>
-                <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-temp">--</span> <span class="text-xl text-white/80">°C</span>
+            
+            <div class="flex flex-col justify-between h-full relative z-10">
+                <div>
+                    <h3 class="text-sm sm:text-lg font-bold text-white flex items-center gap-1 sm:gap-2 tracking-wide leading-tight">
+                        <i class='bx bxs-thermometer text-lg'></i> <span class="truncate">Avg. Temperature</span>
+                    </h3>
+                    <p class="text-xs text-white/90 font-medium mt-1 ml-0.5" id="date-temp">--</p>
+                </div>
+                
+                <div class="flex items-baseline space-x-1 sm:space-x-2 self-end">
+                    <span class="text-3xl sm:text-4xl font-bold text-white drop-shadow-md" id="avg-temp">--</span> 
+                    <span class="text-lg sm:text-xl text-white/80">°C</span>
                 </div>
             </div>
         </div>
 
-        <div class="relative bg-[url('../assets/images/overview-bg-orange.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
+        <div class="relative bg-[url('../assets/images/overview-bg-orange.png')] bg-cover bg-center rounded-2xl p-4 sm:p-6 shadow-lg h-32 sm:h-36 flex flex-col overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
             <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
-            <div class="flex flex-col space-y-2 relative z-10">
-                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-droplet'></i> Avg. Humidity</h3>
-                <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-humid">--</span> <span class="text-xl text-white/80">%</span>
+            
+            <div class="flex flex-col justify-between h-full relative z-10">
+                <div>
+                    <h3 class="text-sm sm:text-lg font-bold text-white flex items-center gap-1 sm:gap-2 tracking-wide leading-tight">
+                        <i class='bx bx-water text-lg'></i> <span class="truncate">Avg. Humidity</span>
+                    </h3>
+                    <p class="text-xs text-white/90 font-medium mt-1 ml-0.5" id="date-humid">--</p>
+                </div>
+                
+                <div class="flex items-baseline space-x-1 sm:space-x-2 self-end">
+                    <span class="text-3xl sm:text-4xl font-bold text-white drop-shadow-md" id="avg-humid">--</span> 
+                    <span class="text-lg sm:text-xl text-white/80">%</span>
                 </div>
             </div>
         </div>
 
-        <div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-3xl p-6 mb-6 shadow-lg overflow-hidden min-h-[12rem] flex flex-col justify-center">
-            <div class="flex flex-col space-y-2 relative z-10">
-                <h3 class="text-lg font-semibold text-white"><i class='bx bxs-flask'></i> Avg. Ammonia</h3>
-                <div class="flex items-baseline space-x-2">
-                    <span class="text-4xl font-bold text-white" id="avg-ammonia">--</span> <span class="text-xl text-white/80">ppm</span>
+        <div class="relative bg-[url('../assets/images/overview-bg-blue.png')] bg-cover bg-center rounded-2xl p-4 sm:p-6 shadow-lg h-32 sm:h-36 flex flex-col overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+            <div class="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
+            
+            <div class="flex flex-col justify-between h-full relative z-10">
+                <div>
+                    <h3 class="text-sm sm:text-lg font-bold text-white flex items-center gap-1 sm:gap-2 tracking-wide leading-tight">
+                        <i class='bx bxs-flask text-lg'></i> <span class="truncate">Avg. Ammonia</span>
+                    </h3>
+                    <p class="text-xs text-white/90 font-medium mt-1 ml-0.5" id="date-ammonia">--</p>
+                </div>
+                
+                <div class="flex items-baseline space-x-1 sm:space-x-2 self-end">
+                    <span class="text-3xl sm:text-4xl font-bold text-white drop-shadow-md" id="avg-ammonia">--</span> 
+                    <span class="text-lg sm:text-xl text-white/80">ppm</span>
                 </div>
             </div>
         </div>
@@ -225,12 +254,19 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
 </section>
 
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10">
-        <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h2 class="text-2xl font-semibold text-gray-800">Control Panel</h2>
-        </div>
+        <div class="bg-[url('../assets/img/polygon-bg.jpg')] bg-cover bg-center rounded-3xl p-6 sm:p-8 mb-8 shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/20">
+    <div>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+            Control Panel
+        </h2>
+        <p class="text-gray-600 font-medium text-sm mt-1 uppercase tracking-wider opacity-80">
+            Manual Device Operations
+        </p>
+    </div>
+</div>
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
             <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);"></div>
+                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
                 <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="flex-shrink-0"><img src="../assets/icons/fan.png" alt="Fan Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" /></div>
@@ -244,7 +280,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
                 </div>
             </div>
             <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);"></div>
+                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
                 <div class="relative z-10 rounded p-4 flex items-center justify-between text-gray-800">
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="flex-shrink-0"><img src="../assets/icons/fan.png" alt="Sprinkler Icon" class="rounded-full p-2 bg-white w-10 h-10 object-contain" /></div>
@@ -259,12 +295,18 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <div class="flex flex-col items-start justify-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-800/90 px-4 mb-4 mt-10">Set Durations and Thresholds</h2>
-            <button id="resetSettingsBtn" class="bg-[#1e1e1e] text-white px-2 pr-4 rounded-lg hover:bg-[#B6FC67] hover:text-black transition w-full sm:w-auto sm:ml-auto">
-                <i class='bx bx-refresh px-2 py-3'></i>Reset
-            </button>
-        </div>
+       <div class="flex flex-col sm:flex-row justify-between items-end sm:items-center mb-6 mt-10 gap-4 px-1">
+    
+    <div>
+        <h2 class="text-2xl font-semibold text-gray-800/90">Set Durations and Thresholds</h2>
+        <p class="text-sm text-gray-500 mt-1">Configure sensor triggers and automation timings</p>
+    </div>
+
+    <button id="resetSettingsBtn" class="flex items-center gap-2 bg-[#1e1e1e] text-white px-5 py-2.5 rounded-lg shadow-sm hover:bg-[#B6FC67] hover:text-black hover:shadow-md transition-all duration-200 font-medium text-sm w-full sm:w-auto">
+        <i class='bx bx-refresh text-lg'></i>
+        <span>Reset All Settings</span>
+    </button>
+</div>
 
         <div id="reset-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-20">
             <div class="bg-white rounded-lg p-6 w-11/12 max-w-md">
@@ -279,7 +321,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-5">
             <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);"></div>
+                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
                 <div class="relative z-10 p-4 flex flex-col h-full">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Moisture Level</h3>
                     <div class="flex-grow">
@@ -303,7 +345,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
             </div>
     
             <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);"></div>
+                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
                 <div class="relative z-10 p-4 flex flex-col h-full">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Ammonia Threshold </h3>
                     <div class="flex-grow">
@@ -328,7 +370,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
             </div>
     
             <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);"></div>
+                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
                 <div class="relative z-10 p-4 flex flex-col h-full">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Temperature Threshold </h3>
                     <div class="flex-grow">
@@ -353,7 +395,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
             </div>
     
             <div class="rounded-xl p-4 relative shadow border border-white/20">
-                <div class="absolute inset-0 rounded-xl" style="background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);"></div>
+                <div class="absolute inset-0 rounded-xl bg-[#E2F2EF]"></div>
                 <div class="relative z-10 p-4 flex flex-col h-full">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Sprinkler Duration</h3>
                     <div class="flex-grow">
@@ -381,41 +423,57 @@ if (isset($_SESSION['email']) && isset($_SESSION['user_id'])) {
     <script src="../assets/js/chart.js"></script>
 
 <script>
+// Track the current mode: 'today' or 'last20'
+let currentMode = 'today'; 
+
+// Function to handle the button click
+function toggleOverviewMode() {
+    // 1. Flip the mode
+    currentMode = (currentMode === 'today') ? 'last20' : 'today';
+    
+    // 2. Update the Button Text & Title
+    const btnText = document.querySelector('#toggle-btn span');
+    const btnIcon = document.querySelector('#toggle-btn i');
+    const title = document.getElementById('overview-title');
+
+    if (currentMode === 'last20') {
+        title.textContent = "Last 20 Readings";
+        btnText.textContent = "Back to Daily Avg";
+        btnIcon.className = 'bx bx-calendar text-lg'; // Change icon
+    } else {
+        title.textContent = "Daily Overview";
+        btnText.textContent = "Check Last 20";
+        btnIcon.className = 'bx bx-history text-lg'; // Change icon back
+    }
+
+    // 3. Refresh data immediately to show new numbers
+    updateDashboard();
+}
+
 async function updateDashboard() {
     try {
         const response = await fetch("../functions/get_dashboard_cached.php?t=" + new Date().getTime());
         const data = await response.json();
 
-        // Helper function to format the date
+        // Helper: Format Date
         function formatTime(timestamp) {
             if (!timestamp) return '--';
-
             let timeString = timestamp;
             if (typeof timeString === 'string' && !timeString.includes('UTC') && !timeString.includes('Z')) {
                 timeString += ' UTC';
             }
-
             const date = new Date(timeString);
-
             if (isNaN(date.getTime())) return '--';
-
             return date.toLocaleString('en-US', {
-                timeZone: 'Asia/Manila',
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
+                timeZone: 'Asia/Manila', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true
             });
         }
 
+        // 1. Status Update
         const statusEl = document.getElementById("esp-status");
         const iconEl = document.getElementById("esp-icon");
-        
-        // 1. Create a variable to hold the main sync time
         let globalLastSync = '--';
 
-        // 2. Handle System Status
         if (data.status) {
             if (data.status.status === "online") {
                 statusEl.textContent = "Online";
@@ -426,21 +484,19 @@ async function updateDashboard() {
                 statusEl.className = "text-red-600 font-bold";
                 iconEl.className = "bx bx-no-signal text-red-600";
             }
-            
-            // Capture the time from the status check
             if(data.status.last_seen) {
                 globalLastSync = formatTime(data.status.last_seen);
-                document.getElementById("mc-last-sync").textContent = globalLastSync;
+                const lastSyncEl = document.getElementById("mc-last-sync");
+                if(lastSyncEl) lastSyncEl.textContent = globalLastSync;
             }
         }
 
-        // 3. Update Sensors using the Global Time
+        // 2. Sensor Cards
         if (data.sensors) {
             const setTxt = (id, val) => {
                 const el = document.getElementById(id);
                 if(el) el.textContent = val ?? '--';
             };
-
             setTxt('temp-value', data.sensors.temperature);
             setTxt('humid-value', data.sensors.humidity);
             setTxt('moist-value', data.sensors.moisture);
@@ -450,14 +506,10 @@ async function updateDashboard() {
             const ammoniaEl = document.getElementById('ammonia-value');
             if(ammoniaEl) {
                 ammoniaEl.textContent = ammoniaVal;
-                if (ammoniaVal !== '--') {
-                    ammoniaEl.style.color = '#374151'; 
-                }
+                if (ammoniaVal !== '--') ammoniaEl.style.color = '#374151';
             }
 
-            // --- FIXED: Use the global sync time for all cards ---
             const timeLabel = "Updated: " + globalLastSync;
-
             setTxt('temp-last', timeLabel);
             setTxt('humid-last', timeLabel);
             setTxt('moist-last', timeLabel);
@@ -465,28 +517,57 @@ async function updateDashboard() {
             setTxt('ammonia-last', timeLabel);
         }
 
-        // 4. Update Water Level
+        // 3. Water Level
         if (data.water) {
-            document.getElementById('water-value').textContent = data.water.water_value ?? '--';
-            // Use global time here too for consistency
-            document.getElementById('water-last').textContent = formatTime(data.water.last_update); 
+            const wVal = document.getElementById('water-value');
+            const wLast = document.getElementById('water-last');
+            if(wVal) wVal.textContent = data.water.water_value ?? '--';
+            if(wLast) wLast.textContent = formatTime(data.water.last_update);
         }
 
-        // 5. Update Averages
+       // 4. AVERAGES UPDATE (With Time Format)
         if (data.averages) {
+            const source = data.averages[currentMode] || data.averages.today;
             const format = (val) => Math.round(parseFloat(val) || 0);
-            document.getElementById('avg-temp').textContent = format(data.averages.avg_temp);
-            document.getElementById('avg-humid').textContent = format(data.averages.avg_humid);
-            document.getElementById('avg-moisture').textContent = format(data.averages.avg_moisture);
-            document.getElementById('avg-co2').textContent = format(data.averages.avg_gas);
-            document.getElementById('avg-ammonia').textContent = format(data.averages.avg_ammonia);
-        }
 
+            // Calculate the TIME string
+            let timeStr = '--';
+            if (data.sensors && data.sensors.timestamp) {
+                let ts = data.sensors.timestamp;
+                if (!ts.includes('Z') && !ts.includes('UTC')) ts += ' UTC';
+                
+                const dateObj = new Date(ts);
+                if (!isNaN(dateObj.getTime())) {
+                    // Format: "Dec 14 • 9:45 AM"
+                    const datePart = dateObj.toLocaleDateString('en-US', { timeZone: 'Asia/Manila', month: 'short', day: 'numeric' });
+                    const timePart = dateObj.toLocaleTimeString('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit', hour12: true });
+                    timeStr = `${datePart} • ${timePart}`;
+                }
+            }
+
+            const setAvg = (id, val, dateId) => {
+                // Update Value
+                const el = document.getElementById(id);
+                if(el) el.textContent = format(val);
+                
+                // Update Time Label
+                const dateEl = document.getElementById(dateId);
+                if(dateEl) dateEl.textContent = timeStr;
+            };
+
+            setAvg('avg-temp', source.avg_temp, 'date-temp');
+            setAvg('avg-humid', source.avg_humid, 'date-humid');
+            setAvg('avg-moisture', source.avg_moisture, 'date-moisture');
+            setAvg('avg-ammonia', source.avg_ammonia, 'date-ammonia');
+        }
     } catch (error) {
         console.error("Dashboard update error:", error);
     }
 }
+
+// Initial Load
 updateDashboard();
+// Refresh every 5 seconds
 setInterval(updateDashboard, 5000); 
 </script>
 <script>

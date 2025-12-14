@@ -132,7 +132,7 @@
 
         if (cancelBtn) cancelBtn.addEventListener('click', closeLogoutModal);
         
-        // Start Fetching Notifications (Every 30 Minutes)
+        // Start Fetching Notifications (Every 5 seconds)
         setInterval(fetchNotifications, 5000); 
         fetchNotifications(); 
 
@@ -140,7 +140,6 @@
         const settingsBtn = document.getElementById('settingsBtn');
         if (settingsBtn) settingsBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            // Navigate to the Update Credentials page
             window.location.href = '../public/update-credentials.php';
         });
     });
@@ -158,7 +157,6 @@
         // 1. Hide Badge Visually
         if (!badge.classList.contains('hidden')) {
             badge.classList.add('hidden');
-            
             // 2. Tell Database to Mark as Read
             fetch('../functions/mark_as_read.php'); 
         }
@@ -170,6 +168,32 @@
         }
     });
 
+    // --- HELPER: FORMAT DATE & TIME ---
+    function formatNotifDate(timestamp) {
+        if (!timestamp) return '';
+        // Create date object
+        const date = new Date(timestamp);
+        
+        // If invalid date, return original string
+        if (isNaN(date.getTime())) return timestamp;
+
+        // Format: "Dec 14 • 9:30 AM" (Manila Time)
+        const datePart = date.toLocaleDateString('en-US', {
+            timeZone: 'Asia/Manila',
+            month: 'short', 
+            day: 'numeric'
+        });
+        
+        const timePart = date.toLocaleTimeString('en-US', {
+            timeZone: 'Asia/Manila',
+            hour: 'numeric', 
+            minute: '2-digit', 
+            hour12: true
+        });
+
+        return `${datePart} • ${timePart}`;
+    }
+
     // --- FETCH DATA LOGIC ---
     function fetchNotifications() {
         fetch('../functions/fetch_notifications.php')
@@ -177,14 +201,10 @@
             .then(data => {
                 const list = document.getElementById('notifList');
                 
-                // 1. Calculate Unread Count for the Badge
-                // We filter the data to count only items where is_read is '0'
                 const unreadCount = data.filter(item => item.is_read == 0).length;
 
-                // 2. Update Badge Display
                 if (unreadCount > 0) {
                     badge.innerText = unreadCount;
-                    // Only show badge if the dropdown is currently closed
                     if (notifDropdown.classList.contains('hidden')) {
                         badge.classList.remove('hidden');
                     }
@@ -192,10 +212,6 @@
                     badge.classList.add('hidden');
                 }
 
-                // If dropdown is open, we can still update the list so users see new stuff arrive in real-time
-                // But we don't want to be annoying. For now, let's update list always.
-
-                // 3. Update List HTML
                 list.innerHTML = ''; 
 
                 if (data.length === 0) {
@@ -207,17 +223,18 @@
                     let iconColor = alert.type === 'gas' ? 'text-red-500' : 'text-blue-500';
                     let iconClass = alert.type === 'gas' ? 'bxs-hot' : 'bxs-droplet';
                     
-                    // Visual styling: If read, make it lighter/grayer. If unread, make it bold/white background.
-                    // Assuming your dropdown bg is white.
                     let bgClass = alert.is_read == 1 ? 'bg-gray-50 opacity-75' : 'bg-white';
                     let textClass = alert.is_read == 1 ? 'font-normal text-gray-600' : 'font-bold text-gray-900';
+
+                    // Use the helper function to format the time
+                    const formattedTime = formatNotifDate(alert.time);
 
                     const item = `
                         <div class="px-4 py-3 ${bgClass} hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-0 flex items-start gap-3 transition-colors">
                             <i class='bx ${iconClass} ${iconColor} text-xl mt-1'></i>
                             <div>
                                 <p class="text-sm ${textClass}">${alert.message}</p>
-                                <p class="text-xs text-gray-500 mt-1">${alert.time}</p>
+                                <p class="text-xs text-gray-500 mt-1">${formattedTime}</p>
                             </div>
                         </div>
                     `;
